@@ -2,6 +2,9 @@
 require 'highline/import'
 require 'sqlite3'
 
+Dir["./app/**/*.rb"].each{|f| require f}
+Dir["./lib/*.rb"].each{|f| require f}
+
 # tput setaf 1
 # tput setab 1
 # tput bold
@@ -104,6 +107,8 @@ end
 choose do |menu|
   menu.prompt = "Hello, what would you like to do?\n"
 
+  color_scheme_controller = ColorSchemeController.new()
+
   menu.choice(:CreateANewColorScheme) {
     name = ask("What would you like to call this color scheme?",String){|scheme_name|
 
@@ -131,7 +136,7 @@ choose do |menu|
     puts "New color scheme created successfully!\n"
   }
   menu.choice(:ActivateExistingColorSchemes) {
-    #show all existng color schemes
+    color_scheme_controller.index
     activate_scheme = ask("Which scheme would you like to activate?")
     if !activate_scheme.empty?
         #activate color scheme

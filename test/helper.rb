@@ -2,6 +2,8 @@ require 'rubygems'
 require 'bundler/setup'
 require 'minitest/reporters'
 require 'sqlite3'
+Dir["./app/**/*.rb"].each{|f| require f}
+Dir["./lib/*.rb"].each{|f| require f}
 
 reporter_options = { color: true }
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_options)]
@@ -14,6 +16,10 @@ end
 
 def createColorSchemeRestrictionsTable
     @db.execute("CREATE TABLE IF NOT EXISTS color_scheme_restrictions(id integer PRIMARY KEY AUTOINCREMENT, color_scheme_id int, restriction varchar(60))")
+end
+
+def createLSColorProfilesTable
+    @db.execute("CREATE TABLE IF NOT EXISTS ls_color_profiles(id integer PRIMARY KEY AUTOINCREMENT, name varchar(30) NOT NULL, text_color varchar(12), text_format varchar(12), background_color varchar(12))")
 end
 
 def setupDatabase
@@ -41,3 +47,6 @@ def menu_prompt
     "8. Exit\n"+
     "Hello, what would you like to do?\n"
 end
+
+# directory_color,symbolic_link_color,socket_color,pipe_color,executable_color,block_special_color,character_special_color,
+# executable_setuid_color,executable_setguid_color,others_directory_color,others_directory_sticky_color
