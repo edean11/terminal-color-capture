@@ -9,7 +9,6 @@ describe ColorScheme do
         end
         describe "if there are color schemes in the database" do
             before do
-                setupDatabase()
                 createColorScheme('test','blue','none','red')
                 createColorScheme('test2','black','none','blue')
                 createColorScheme('test3','green','none','blue')
@@ -18,8 +17,8 @@ describe ColorScheme do
                 assert_equal Array,ColorScheme.all.class
             end
             it "should return the color schemes in database order" do
-                expected ['test','test2','test3']
-                actual ColorScheme.all.map{|color_scheme| color_scheme.name}
+                expected = ['test','test2','test3']
+                actual = ColorScheme.all.map{|color_scheme| color_scheme.name}
                 assert_equal expected,actual
             end
         end
@@ -32,6 +31,11 @@ describe ColorScheme do
             end
         end
         describe "if there are color schemes in the database" do
+            before do
+                createColorScheme('test','blue','none','red')
+                createColorScheme('test2','black','none','blue')
+                createColorScheme('test3','green','none','blue')
+            end
             it "should return the correct count" do
                 assert_equal 3,ColorScheme.count
             end
@@ -42,7 +46,4 @@ describe ColorScheme do
     #     it "gets populated from the database" do
     #     end
     # end
-end
-
-class TestColorScheme < Minitest::Test
 end
