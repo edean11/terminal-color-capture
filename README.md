@@ -85,6 +85,7 @@ Acceptance Criteria:
 
 Usage Example:
 
+```
   > ./terminal_color_scheme
   > Menu
     1. Create a New Color Scheme
@@ -92,12 +93,23 @@ Usage Example:
     3. Edit an Existing Color Scheme
     4. Delete an Existing Color Scheme
   > 3
+```
   1. Program outputs all color schemes in the database and returns formatted data
-  > Enter the id of the color scheme you want to edit, the property to edit and the new value
-  > 1 TextColor blue
+```
+  > Which scheme would you like to edit?
+  > [SchemeName]
+  > What color text would you like it to have?
+  > [TextColor]
+  > What format would you like it to have? (i.e. none, bold, underline)
+  > [TextFormat]
+  > What background color would you like?
+  > [BackgroundColor]
+```
   2. The program updates the color scheme accordingly
+```
   > exit
-  2. Exits the program
+```
+  3. Exits the program
 
 Acceptance Criteria:
 
@@ -108,6 +120,7 @@ Acceptance Criteria:
 
 Usage Example:
 
+```
   > ./terminal_color_scheme
   > Menu
     1. Create a New Color Scheme
@@ -115,11 +128,18 @@ Usage Example:
     3. Edit an Existing Color Scheme
     4. Delete an Existing Color Scheme
   > 4
+```
   1. Program outputs all color schemes in the database and returns formatted data
-  > Enter the id of the color scheme you want to delete
-  > 3
-  2. The program deletes the color scheme with an id of 3
+```
+  > Which scheme would you like to delete?
+  > [SchemeName]
+  > Delete [SchemeName]?
+  > y
+```
+  2. The program deletes the desired color scheme
+```
   > exit
+```
   2. Exits the program
 
 Acceptance Criteria:
