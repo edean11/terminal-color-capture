@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'highline/import'
+require 'sqlite3'
 
 # tput setaf 1
 # tput setab 1
@@ -52,9 +53,15 @@ require 'highline/import'
 # for regular directories, black foreground and red background for setuid executables,
 # etc.
 
-$accepted_colors = ['red','blue','green','yellow','black','white','orange','purple']
-$accepted_formats = ['none','bold','underline']
-$accepted_ls_colors = ['black','red','green','brown','blue','magenta','cyan','light grey', 'x']
+def accepted_colors
+    ['red','blue','green','yellow','black','white','orange','purple']
+end
+def accepted_formats
+    ['none','bold','underline']
+end
+def accepted_ls_colors
+    ['black','red','green','brown','blue','magenta','cyan','light grey', 'x']
+end
 
 # class ColorScheme
 
@@ -66,17 +73,17 @@ $accepted_ls_colors = ['black','red','green','brown','blue','magenta','cyan','li
 #     end
 
 #     def ask_for_text_color
-#         ask("What color text would you like it to have?:",$accepted_colors){|text_color|
+#         ask("What color text would you like it to have?:",accepted_colors){|text_color|
 #         }
 #     end
 
 #     def ask_for_text_format
-#         ask("What format would you like it to have? (i.e. none, bold, underline)",$accepted_formats){|text_format|
+#         ask("What format would you like it to have? (i.e. none, bold, underline)",accepted_formats){|text_format|
 #         }
 #     end
 
 #     def ask_for_background_color
-#         ask("What background color would you like?",$accepted_colors){|background_color|
+#         ask("What background color would you like?",accepted_colors){|background_color|
 #         }
 #     end
 
@@ -106,15 +113,15 @@ choose do |menu|
         exit 0
     end
     text_color = ask("What color text would you like it to have?",
-        $accepted_colors){|text_color|
+        accepted_colors){|text_color|
             
         }
     text_format = ask("What format would you like it to have? (i.e. none, bold)",
-        $accepted_formats){|text_format|
+        accepted_formats){|text_format|
             
         }
     background_color = ask("What background color would you like?",
-        $accepted_colors){|background_color|
+        accepted_colors){|background_color|
             
         }
     active_criteria = ask("When would you like this scheme to be active? (hh:mm-hh:mm)",
@@ -159,47 +166,47 @@ choose do |menu|
         exit 0
     end
     directory_color = ask("What color text would you like directories to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     symbolic_link_color = ask("What color text would you like symbolic links to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     socket_color = ask("What color text would you like sockets to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     pipe_color = ask("What color text would you like pipes to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     executable_color = ask("What color text would you like executables to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     block_special_color = ask("What color text would you like block specials to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     character_special_color = ask("What color text would you like character specials to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     executable_setuid_color = ask("What color text would you like executables with setuid bit sets to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     executable_setguid_color = ask("What color text would you like executables with setguid bit sets to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     others_directory_color = ask("What color text would you like directories writable to others, with sticky bit to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     others_directory_sticky_color = ask("What color text would you like directories writable to others, without sticky bit to have?(use 'x' for default)",
-        $accepted_ls_colors){|q|
+        accepted_ls_colors){|q|
             
         }
     puts "New ls color profile created successfully!\n"
@@ -222,4 +229,5 @@ choose do |menu|
         puts "LS Color profile deleted successfully!\n"
     end
   }
+  menu.choice(:Exit){say("See ya!")}
 end

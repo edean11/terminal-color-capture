@@ -2,22 +2,11 @@ require_relative '../helper'
 
 class CreateLSColorProfileTest < MiniTest::Test
 
-    $menu_prompt = <<EOS
-1. CreateANewColorScheme
-2. ViewExistingColorSchemes
-3. EditExistingColorScheme
-4. DeleteExistingColorScheme
-5. CreateLSColorProfile
-6. ChangeLSColorProfile
-7. DeleteLSColorProfile
-Hello, what would you like to do?
-EOS
-
     def test_blank_new_color_ls_color_profile_name
         shell_output = ""
         expected = ""
         IO.popen('././terminal_color_capture','r+') do |pipe|
-            expected << $menu_prompt
+            expected << menu_prompt
             pipe.puts "5"
             expected << "What would you like to call this LS Color Profile?\n"
             pipe.puts ""
@@ -32,7 +21,7 @@ EOS
         shell_output = ""
         expected = ""
         IO.popen('././terminal_color_capture','r+') do |pipe|
-            expected << $menu_prompt
+            expected << menu_prompt
             pipe.puts "5"
             expected << "What would you like to call this LS Color Profile?\n"
             pipe.puts "Test"
@@ -49,7 +38,7 @@ EOS
         shell_output = ""
         expected = ""
         IO.popen('././terminal_color_capture','r+') do |pipe|
-            expected << $menu_prompt
+            expected << menu_prompt
             pipe.puts "5"
             expected << "What would you like to call this LS Color Profile?\n"
             pipe.puts "Test"
