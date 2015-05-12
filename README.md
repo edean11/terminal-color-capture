@@ -39,7 +39,7 @@ Usage Examples
   > [TextFormat]
   > What background color would you like?
   > [BackgroundColor]
-  > When would you like this scheme to be active? (hh:mm-hh:mm)
+  > When would you like this scheme to be active? (hh:mm-hh:mm,weekdays,now)
   > [ActiveCriteria]
 ```
   Creates a new color scheme record in db and returns success

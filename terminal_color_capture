@@ -1,46 +1,98 @@
 #!/usr/bin/env ruby
 require 'highline/import'
 
+# tput setaf 1
+# tput setab 1
+# tput bold
+# tput reset
+
+# LSCOLORS
+# The value of this variable describes what color to use for which attribute when colors
+# are enabled with CLICOLOR.  This string is a concatenation of pairs of the format fb,
+# where f is the foreground color and b is the background color.
+
+# The color designators are as follows:
+
+#    a     black
+#    b     red
+#    c     green
+#    d     brown
+#    e     blue
+#    f     magenta
+#    g     cyan
+#    h     light grey
+#    A     bold black, usually shows up as dark grey
+#    B     bold red
+#    C     bold green
+#    D     bold brown, usually shows up as yellow
+#    E     bold blue
+#    F     bold magenta
+#    G     bold cyan
+#    H     bold light grey; looks like bright white
+#    x     default foreground or background
+
+# Note that the above are standard ANSI colors.  The actual display may differ depending
+# on the color capabilities of the terminal in use.
+
+# The order of the attributes are as follows:
+
+#    1.   directory
+#    2.   symbolic link
+#    3.   socket
+#    4.   pipe
+#    5.   executable
+#    6.   block special
+#    7.   character special
+#    8.   executable with setuid bit set
+#    9.   executable with setgid bit set
+#    10.  directory writable to others, with sticky bit
+#    11.  directory writable to others, without sticky bit
+
+# The default is "exfxcxdxbxegedabagacad", i.e. blue foreground and default background
+# for regular directories, black foreground and red background for setuid executables,
+# etc.
+
 $accepted_colors = ['red','blue','green','yellow','black','white','orange','purple']
 $accepted_formats = ['none','bold','underline']
+$accepted_ls_colors = ['black','red','green','brown','blue','magenta','cyan','light grey', 'x']
 
-class ColorScheme
+# class ColorScheme
 
-    attr_accessor :name,:text_color,:text_format,:background_color,:active_criteria
+#     attr_accessor :name,:text_color,:text_format,:background_color,:active_criteria
 
-    def ask_for_name
-        ask("What would you like to call this color scheme?:",String){|scheme_name|
-        }
-    end
+#     def ask_for_name
+#         ask("What would you like to call this color scheme?:",String){|scheme_name|
+#         }
+#     end
 
-    def ask_for_text_color
-        ask("What color text would you like it to have?:",$accepted_colors){|text_color|
-        }
-    end
+#     def ask_for_text_color
+#         ask("What color text would you like it to have?:",$accepted_colors){|text_color|
+#         }
+#     end
 
-    def ask_for_text_format
-        ask("What format would you like it to have? (i.e. none, bold, underline)",$accepted_formats){|text_format|
-        }
-    end
+#     def ask_for_text_format
+#         ask("What format would you like it to have? (i.e. none, bold, underline)",$accepted_formats){|text_format|
+#         }
+#     end
 
-    def ask_for_background_color
-        ask("What background color would you like?",$accepted_colors){|background_color|
-        }
-    end
+#     def ask_for_background_color
+#         ask("What background color would you like?",$accepted_colors){|background_color|
+#         }
+#     end
 
-    def ask_for_active_criteria
-        ask("When would you like this scheme to be active? (hh:mm-hh:mm)",DateTime){|time_range|
-        }
-    end
+#     def ask_for_active_criteria
+#         ask("When would you like this scheme to be active? (hh:mm-hh:mm)",DateTime){|time_range|
+#         }
+#     end
 
-    def create
-        ask_for_name()
-        ask_for_text_color()
-        ask_for_text_format()
-        ask_for_background_color()
-        ask_for_active_criteria()
-    end
-end
+#     def create
+#         ask_for_name()
+#         ask_for_text_color()
+#         ask_for_text_format()
+#         ask_for_background_color()
+#         ask_for_active_criteria()
+#     end
+# end
 
 choose do |menu|
   menu.prompt = "Hello, what would you like to do?\n"
@@ -53,21 +105,121 @@ choose do |menu|
         puts "You must enter a name for this color scheme.\n"
         exit 0
     end
-    text_color = ask("What color text would you like it to have?",$accepted_colors){|text_color|
+    text_color = ask("What color text would you like it to have?",
+        $accepted_colors){|text_color|
             
         }
-    text_format = ask("What format would you like it to have? (i.e. none, bold, underline)",$accepted_formats){|text_format|
+    text_format = ask("What format would you like it to have? (i.e. none, bold)",
+        $accepted_formats){|text_format|
             
         }
-    background_color = ask("What background color would you like?",$accepted_colors){|background_color|
+    background_color = ask("What background color would you like?",
+        $accepted_colors){|background_color|
             
         }
-    active_criteria = ask("When would you like this scheme to be active? (hh:mm-hh:mm)",DateTime){|time_range|
+    active_criteria = ask("When would you like this scheme to be active? (hh:mm-hh:mm)",
+        DateTime){|time_range|
             
         }
     puts "New color scheme created successfully!\n"
   }
-  menu.choice(:ViewExistingColorSchemes) { say("Not from around here, are you?") }
-  menu.choice(:EditExistingColorScheme) { say("Not from around here, are you?") }
-  menu.choice(:DeleteExistingColorScheme) { say("Not from around here, are you?") }
+  menu.choice(:ActivateExistingColorSchemes) {
+    #show all existng color schemes
+    activate_scheme = ask("Which scheme would you like to activate?")
+    if !activate_scheme.empty?
+        #activate color scheme
+        puts "Color scheme activated successfully!\n"
+    end
+  }
+  menu.choice(:EditExistingColorScheme) { 
+    #show all existng color schemes
+    edit_scheme = ask("Which scheme would you like to edit?")
+    if !edit_scheme.empty?
+        #run "CreateANewColorScheme" menu, replacing existing variables
+        puts "Color scheme edited successfully!\n"
+    end
+  }
+  menu.choice(:DeleteExistingColorScheme) {
+    #show all existng color schemes
+    delete_scheme = ask("Which scheme would you like to delete?"){|q|
+        q.confirm = true
+    }
+    if !delete_scheme.empty?
+        #delete given scheme name
+        puts "Color scheme deleted successfully!\n"
+    end
+  }
+  menu.choice(:CreateLSColorProfile) {
+    ls_name = ask("What would you like to call this LS Color Profile?",
+        String){|scheme_name|
+
+        }
+    if ls_name.empty?
+        puts "You must enter a name for this ls color profile.\n"
+        exit 0
+    end
+    directory_color = ask("What color text would you like directories to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    symbolic_link_color = ask("What color text would you like symbolic links to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    socket_color = ask("What color text would you like sockets to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    pipe_color = ask("What color text would you like pipes to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    executable_color = ask("What color text would you like executables to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    block_special_color = ask("What color text would you like block specials to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    character_special_color = ask("What color text would you like character specials to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    executable_setuid_color = ask("What color text would you like executables with setuid bit sets to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    executable_setguid_color = ask("What color text would you like executables with setguid bit sets to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    others_directory_color = ask("What color text would you like directories writable to others, with sticky bit to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    others_directory_sticky_color = ask("What color text would you like directories writable to others, without sticky bit to have?(use 'x' for default)",
+        $accepted_ls_colors){|q|
+            
+        }
+    puts "New ls color profile created successfully!\n"
+  }
+  menu.choice(:ChangeLSColorProfile) {
+    #show all existng ls color profiles
+    edit_profile = ask("Which profile would you like to edit?")
+    if !edit_profile.empty?
+        #run "CreateLSColorProfile" menu, replacing existing variables
+        puts "LS Color profile edited successfully!\n"
+    end
+  }
+  menu.choice(:DeleteLSColorProfile) {
+    #show all existng color schemes
+    delete_profile = ask("Which profile would you like to delete?"){|q|
+        q.confirm = true
+    }
+    if !delete_profile.empty?
+        #delete given profile name
+        puts "LS Color profile deleted successfully!\n"
+    end
+  }
 end

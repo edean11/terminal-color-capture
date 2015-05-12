@@ -30,13 +30,16 @@ require_relative '../helper'
 #   * Error returned if ActiveCriteria overlaps an existing ActiveCriteria
 #   * Calling `exit` exits the program
 
-class AddingANewDBItemTest < MiniTest::Test
+class CreateANewColorSchemeTest < MiniTest::Test
 
     $menu_prompt = <<EOS
 1. CreateANewColorScheme
-2. ViewExistingColorSchemes
+2. ActivateExistingColorSchemes
 3. EditExistingColorScheme
 4. DeleteExistingColorScheme
+5. CreateLSColorProfile
+6. ChangeLSColorProfile
+7. DeleteLSColorProfile
 Hello, what would you like to do?
 EOS
 
@@ -45,9 +48,9 @@ EOS
         expected = ""
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << $menu_prompt
-            pipe.puts "5"
+            pipe.puts "21"
             string = <<EOS
-You must choose one of [1, 2, 3, 4, CreateANewColorScheme, ViewExistingColorSchemes, EditExistingColorScheme, DeleteExistingColorScheme].
+You must choose one of [1, 2, 3, 4, 5, 6, 7, CreateANewColorScheme, ActivateExistingColorSchemes, EditExistingColorScheme, DeleteExistingColorScheme, CreateLSColorProfile, ChangeLSColorProfile, DeleteLSColorProfile].
 ?
 EOS
             expected << string.chomp + '  '
@@ -99,7 +102,7 @@ EOS
             pipe.puts "Test"
             expected << "What color text would you like it to have?\n"
             pipe.puts "blue"
-            expected << "What format would you like it to have? (i.e. none, bold, underline)\n"
+            expected << "What format would you like it to have? (i.e. none, bold)\n"
             pipe.puts "striking through it"
             expected << "You must choose one of [none, bold, underline].\n?  "
             pipe.close_write
@@ -118,7 +121,7 @@ EOS
             pipe.puts "Test"
             expected << "What color text would you like it to have?\n"
             pipe.puts "blue"
-            expected << "What format would you like it to have? (i.e. none, bold, underline)\n"
+            expected << "What format would you like it to have? (i.e. none, bold)\n"
             pipe.puts "none"
             expected << "What background color would you like?\n"
             pipe.puts "cleaver"
@@ -139,7 +142,7 @@ EOS
             pipe.puts "Test"
             expected << "What color text would you like it to have?\n"
             pipe.puts "blue"
-            expected << "What format would you like it to have? (i.e. none, bold, underline)\n"
+            expected << "What format would you like it to have? (i.e. none, bold)\n"
             pipe.puts "none"
             expected << "What background color would you like?\n"
             pipe.puts "white"
@@ -152,7 +155,7 @@ EOS
         assert_equal expected,shell_output
     end
 
-    def test_success_message
+    def test_color_scheme_success_message
         shell_output = ""
         expected = ""
         IO.popen('././terminal_color_capture','r+') do |pipe|
@@ -162,7 +165,7 @@ EOS
             pipe.puts "Test"
             expected << "What color text would you like it to have?\n"
             pipe.puts "blue"
-            expected << "What format would you like it to have? (i.e. none, bold, underline)\n"
+            expected << "What format would you like it to have? (i.e. none, bold)\n"
             pipe.puts "none"
             expected << "What background color would you like?\n"
             pipe.puts "white"
