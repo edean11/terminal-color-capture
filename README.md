@@ -1,6 +1,6 @@
 # Terminal Color Capture
 ========================
-Create and View SQLite Tables in Bash Terminal
+Create and Automate Color Schemes for the Terminal
 
 Project Vision
 --------------
