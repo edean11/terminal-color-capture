@@ -22,11 +22,11 @@ Usage Examples
 ### Create a new color scheme
 
   > ./terminal_color_scheme
-  > `Menu
+  > ```Menu
     1. Create a New Color Scheme
     2. View an Existing Color Scheme
     3. Edit an Existing Color Scheme
-    4. Delete an Existing Color Scheme`
+    4. Delete an Existing Color Scheme```
   > `1`
   > `What would you like to call this color scheme?:`
   >  `[SchemeName]`
