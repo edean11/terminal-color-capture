@@ -42,12 +42,12 @@ Usage Examples
   > When would you like this scheme to be active? (hh:mm-hh:mm)
   > [ActiveCriteria]
 ```
-  1. Creates a new color scheme record in db and returns success
+  Creates a new color scheme record in db and returns success
 ```
   > New color scheme created successfully!
   > exit
 ```
-  2. Exits the program
+  Exits the program
 
 Acceptance Criteria:
 
@@ -69,11 +69,11 @@ Usage Example:
     4. Delete an Existing Color Scheme
   > 2
 ```
-  1. Program outputs all color schemes in the database and returns formatted data
+  Program outputs all color schemes in the database and returns formatted data
 ```
   > exit
 ```
-  2. Exits the program
+  Exits the program
 
 Acceptance Criteria:
 
@@ -94,7 +94,7 @@ Usage Example:
     4. Delete an Existing Color Scheme
   > 3
 ```
-  1. Program outputs all color schemes in the database and returns formatted data
+  Program outputs all color schemes in the database and returns formatted data
 ```
   > Which scheme would you like to edit?
   > [SchemeName]
@@ -105,11 +105,11 @@ Usage Example:
   > What background color would you like?
   > [BackgroundColor]
 ```
-  2. The program updates the color scheme accordingly
+  The program updates the color scheme accordingly
 ```
   > exit
 ```
-  3. Exits the program
+  Exits the program
 
 Acceptance Criteria:
 
@@ -129,18 +129,18 @@ Usage Example:
     4. Delete an Existing Color Scheme
   > 4
 ```
-  1. Program outputs all color schemes in the database and returns formatted data
+  Program outputs all color schemes in the database and returns formatted data
 ```
   > Which scheme would you like to delete?
   > [SchemeName]
   > Delete [SchemeName]?
   > y
 ```
-  2. The program deletes the desired color scheme
+  The program deletes the desired color scheme
 ```
   > exit
 ```
-  2. Exits the program
+  Exits the program
 
 Acceptance Criteria:
 
