@@ -9,6 +9,9 @@ Dir["./lib/*.rb"].each{|f| require f}
 # tput setab 1
 # tput bold
 # tput reset
+# export TERM=xterm-256color
+# export PS1='\[$(tput setaf 7)\]\u@\[$(tput setaf 2)\]\h:\[$(tput setaf 4)\]'+
+# '\w$(tput setaf 1)\]$(parse_git_branch)\[$(tput sgr0)\] $ '
 
 # LSCOLORS
 # The value of this variable describes what color to use for which attribute when colors
@@ -66,7 +69,7 @@ def accepted_ls_colors
     ['black','red','green','brown','blue','magenta','cyan','light grey', 'x']
 end
 
-# class ColorScheme
+# class ColorSchemeQuestion
 
 #     attr_accessor :name,:text_color,:text_format,:background_color,:active_criteria
 
@@ -118,20 +121,24 @@ choose do |menu|
         exit 0
     end
     text_color = ask("What color text would you like it to have?",
-        accepted_colors){|text_color|
+        accepted_colors){|q|
             
         }
     text_format = ask("What format would you like it to have? (i.e. none, bold)",
-        accepted_formats){|text_format|
+        accepted_formats){|q|
             
         }
     background_color = ask("What background color would you like?",
-        accepted_colors){|background_color|
+        accepted_colors){|q|
             
         }
     active_criteria = ask("When would you like this scheme to be active? (hh:mm-hh:mm)",
-        DateTime){|time_range|
+        DateTime){|q|
             
+        }
+    overwrite_prompt_color = ask("Would you like this scheme to overwrite the existing prompt color(s) for the given time period?",
+        ['y','yes','n','no']){|q|
+
         }
     puts "New color scheme created successfully!\n"
   }

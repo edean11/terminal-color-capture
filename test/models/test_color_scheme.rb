@@ -9,9 +9,9 @@ describe ColorScheme do
         end
         describe "if there are color schemes in the database" do
             before do
-                createColorScheme('test','blue','none','red')
-                createColorScheme('test2','black','none','blue')
-                createColorScheme('test3','green','none','blue')
+                ColorScheme.create('test','blue','none','red')
+                ColorScheme.create('test2','black','none','blue')
+                ColorScheme.create('test3','green','none','blue')
             end
             it "should return an array" do
                 assert_equal Array,ColorScheme.all.class
@@ -32,9 +32,9 @@ describe ColorScheme do
         end
         describe "if there are color schemes in the database" do
             before do
-                createColorScheme('test','blue','none','red')
-                createColorScheme('test2','black','none','blue')
-                createColorScheme('test3','green','none','blue')
+                ColorScheme.create('test','blue','none','red')
+                ColorScheme.create('test2','black','none','blue')
+                ColorScheme.create('test3','green','none','blue')
             end
             it "should return the correct count" do
                 assert_equal 3,ColorScheme.count

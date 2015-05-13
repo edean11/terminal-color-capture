@@ -11,10 +11,20 @@ Features
 --------
 
 ### Main Functions
-    1.  Create a new color scheme
-    2.  View existing color schemes
-    3.  Edit an existing color scheme
-    4.  Delete an existing color scheme
+    1. CreateANewColorScheme
+    2. ActivateExistingColorSchemes
+    3. EditExistingColorScheme
+    4. DeleteExistingColorScheme
+    5. CreateLSColorProfile
+    6. ChangeLSColorProfile
+    7. DeleteLSColorProfile
+    8. Exit
+
+Usage
+-----
+
+  * Run `rake bootstrap_database` to setup your local database
+  * Then, `./would_you_rather manage` to manage the list of scenarios
 
 Usage Examples
 --------------
@@ -24,10 +34,14 @@ Usage Examples
 ```
   > ./terminal_color_scheme
   > Menu
-    1. Create a New Color Scheme
-    2. View an Existing Color Scheme
-    3. Edit an Existing Color Scheme
-    4. Delete an Existing Color Scheme
+    1. CreateANewColorScheme
+    2. ActivateExistingColorSchemes
+    3. EditExistingColorScheme
+    4. DeleteExistingColorScheme
+    5. CreateLSColorProfile
+    6. ChangeLSColorProfile
+    7. DeleteLSColorProfile
+    8. Exit
 
 
   > 1
@@ -45,15 +59,13 @@ Usage Examples
   Creates a new color scheme record in db and returns success
 ```
   > New color scheme created successfully!
-  > exit
 ```
-  Exits the program
 
 Acceptance Criteria:
 
   * New color scheme added to proper tables
   * Error returned if ActiveCriteria overlaps an existing ActiveCriteria
-  * Calling exit exits the program
+  * Returns to menu when finished
 
 
 ### View Existing Color Schemes
@@ -63,22 +75,24 @@ Usage Example:
 ```
   > ./terminal_color_scheme
   > Menu
-    1. Create a New Color Scheme
-    2. View an Existing Color Scheme
-    3. Edit an Existing Color Scheme
-    4. Delete an Existing Color Scheme
+    1. CreateANewColorScheme
+    2. ActivateExistingColorSchemes
+    3. EditExistingColorScheme
+    4. DeleteExistingColorScheme
+    5. CreateLSColorProfile
+    6. ChangeLSColorProfile
+    7. DeleteLSColorProfile
+    8. Exit
+
   > 2
 ```
   Program outputs all color schemes in the database and returns formatted data
 ```
-  > exit
-```
-  Exits the program
 
 Acceptance Criteria:
 
   * Program shows all existing color schemes
-  * Exits the program at the end
+  * Returns to menu when finished
 
 
 ### Edit Existing Color Scheme
@@ -88,10 +102,15 @@ Usage Example:
 ```
   > ./terminal_color_scheme
   > Menu
-    1. Create a New Color Scheme
-    2. View an Existing Color Scheme
-    3. Edit an Existing Color Scheme
-    4. Delete an Existing Color Scheme
+    1. CreateANewColorScheme
+    2. ActivateExistingColorSchemes
+    3. EditExistingColorScheme
+    4. DeleteExistingColorScheme
+    5. CreateLSColorProfile
+    6. ChangeLSColorProfile
+    7. DeleteLSColorProfile
+    8. Exit
+
   > 3
 ```
   Program outputs all color schemes in the database and returns formatted data
@@ -106,15 +125,11 @@ Usage Example:
   > [BackgroundColor]
 ```
   The program updates the color scheme accordingly
-```
-  > exit
-```
-  Exits the program
 
 Acceptance Criteria:
 
   * Program changes the existing color scheme
-  * Exits the program at the end
+  * Returns to menu when finished
 
 ### Delete Existing Color Scheme
 
@@ -123,10 +138,15 @@ Usage Example:
 ```
   > ./terminal_color_scheme
   > Menu
-    1. Create a New Color Scheme
-    2. View an Existing Color Scheme
-    3. Edit an Existing Color Scheme
-    4. Delete an Existing Color Scheme
+    1. CreateANewColorScheme
+    2. ActivateExistingColorSchemes
+    3. EditExistingColorScheme
+    4. DeleteExistingColorScheme
+    5. CreateLSColorProfile
+    6. ChangeLSColorProfile
+    7. DeleteLSColorProfile
+    8. Exit
+
   > 4
 ```
   Program outputs all color schemes in the database and returns formatted data
@@ -145,5 +165,144 @@ Usage Example:
 Acceptance Criteria:
 
   * Program deletes the given color scheme
-  * Exits the program at the end
+  * Returns to menu when finished
+
+### Create LS Color Profile
+
+Usage Example:
+
+```
+  > ./terminal_color_scheme
+  > Menu
+    1. CreateANewColorScheme
+    2. ActivateExistingColorSchemes
+    3. EditExistingColorScheme
+    4. DeleteExistingColorScheme
+    5. CreateLSColorProfile
+    6. ChangeLSColorProfile
+    7. DeleteLSColorProfile
+    8. Exit
+
+  > 5
+  > What would you like to call this LS Color Profile?
+  > [ProfileName]
+  > What color text would you like directories to have?(use 'x' for default)
+  > red
+  > What color text would you like symbolic links to have?(use 'x' for default)
+  > white
+  > What color text would you like sockets to have?(use 'x' for default)
+  > black
+  > What color text would you like pipes to have?(use 'x' for default)
+  > x
+  > What color text would you like executables to have?(use 'x' for default)
+  > x
+  > What color text would you like block specials to have?(use 'x' for default)
+  > x
+  > What color text would you like character specials to have?(use 'x' for default)
+  > red
+  > What color text would you like executables with setuid bit sets to have?(use 'x' for default)
+  > x
+  > What color text would you like executables with setguid bit sets to have?(use 'x' for default)
+  > x
+  > What color text would you like directories writable to others, with sticky bit to have?(use 'x' for default)
+  > x
+  > What color text would you like directories writable to others, without sticky bit to have?(use 'x' for default)
+  > x
+  > New ls color profile created successfully!
+```
+  The program creates the desired ls color profile
+```
+
+Acceptance Criteria:
+
+  * Program creates the given color scheme
+  * Returns to menu when finished
+
+### Change LS Color Profile
+
+Usage Example:
+
+```
+  > ./terminal_color_scheme
+  > Menu
+    1. CreateANewColorScheme
+    2. ActivateExistingColorSchemes
+    3. EditExistingColorScheme
+    4. DeleteExistingColorScheme
+    5. CreateLSColorProfile
+    6. ChangeLSColorProfile
+    7. DeleteLSColorProfile
+    8. Exit
+
+  > 6
+```
+  The program shows all existing LS Color Profiles
+```
+  > Which profile would you like to change?
+  > [ProfileName]
+  > What color text would you like directories to have?(use 'x' for default)
+  > red
+  > What color text would you like symbolic links to have?(use 'x' for default)
+  > white
+  > What color text would you like sockets to have?(use 'x' for default)
+  > black
+  > What color text would you like pipes to have?(use 'x' for default)
+  > x
+  > What color text would you like executables to have?(use 'x' for default)
+  > x
+  > What color text would you like block specials to have?(use 'x' for default)
+  > x
+  > What color text would you like character specials to have?(use 'x' for default)
+  > red
+  > What color text would you like executables with setuid bit sets to have?(use 'x' for default)
+  > x
+  > What color text would you like executables with setguid bit sets to have?(use 'x' for default)
+  > x
+  > What color text would you like directories writable to others, with sticky bit to have?(use 'x' for default)
+  > x
+  > What color text would you like directories writable to others, without sticky bit to have?(use 'x' for default)
+  > x
+  > LS color profile changed successfully!
+```
+  The program changes the desired ls color profile
+```
+
+Acceptance Criteria:
+
+  * Program changes the given color scheme
+  * Returns to menu when finished
+
+### Change LS Color Profile
+
+Usage Example:
+
+```
+  > ./terminal_color_scheme
+  > Menu
+    1. CreateANewColorScheme
+    2. ActivateExistingColorSchemes
+    3. EditExistingColorScheme
+    4. DeleteExistingColorScheme
+    5. CreateLSColorProfile
+    6. ChangeLSColorProfile
+    7. DeleteLSColorProfile
+    8. Exit
+
+  > 7
+```
+  The program shows all existing LS Color Profiles
+```
+  > Which profile would you like to delete?
+  > [ProfileName]
+  > Delete [ProfileName]?
+  > y
+  > LS color profile deleted successfully!
+```
+  The program deletes the desired ls color profile
+```
+
+Acceptance Criteria:
+
+  * Program deletes the given color scheme
+  * Returns to menu when finished
 

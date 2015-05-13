@@ -42,27 +42,38 @@ class CreateLSColorProfileTest < MiniTest::Test
             pipe.puts "5"
             expected << "What would you like to call this LS Color Profile?\n"
             pipe.puts "Test"
-            expected << "What color text would you like directories to have?(use 'x' for default)\n"
+            expected << "What color text would you like directories to have?"+
+            "(use 'x' for default)\n"
             pipe.puts "blue"
-            expected << "What color text would you like symbolic links to have?(use 'x' for default)\n"
+            expected << "What color text would you like symbolic links to have?"+
+            "(use 'x' for default)\n"
             pipe.puts "red"
-            expected << "What color text would you like sockets to have?(use 'x' for default)\n"
+            expected << "What color text would you like sockets to have?"+
+            "(use 'x' for default)\n"
             pipe.puts "green"
-            expected << "What color text would you like pipes to have?(use 'x' for default)\n"
+            expected << "What color text would you like pipes to have?"+
+            "(use 'x' for default)\n"
             pipe.puts "brown"
-            expected << "What color text would you like executables to have?(use 'x' for default)\n"
+            expected << "What color text would you like executables to have?"+
+            "(use 'x' for default)\n"
             pipe.puts "black"
-            expected << "What color text would you like block specials to have?(use 'x' for default)\n"
+            expected << "What color text would you like block specials to have?"+
+            "(use 'x' for default)\n"
             pipe.puts "x"
-            expected << "What color text would you like character specials to have?(use 'x' for default)\n"
+            expected << "What color text would you like character specials to have?"+
+            "(use 'x' for default)\n"
             pipe.puts "magenta"
-            expected << "What color text would you like executables with setuid bit sets to have?(use 'x' for default)\n"
+            expected << "What color text would you like executables with setuid bit sets to have?"+
+            "(use 'x' for default)\n"
             pipe.puts "x"
-            expected << "What color text would you like executables with setguid bit sets to have?(use 'x' for default)\n"
+            expected << "What color text would you like executables with setguid bit sets to have?"+
+            "(use 'x' for default)\n"
             pipe.puts "cyan"
-            expected << "What color text would you like directories writable to others, with sticky bit to have?(use 'x' for default)\n"
+            expected << "What color text would you like directories writable to others,"+
+            " with sticky bit to have?(use 'x' for default)\n"
             pipe.puts "x"
-            expected << "What color text would you like directories writable to others, without sticky bit to have?(use 'x' for default)\n"
+            expected << "What color text would you like directories writable to others,"+
+            " without sticky bit to have?(use 'x' for default)\n"
             pipe.puts "light grey"
             expected << "New ls color profile created successfully!\n"
             pipe.close_write

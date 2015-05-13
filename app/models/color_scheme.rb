@@ -17,4 +17,8 @@ class ColorScheme
     def self.name
 
     end
+
+    def self.create(name,text_color,text_format,background_color)
+        Database.execute("INSERT into color_schemes (name,text_color,text_format,background_color) VALUES (?,?,?,?)",[name,text_color,text_format,background_color])
+    end
 end
