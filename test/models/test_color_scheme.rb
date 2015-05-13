@@ -41,9 +41,4 @@ describe ColorScheme do
             end
         end
     end
-
-    # describe ".name gets populated from database" do
-    #     it "gets populated from the database" do
-    #     end
-    # end
 end

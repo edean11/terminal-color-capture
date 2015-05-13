@@ -151,7 +151,7 @@ choose do |menu|
     end
   }
   menu.choice(:EditExistingColorScheme) { 
-    #show all existng color schemes
+    color_scheme_controller.index
     edit_scheme = ask("Which scheme would you like to edit?")
     if !edit_scheme.empty?
         #run "CreateANewColorScheme" menu, replacing existing variables
@@ -159,7 +159,7 @@ choose do |menu|
     end
   }
   menu.choice(:DeleteExistingColorScheme) {
-    #show all existng color schemes
+    color_scheme_controller.index
     delete_scheme = ask("Which scheme would you like to delete?"){|q|
         q.confirm = true
     }
@@ -241,5 +241,8 @@ choose do |menu|
         puts "LS Color profile deleted successfully!\n"
     end
   }
-  menu.choice(:Exit){say("See ya!")}
+  menu.choice(:Exit){
+    say("See ya!")
+    exit
+  }
 end

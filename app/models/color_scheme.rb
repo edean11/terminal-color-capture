@@ -14,10 +14,6 @@ class ColorScheme
         Database.execute("SELECT count(id) from color_schemes")[0][0]
     end
 
-    def self.name
-
-    end
-
     def self.create(name,text_color,text_format,background_color)
         Database.execute("INSERT into color_schemes (name,text_color,text_format,background_color) VALUES (?,?,?,?)",[name,text_color,text_format,background_color])
     end
