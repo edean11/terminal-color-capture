@@ -13,4 +13,13 @@ class ColorSchemeController
         end
         str
     end
+
+    def self.table
+        str = ""
+        if ColorScheme.count > 0
+        else
+            str << index()
+        end
+        str
+    end
 end

@@ -177,4 +177,31 @@ class CreateANewColorSchemeTest < MiniTest::Test
         assert_equal expected,shell_output
     end
 
+    def test_color_scheme_db_record_creation
+        shell_output = ""
+        expected = ""
+        original_db_size = ColorScheme.count.to_i
+        IO.popen('././terminal_color_capture','r+') do |pipe|
+            expected << menu_prompt
+            pipe.puts "1"
+            expected << "What would you like to call this color scheme?\n"
+            pipe.puts "Test"
+            expected << "What color text would you like it to have?\n"
+            pipe.puts "blue"
+            expected << "What format would you like it to have? (i.e. none, bold)\n"
+            pipe.puts "none"
+            expected << "What background color would you like?\n"
+            pipe.puts "white"
+            expected << "When would you like this scheme to be active? (hh:mm-hh:mm)\n"
+            pipe.puts "12:00-23:00"
+            expected << "Would you like this scheme to overwrite the existing prompt color(s) for the given time period?\n"
+            pipe.puts "y"
+            expected << "New color scheme created successfully!\n"
+            pipe.close_write
+            shell_output = pipe.read
+        end
+        new_db_size = ColorScheme.count.to_i
+        assert_equal original_db_size+1,new_db_size
+    end
+
 end

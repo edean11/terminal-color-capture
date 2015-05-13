@@ -1,7 +1,7 @@
 require_relative '../helper'
 
 describe ColorScheme do
-    describe "#all" do
+    describe ".create & .all" do
         describe "if there are no color schemes in the databse" do
             it "should return an empty array" do
                 assert_equal [],ColorScheme.all
@@ -24,7 +24,7 @@ describe ColorScheme do
         end
     end
 
-    describe "#count" do
+    describe ".create & .count" do
         describe "if there are no color schemes in the databse" do
             it "should return 0" do
                 assert_equal 0,ColorScheme.count
@@ -39,6 +39,46 @@ describe ColorScheme do
             it "should return the correct count" do
                 assert_equal 3,ColorScheme.count
             end
+        end
+    end
+
+    describe ".get_id" do
+        before do
+            ColorScheme.create('test','blue','none','red','11:00-23:00','true')
+            ColorScheme.create('test2','black','none','blue','10:00-11:00','false')
+            ColorScheme.create('test3','green','none','blue','9:00-10:00','true')
+        end
+        it "should return an integer that corresponds to the id of the name given" do
+            cs = ColorScheme.get_id('test2')
+            assert cs.to_i > 0
+        end
+    end
+
+    describe ".delete" do
+        before do
+            ColorScheme.create('test','blue','none','red','11:00-23:00','true')
+            ColorScheme.create('test2','black','none','blue','10:00-11:00','false')
+            ColorScheme.create('test3','green','none','blue','9:00-10:00','true')
+        end
+        it "should return the a count one less than the number created" do
+            id = ColorScheme.get_id('test2')
+            ColorScheme.delete(id)
+            assert_equal 2,ColorScheme.count
+        end
+    end
+
+    describe ".update" do
+        before do
+            ColorScheme.create('test','blue','none','red','11:00-23:00','true')
+            ColorScheme.create('test2','black','none','blue','10:00-11:00','false')
+            ColorScheme.create('test3','green','none','blue','9:00-10:00','true')
+        end
+        it "should return an array with an updated name value" do
+            id = ColorScheme.get_id('test2')
+            ColorScheme.update(id,'changed','black','none','blue','10:00-11:00','false')
+            expected = ['test','changed','test3']
+            actual = ColorScheme.all.map{|color_scheme| color_scheme.name}
+            assert_equal expected,actual
         end
     end
 end
