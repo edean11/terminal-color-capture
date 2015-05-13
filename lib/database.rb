@@ -6,7 +6,7 @@ class Database
         Database.execute("CREATE TABLE IF NOT EXISTS color_schemes"+
                 "(id integer PRIMARY KEY AUTOINCREMENT, name varchar(30) NOT NULL,"+
                 " text_color varchar(12), text_format varchar(12),"+
-                " background_color varchar(12))")
+                " background_color varchar(12), active_criteria varchar(60), overwrite_prompt integer)")
         Database.execute("DELETE from color_schemes")
     end
 
