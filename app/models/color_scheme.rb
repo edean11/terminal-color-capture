@@ -3,17 +3,21 @@ class ColorScheme
     attr_accessor :id,:name,:text_color,:text_format,
     :background_color,:active_criteria,:overwrite_prompt
 
+    def self.save(record)
+        color_scheme = ColorScheme.new()
+        color_scheme.id = record[0]
+        color_scheme.name = record[1]
+        color_scheme.text_color = record[2]
+        color_scheme.text_format = record[3]
+        color_scheme.background_color = record[4]
+        color_scheme.active_criteria = record[5]
+        color_scheme.overwrite_prompt = record[6]
+        color_scheme
+    end
+
     def self.all
         Database.execute("SELECT * FROM color_schemes").map do |row|
-            color_scheme = ColorScheme.new()
-            color_scheme.id = row[0]
-            color_scheme.name = row[1]
-            color_scheme.text_color = row[2]
-            color_scheme.text_format = row[3]
-            color_scheme.background_color = row[4]
-            color_scheme.active_criteria = row[5]
-            color_scheme.overwrite_prompt = row[6]
-            color_scheme
+            save(row)
         end
     end
 

@@ -110,6 +110,7 @@ end
 choose do |menu|
   menu.prompt = "Hello, what would you like to do?\n"
 
+  color_scheme = ColorScheme.new()
   color_scheme_controller = ColorSchemeController.new()
 
   menu.choice(:CreateANewColorScheme) {
@@ -141,11 +142,11 @@ choose do |menu|
 
         }
     puts "New color scheme created successfully!\n"
-    ColorScheme.create(name,text_color,text_format,background_color,active_criteria,overwrite_prompt)
+    color_scheme_controller.add(name,text_color,text_format,background_color,active_criteria,overwrite_prompt)
   }
   menu.choice(:ActivateExistingColorSchemes) {
     color_scheme_controller.index
-    activate_scheme = ask("Which scheme would you like to activate?",(1..ColorScheme.count))
+    activate_scheme = ask("Which scheme would you like to activate?",(1..color_scheme.count))
     if !activate_scheme.empty?
         #activate color scheme
         puts "Color scheme activated successfully!\n"
@@ -153,7 +154,7 @@ choose do |menu|
   }
   menu.choice(:EditExistingColorScheme) { 
     color_scheme_controller.index
-    edit_scheme = ask("Which scheme would you like to edit?",(1..ColorScheme.count))
+    edit_scheme = ask("Which scheme would you like to edit?",(1..color_scheme.count))
     if !edit_scheme.empty?
         #run "CreateANewColorScheme" menu, replacing existing variables
         puts "Color scheme edited successfully!\n"
@@ -161,7 +162,7 @@ choose do |menu|
   }
   menu.choice(:DeleteExistingColorScheme) {
     color_scheme_controller.index
-    delete_scheme = ask("Which scheme would you like to delete?",(1..ColorScheme.count)){|q|
+    delete_scheme = ask("Which scheme would you like to delete?",(1..color_scheme.count)){|q|
         q.confirm = true
     }
     if !delete_scheme.empty?

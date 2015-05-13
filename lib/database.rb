@@ -7,20 +7,17 @@ class Database
                 "(id integer PRIMARY KEY AUTOINCREMENT, name varchar(30) NOT NULL,"+
                 " text_color varchar(12), text_format varchar(12),"+
                 " background_color varchar(12), active_criteria varchar(60), overwrite_prompt integer)")
-        Database.execute("DELETE from color_schemes")
     end
 
     def self.create_color_scheme_restrictions_table
         Database.execute("CREATE TABLE IF NOT EXISTS color_scheme_restrictions"+
             "(id integer PRIMARY KEY AUTOINCREMENT, color_scheme_id int, restriction varchar(60))")
-        Database.execute("DELETE from color_scheme_restrictions")
     end
 
     def self.create_ls_color_profile_tables
         Database.execute("CREATE TABLE IF NOT EXISTS ls_color_profiles"+
             "(id integer PRIMARY KEY AUTOINCREMENT, name varchar(30) NOT NULL,"+
             "text_color varchar(12), text_format varchar(12), background_color varchar(12))")
-        Database.execute("DELETE from ls_color_profiles")
     end
 
     def self.load_structure
