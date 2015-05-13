@@ -180,8 +180,8 @@ class CreateANewColorSchemeTest < MiniTest::Test
     def test_color_scheme_db_record_creation
         shell_output = ""
         expected = ""
-        color_scheme_controller = ColorSchemeController.new
         original_db_size = ColorScheme.count.to_i
+        new_db_size = ""
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "1"

@@ -39,8 +39,8 @@ class ColorSchemeController
         str
     end
 
-    def self.add(name,text_color,text_format,background_color,active_criteria,overwrite_prompt)
-        ColorScheme.create(name,text_color,text_format,background_color,
-            active_criteria,overwrite_prompt)
+    def self.add(color_scheme)
+        ColorScheme.create(color_scheme.name,color_scheme.text_color,color_scheme.text_format,
+            color_scheme.background_color,color_scheme.active_criteria,color_scheme.overwrite_prompt)
     end
 end

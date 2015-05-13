@@ -4,8 +4,10 @@ describe ColorSchemeController do
 
     describe ".add" do
         before do
-            ColorSchemeController.add('test','blue','none','red','11:00-23:00','true')
-            ColorSchemeController.add('test2','black','none','blue','10:00-11:00','false')
+            color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+            color_scheme2 = ColorScheme.save([nil,'test2','black','none','blue','10:00-11:00','false'],false)
+            ColorSchemeController.add(color_scheme1)
+            ColorSchemeController.add(color_scheme2)
         end
         it "should return two records in the database" do
             assert_equal 2,ColorScheme.count
@@ -21,9 +23,12 @@ describe ColorSchemeController do
         end
         describe "if there are color schemes in the database" do
             before do
-                ColorSchemeController.add('test','blue','none','red','11:00-23:00','true')
-                ColorSchemeController.add('test2','black','none','blue','10:00-11:00','false')
-                ColorSchemeController.add('test3','green','none','blue','9:00-10:00','true')
+                color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+                color_scheme2 = ColorScheme.save([nil,'test2','black','none','blue','10:00-11:00','false'],false)
+                color_scheme3 = ColorScheme.save([nil,'test3','red','bold','blue','10:00-11:00','false'],false)
+                ColorSchemeController.add(color_scheme1)
+                ColorSchemeController.add(color_scheme2)
+                ColorSchemeController.add(color_scheme3)
             end
             it "should return the color schemes in database order, list format" do
                 expected = "1. test\n2. test2\n3. test3\n"
@@ -42,8 +47,10 @@ describe ColorSchemeController do
         end
         describe "if there are color schemes in the database" do
             before do
-                ColorSchemeController.add('test','blue','none','red','11:00-23:00','true')
-                ColorSchemeController.add('test2','black','none','blue','10:00-11:00','false')
+                color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+                color_scheme2 = ColorScheme.save([nil,'test2','black','none','blue','10:00-11:00','false'],false)
+                ColorSchemeController.add(color_scheme1)
+                ColorSchemeController.add(color_scheme2)
             end
             it "should return the color schemes in database order, table format" do
                 expected = ""

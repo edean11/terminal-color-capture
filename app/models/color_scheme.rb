@@ -3,9 +3,9 @@ class ColorScheme
     attr_accessor :id,:name,:text_color,:text_format,
     :background_color,:active_criteria,:overwrite_prompt
 
-    def self.save(record)
+    def self.save(record,insert_id)
         color_scheme = ColorScheme.new()
-        color_scheme.id = record[0]
+        color_scheme.id = record[0] if insert_id
         color_scheme.name = record[1]
         color_scheme.text_color = record[2]
         color_scheme.text_format = record[3]
@@ -17,7 +17,7 @@ class ColorScheme
 
     def self.all
         Database.execute("SELECT * FROM color_schemes").map do |row|
-            save(row)
+            save(row,true)
         end
     end
 

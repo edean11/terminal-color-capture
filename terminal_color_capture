@@ -142,7 +142,10 @@ choose do |menu|
 
         }
     puts "New color scheme created successfully!\n"
-    color_scheme_controller.add(name,text_color,text_format,background_color,active_criteria,overwrite_prompt)
+    #Create New Color Scheme in DB
+    new_color_scheme = ColorScheme.save([nil,name,text_color,text_format,background_color,
+        active_criteria.to_s,overwrite_prompt],false)
+    ColorSchemeController.add(new_color_scheme)
   }
   menu.choice(:ActivateExistingColorSchemes) {
     color_scheme_controller.index
