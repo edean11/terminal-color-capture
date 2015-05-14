@@ -216,7 +216,6 @@ Usage Example:
   > New ls color profile created successfully!
 ```
   The program creates the desired ls color profile
-```
 
 Acceptance Criteria:
 
@@ -270,14 +269,13 @@ Usage Example:
   > LS color profile changed successfully!
 ```
   The program changes the desired ls color profile
-```
 
 Acceptance Criteria:
 
   * Program changes the given color scheme
   * Returns to menu when finished
 
-### Change LS Color Profile
+### Delete LS Color Profile
 
 Usage Example:
 
