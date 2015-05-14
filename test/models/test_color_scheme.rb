@@ -72,21 +72,21 @@ describe ColorScheme do
         end
     end
 
-    # describe ".update" do
-    #     before do
-    #         ColorScheme.create('test','blue','none','red','11:00-23:00','true')
-    #         ColorScheme.create('test2','black','none','blue','10:00-11:00','false')
-    #         ColorScheme.create('test3','green','none','blue','9:00-10:00','true')
-    #     end
-    #     it "should return an array with an updated name value" do
-    #         test2_id = ColorScheme.get_id('test2')
-    #         color_scheme1 = ColorScheme.save([test2_id,'changed','black','none','blue','10:00-11:00','false'],true)
-    #         ColorScheme.update(color_scheme1)
-    #         expected = ['test','changed','test3']
-    #         actual = ColorScheme.all.map{|color_scheme| color_scheme.name}
-    #         assert_equal expected,actual
-    #     end
-    # end
+    describe ".update_all" do
+        before do
+            ColorScheme.create('test','blue','none','red','11:00-23:00','true')
+            ColorScheme.create('test2','black','none','blue','10:00-11:00','false')
+            ColorScheme.create('test3','green','none','blue','9:00-10:00','true')
+        end
+        it "should return an array with an updated name value" do
+            test2_id = ColorScheme.get_id('test2')
+            color_scheme1 = ColorScheme.save([test2_id,'changed','black','none','blue','10:00-11:00','false'],true)
+            ColorScheme.update_all(color_scheme1)
+            expected = ['test','changed','test3']
+            actual = ColorScheme.all.map{|color_scheme| color_scheme.name}
+            assert_equal expected,actual
+        end
+    end
 
     describe ".update" do
         before do

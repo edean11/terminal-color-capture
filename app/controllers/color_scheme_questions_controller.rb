@@ -56,29 +56,45 @@ class ColorSchemeQuestionsController
         arr
     end
 
-    def self.ask_change_scheme(color_scheme)
-        say("Leave a field blank if you want it to remain unchanged")
+    def self.ask_which_color_scheme_change
+        ask("Which color scheme would you like to edit?",
+            ColorScheme.validate_existing_color_scheme_choice){|q|
+        }
+    end
+
+    def self.ask_which_property_change
+        ask("Which property would you like to edit?",
+            ColorScheme.validate_color_scheme_property_choice){|q|
+        }
+    end
+
+    def self.ask_chosen_property_question(prop)
+        val = ''
+        case prop
+            when 'name'
+                val = ask_name()
+            when 'text color'
+                val = ask_text_color()
+            when 'text format'
+                val = ask_text_format()
+            when 'background color'
+                val = ask_background_color()
+            when 'active criteria'
+                val = ask_active_criteria()
+            when 'overwrite prompt'
+                val = ask_overwrite_prompt()
+        end
+        val
+    end
+
+    def self.ask_all_change_scheme
         id = ""
-        if color_scheme.to_i
-            id = color_scheme
-        else
-            id = ColorScheme.get_id(color_scheme)
-        end
-        name = ask_name()
-        if name.empty?
-            say("You must enter a name for this color scheme.\n")
-            exit 0
-        end
-        text_color = ask_text_color()
-        text_format = ask_text_format()
-        background_color = ask_background_color()
-        active_criteria = ask_active_criteria()
-        overwrite_prompt = ask_overwrite_prompt()
-        arr = []
-        arr = [nil,name,text_color,text_format,background_color,
-            active_criteria.to_s,overwrite_prompt]
-        say("New color scheme created successfully!\n")
-        arr
+        color_scheme = ask_which_color_scheme_change
+        id = ColorScheme.get_id(color_scheme)
+        property = ask_which_property_change
+        val = ask_chosen_property_question(property)
+        say("Color scheme changed successfully!\n")
+        [id,property,val]
     end
 
 end

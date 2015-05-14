@@ -302,7 +302,6 @@ Usage Example:
   > LS color profile deleted successfully!
 ```
   The program deletes the desired ls color profile
-```
 
 Acceptance Criteria:
 

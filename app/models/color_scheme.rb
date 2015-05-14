@@ -23,6 +23,19 @@ class ColorScheme
         accepted_responses = ['y','yes','n','no']
     end
 
+    def self.validate_existing_color_scheme_choice
+        all_schemes = all()
+        accepted_responses = []
+        all_schemes.each do |color_scheme|
+            accepted_responses << color_scheme.name
+        end
+        accepted_responses
+    end
+
+    def self.validate_color_scheme_property_choice
+        accepted_responses = ['name','text color','text format','background color','active criteria','overwrite prompt']
+    end
+
     def self.save(record,has_id)
         color_scheme = ColorScheme.new()
         if has_id

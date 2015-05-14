@@ -87,10 +87,10 @@ choose do |menu|
   }
   menu.choice(:EditExistingColorScheme) {
     say(ColorSchemeController.table)
-    edit_scheme = ask("Which scheme would you like to edit?",(1..color_scheme.count))
-    if !edit_scheme.empty?
-        #run "CreateANewColorScheme" menu, replacing existing variables
-        say("Color scheme edited successfully!\n")
+    if ColorScheme.count > 0
+        change_val_arr = ColorSchemeQuestionsController.ask_all_change_scheme
+        #Update Color Scheme in DB
+        ColorScheme.update(change_val_arr[0],change_val_arr[1],change_val_arr[2])
     end
   }
   menu.choice(:DeleteExistingColorScheme) {
