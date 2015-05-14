@@ -20,10 +20,6 @@ class Minitest::Test
     end
 end
 
-# def createColorScheme(name,text_color,text_format,background_color)
-#     Database.execute("INSERT into color_schemes (name,text_color,text_format,background_color) VALUES (?,?,?,?)",[name,text_color,text_format,background_color])
-# end
-
 def createColorSchemeRestriction(color_scheme_id,restriction)
     Database.execute("INSERT into color_scheme_restrictions (color_scheme_id,restriction) VALUES (?,?)",[color_scheme_id,restriction])
 end

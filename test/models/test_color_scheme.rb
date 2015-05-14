@@ -75,7 +75,8 @@ describe ColorScheme do
         end
         it "should return an array with an updated name value" do
             test2_id = ColorScheme.get_id('test2')
-            ColorScheme.update(test2_id,'changed','black','none','blue','10:00-11:00','false')
+            color_scheme1 = ColorScheme.save([test2_id,'changed','black','none','blue','10:00-11:00','false'],true)
+            ColorScheme.update(color_scheme1)
             expected = ['test','changed','test3']
             actual = ColorScheme.all.map{|color_scheme| color_scheme.name}
             assert_equal expected,actual
