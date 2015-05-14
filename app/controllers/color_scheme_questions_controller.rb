@@ -5,6 +5,7 @@ class ColorSchemeQuestionsController
     def self.ask_name
         ask("What would you like to call this color scheme?",
             ColorScheme.validate_name){|scheme_name|
+            #scheme_name.validate != ""
         }
     end
 
@@ -73,6 +74,10 @@ class ColorSchemeQuestionsController
         case prop
             when 'name'
                 val = ask_name()
+                if val.empty?
+                    say("You must enter a name for this color scheme.\n")
+                    exit 0
+                end
             when 'text color'
                 val = ask_text_color()
             when 'text format'

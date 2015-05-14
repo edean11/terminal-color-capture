@@ -113,49 +113,39 @@ choose do |menu|
         say("You must enter a name for this ls color profile.\n")
         exit 0
     end
-    directory_color = ask("What color text would you like directories to have?(use 'x' for default)",
+    directory_color = ask("What color text would you like directories to have?(use 'x' "+
+        "for default)",
         accepted_ls_colors){|q|
-            
         }
     symbolic_link_color = ask("What color text would you like symbolic links to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     socket_color = ask("What color text would you like sockets to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     pipe_color = ask("What color text would you like pipes to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     executable_color = ask("What color text would you like executables to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     block_special_color = ask("What color text would you like block specials to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     character_special_color = ask("What color text would you like character specials to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     executable_setuid_color = ask("What color text would you like executables with setuid bit sets to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     executable_setguid_color = ask("What color text would you like executables with setguid bit sets to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     others_directory_color = ask("What color text would you like directories writable to others, with sticky bit to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     others_directory_sticky_color = ask("What color text would you like directories writable to others, without sticky bit to have?(use 'x' for default)",
         accepted_ls_colors){|q|
-            
         }
     say("New ls color profile created successfully!\n")
   }

@@ -59,15 +59,15 @@ class EditExistingColorSchemeTest < MiniTest::Test
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "3"
-            expected << "="*102+"\n"
-            expected << "COLOR SCHEMES".center(102)+"\n"
-            expected << "="*102+"\n"
-            expected << "NAME".center(17)+"COLOR".center(17)+"FORMAT".center(17)+
-                        "BG_COLOR".center(17)+"ACTIVE".center(17)+"PROMPT".center(17)+"\n"
-            expected << "-"*102+"\n"
-            expected << "test".center(17)+"blue".center(17)+"none".center(17)+
-                        "red".center(17)+"11:00-23:00".center(17)+"true".center(17)+"\n"
-            expected << "="*102+"\n"
+            expected << "="*124+"\n"
+            expected << "COLOR SCHEMES".center(124)+"\n"
+            expected << "="*124+"\n"
+            expected << "NAME".center(19)+"COLOR".center(19)+"FORMAT".center(19)+
+                        "BG_COLOR".center(19)+"ACTIVE_CRITERIA".center(29)+"PROMPT".center(19)+"\n"
+            expected << "-"*124+"\n"
+            expected << "test".center(19)+"blue".center(19)+"none".center(19)+
+                        "red".center(19)+"11:00-23:00".center(29)+"true".center(19)+"\n"
+            expected << "="*124+"\n"
             expected << "Which color scheme would you like to edit?\n"
             pipe.close_write
             shell_output = pipe.read
@@ -83,15 +83,15 @@ class EditExistingColorSchemeTest < MiniTest::Test
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "3"
-            expected << "="*102+"\n"
-            expected << "COLOR SCHEMES".center(102)+"\n"
-            expected << "="*102+"\n"
-            expected << "NAME".center(17)+"COLOR".center(17)+"FORMAT".center(17)+
-                        "BG_COLOR".center(17)+"ACTIVE".center(17)+"PROMPT".center(17)+"\n"
-            expected << "-"*102+"\n"
-            expected << "test".center(17)+"blue".center(17)+"none".center(17)+
-                        "red".center(17)+"11:00-23:00".center(17)+"true".center(17)+"\n"
-            expected << "="*102+"\n"
+            expected << "="*124+"\n"
+            expected << "COLOR SCHEMES".center(124)+"\n"
+            expected << "="*124+"\n"
+            expected << "NAME".center(19)+"COLOR".center(19)+"FORMAT".center(19)+
+                        "BG_COLOR".center(19)+"ACTIVE_CRITERIA".center(29)+"PROMPT".center(19)+"\n"
+            expected << "-"*124+"\n"
+            expected << "test".center(19)+"blue".center(19)+"none".center(19)+
+                        "red".center(19)+"11:00-23:00".center(29)+"true".center(19)+"\n"
+            expected << "="*124+"\n"
             expected << "Which color scheme would you like to edit?\n"
             pipe.puts "bdash"
             expected << "You must choose one of [test].\n?  "
@@ -109,15 +109,15 @@ class EditExistingColorSchemeTest < MiniTest::Test
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "3"
-            expected << "="*102+"\n"
-            expected << "COLOR SCHEMES".center(102)+"\n"
-            expected << "="*102+"\n"
-            expected << "NAME".center(17)+"COLOR".center(17)+"FORMAT".center(17)+
-                        "BG_COLOR".center(17)+"ACTIVE".center(17)+"PROMPT".center(17)+"\n"
-            expected << "-"*102+"\n"
-            expected << "test".center(17)+"blue".center(17)+"none".center(17)+
-                        "red".center(17)+"11:00-23:00".center(17)+"true".center(17)+"\n"
-            expected << "="*102+"\n"
+            expected << "="*124+"\n"
+            expected << "COLOR SCHEMES".center(124)+"\n"
+            expected << "="*124+"\n"
+            expected << "NAME".center(19)+"COLOR".center(19)+"FORMAT".center(19)+
+                        "BG_COLOR".center(19)+"ACTIVE_CRITERIA".center(29)+"PROMPT".center(19)+"\n"
+            expected << "-"*124+"\n"
+            expected << "test".center(19)+"blue".center(19)+"none".center(19)+
+                        "red".center(19)+"11:00-23:00".center(29)+"true".center(19)+"\n"
+            expected << "="*124+"\n"
             expected << "Which color scheme would you like to edit?\n"
             pipe.puts "test"
             expected << "Which property would you like to edit?\n"
@@ -138,15 +138,15 @@ class EditExistingColorSchemeTest < MiniTest::Test
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "3"
-            expected << "="*102+"\n"
-            expected << "COLOR SCHEMES".center(102)+"\n"
-            expected << "="*102+"\n"
-            expected << "NAME".center(17)+"COLOR".center(17)+"FORMAT".center(17)+
-                        "BG_COLOR".center(17)+"ACTIVE".center(17)+"PROMPT".center(17)+"\n"
-            expected << "-"*102+"\n"
-            expected << "test".center(17)+"blue".center(17)+"none".center(17)+
-                        "red".center(17)+"11:00-23:00".center(17)+"true".center(17)+"\n"
-            expected << "="*102+"\n"
+            expected << "="*124+"\n"
+            expected << "COLOR SCHEMES".center(124)+"\n"
+            expected << "="*124+"\n"
+            expected << "NAME".center(19)+"COLOR".center(19)+"FORMAT".center(19)+
+                        "BG_COLOR".center(19)+"ACTIVE_CRITERIA".center(29)+"PROMPT".center(19)+"\n"
+            expected << "-"*124+"\n"
+            expected << "test".center(19)+"blue".center(19)+"none".center(19)+
+                        "red".center(19)+"11:00-23:00".center(29)+"true".center(19)+"\n"
+            expected << "="*124+"\n"
             expected << "Which color scheme would you like to edit?\n"
             pipe.puts "test"
             expected << "Which property would you like to edit?\n"
@@ -156,6 +156,67 @@ class EditExistingColorSchemeTest < MiniTest::Test
             shell_output = pipe.read
         end
         assert_equal expected,shell_output
+    end
+
+    def test_invalid_question_response
+        shell_output = ""
+        expected = ""
+        color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        ColorSchemeController.add(color_scheme1)
+        IO.popen('././terminal_color_capture','r+') do |pipe|
+            expected << menu_prompt
+            pipe.puts "3"
+            expected << "="*124+"\n"
+            expected << "COLOR SCHEMES".center(124)+"\n"
+            expected << "="*124+"\n"
+            expected << "NAME".center(19)+"COLOR".center(19)+"FORMAT".center(19)+
+                        "BG_COLOR".center(19)+"ACTIVE_CRITERIA".center(29)+"PROMPT".center(19)+"\n"
+            expected << "-"*124+"\n"
+            expected << "test".center(19)+"blue".center(19)+"none".center(19)+
+                        "red".center(19)+"11:00-23:00".center(29)+"true".center(19)+"\n"
+            expected << "="*124+"\n"
+            expected << "Which color scheme would you like to edit?\n"
+            pipe.puts "test"
+            expected << "Which property would you like to edit?\n"
+            pipe.puts "name"
+            expected << "What would you like to call this color scheme?\n"
+            pipe.puts ""
+            expected << "You must enter a name for this color scheme.\n"
+            pipe.close_write
+            shell_output = pipe.read
+        end
+        assert_equal expected,shell_output
+    end
+
+    def test_change_in_db
+        shell_output = ""
+        expected = ""
+        color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        ColorSchemeController.add(color_scheme1)
+        IO.popen('././terminal_color_capture','r+') do |pipe|
+            expected << menu_prompt
+            pipe.puts "3"
+            expected << "="*124+"\n"
+            expected << "COLOR SCHEMES".center(124)+"\n"
+            expected << "="*124+"\n"
+            expected << "NAME".center(19)+"COLOR".center(19)+"FORMAT".center(19)+
+                        "BG_COLOR".center(19)+"ACTIVE_CRITERIA".center(29)+"PROMPT".center(19)+"\n"
+            expected << "-"*124+"\n"
+            expected << "test".center(19)+"blue".center(19)+"none".center(19)+
+                        "red".center(19)+"11:00-23:00".center(29)+"true".center(19)+"\n"
+            expected << "="*124+"\n"
+            expected << "Which color scheme would you like to edit?\n"
+            pipe.puts "test"
+            expected << "Which property would you like to edit?\n"
+            pipe.puts "name"
+            expected << "What would you like to call this color scheme?\n"
+            pipe.puts "chum"
+            expected << "Color scheme changed successfully!\n"
+            pipe.close_write
+            shell_output = pipe.read
+        end
+        str = "1. chum\n"
+        assert_equal str,ColorSchemeController.index
     end
 
 end
