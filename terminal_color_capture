@@ -70,36 +70,9 @@ choose do |menu|
   color_scheme_controller = ColorSchemeController.new()
 
   menu.choice(:CreateANewColorScheme) {
-    name = ask("What would you like to call this color scheme?",
-        ColorScheme.validate_name){|scheme_name|
-        }
-    if name.empty?
-        say("You must enter a name for this color scheme.\n")
-        exit 0
-    end
-    text_color = ask("What color text would you like it to have?",
-        ColorScheme.validate_color){|q|
-        }
-    text_format = ask("What format would you like it to have? (i.e. none, bold)",
-        ColorScheme.validate_format){|q|
-        }
-    background_color = ask("What background color would you like?",
-        ColorScheme.validate_color){|q|
-        }
-    active_criteria = ask("When would you like this scheme to be active? (hh:mm-hh:mm)",
-        ColorScheme.validate_active_criteria){|q|
-        }
-    overwrite_prompt = ask("Would you like this scheme to overwrite the existing prompt color(s) for the given time period?",
-        ColorScheme.validate_overwrite_prompt){|q|
-        }
-    say("New color scheme created successfully!\n")
-
-    #color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all()
-    #new_color_scheme = ColorScheme.save(color_scheme_answer_arr,false)
-
+    color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all()
+    new_color_scheme = ColorScheme.save(color_scheme_answer_arr,false)
     #Create New Color Scheme in DB
-    new_color_scheme = ColorScheme.save([nil,name,text_color,text_format,background_color,
-        active_criteria.to_s,overwrite_prompt],false)
     ColorSchemeController.add(new_color_scheme)
   }
   menu.choice(:ActivateExistingColorScheme) {

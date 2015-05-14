@@ -41,7 +41,7 @@ class ColorSchemeQuestionsController
     def self.ask_all
         name = ask_name()
         if name.empty?
-            puts "You must enter a name for this color scheme.\n"
+            say("You must enter a name for this color scheme.\n")
             exit 0
         end
         text_color = ask_text_color()
@@ -49,9 +49,10 @@ class ColorSchemeQuestionsController
         background_color = ask_background_color()
         active_criteria = ask_active_criteria()
         overwrite_prompt = ask_overwrite_prompt()
-        puts "New color scheme created successfully!\n"
+        say("New color scheme created successfully!\n")
         arr = [nil,name,text_color,text_format,background_color,
-            active_criteria,overwrite_prompt]
+            active_criteria.to_s,overwrite_prompt]
+        arr
     end
 
 end
