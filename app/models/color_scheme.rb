@@ -1,17 +1,22 @@
 class ColorScheme
 
     attr_accessor :id,:name,:text_color,:text_format,
-    :background_color,:active_criteria,:overwrite_prompt
+    :background_color,:active_criteria,:overwrite_prompt,:active,:created_at
 
     def self.save(record,has_id)
         color_scheme = ColorScheme.new()
-        color_scheme.id = record[0] if has_id
+        if has_id
+            color_scheme.id = record[0]
+            color_scheme.active = record[7]
+            color_scheme.created_at = record[8]
+        end
         color_scheme.name = record[1]
         color_scheme.text_color = record[2]
         color_scheme.text_format = record[3]
         color_scheme.background_color = record[4]
         color_scheme.active_criteria = record[5]
         color_scheme.overwrite_prompt = record[6]
+
         color_scheme
     end
 
