@@ -39,6 +39,11 @@ describe ColorScheme do
             it "should return the correct count" do
                 assert_equal 3,ColorScheme.count
             end
+            it "should contain default value" do
+                expected=[['false'],['false'],['false']]
+                actual=Database.execute("SELECT active FROM color_schemes")
+                assert_equal expected,actual
+            end
         end
     end
 

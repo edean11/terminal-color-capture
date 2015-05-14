@@ -68,7 +68,7 @@ Acceptance Criteria:
   * Returns to menu when finished
 
 
-### View Existing Color Schemes
+### Activate Existing Color Schemes
 
 Usage Example:
 
@@ -88,10 +88,15 @@ Usage Example:
 ```
   Program outputs all color schemes in the database and returns formatted data
 ```
+  > Which color scheme would you like to activate?
+  > [SchemeName]
+```
+  Program activates the chosen color scheme
 
 Acceptance Criteria:
 
   * Program shows all existing color schemes
+  * Program activates chosen color scheme
   * Returns to menu when finished
 
 

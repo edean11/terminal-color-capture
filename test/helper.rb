@@ -26,7 +26,7 @@ end
 
 def menu_prompt
     "1. CreateANewColorScheme\n"+
-    "2. ActivateExistingColorSchemes\n"+
+    "2. ActivateExistingColorScheme\n"+
     "3. EditExistingColorScheme\n"+
     "4. DeleteExistingColorScheme\n"+
     "5. CreateLSColorProfile\n"+

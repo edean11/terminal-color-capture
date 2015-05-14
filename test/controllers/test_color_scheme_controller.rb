@@ -54,18 +54,18 @@ describe ColorSchemeController do
             end
             it "should return the color schemes in database order, table format" do
                 expected = ""
-                expected << "="*105+"\n"
-                expected << "COLOR SCHEMES".center(105)+"\n"
-                expected << "="*105+"\n"
-                expected << "NAME".center(15)+"COLOR".center(15)+"FORMAT".center(15)+
-                            "BG_COLOR".center(15)+"ACTIVE".center(15)+"PROMPT".center(15)+"\n"
-                expected << "-"*105+"\n"
-                expected << "test".center(15)+"blue".center(15)+"none".center(15)+
-                            "red".center(15)+"11:00-23:00".center(15)+"true".center(15)+"\n"
-                expected << "-"*105+"\n"
-                expected << "test2".center(15)+"black".center(15)+"none".center(15)+
-                            "blue".center(15)+"10:00-11:00".center(15)+"false".center(15)+"\n"
-                expected << "="*105+"\n"
+                expected << "="*102+"\n"
+                expected << "COLOR SCHEMES".center(102)+"\n"
+                expected << "="*102+"\n"
+                expected << "NAME".center(17)+"COLOR".center(17)+"FORMAT".center(17)+
+                            "BG_COLOR".center(17)+"ACTIVE".center(17)+"PROMPT".center(17)+"\n"
+                expected << "-"*102+"\n"
+                expected << "test".center(17)+"blue".center(17)+"none".center(17)+
+                            "red".center(17)+"11:00-23:00".center(17)+"true".center(17)+"\n"
+                expected << "-"*102+"\n"
+                expected << "test2".center(17)+"black".center(17)+"none".center(17)+
+                            "blue".center(17)+"10:00-11:00".center(17)+"false".center(17)+"\n"
+                expected << "="*102+"\n"
 
                 actual = ColorSchemeController.table
                 assert_equal expected,actual
