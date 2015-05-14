@@ -80,37 +80,35 @@ choose do |menu|
 
         }
     if name.empty?
-        puts "You must enter a name for this color scheme.\n"
+        say("You must enter a name for this color scheme.\n")
         exit 0
     end
     text_color = ask("What color text would you like it to have?",
         accepted_colors){|q|
-            
         }
     text_format = ask("What format would you like it to have? (i.e. none, bold)",
         accepted_formats){|q|
-            
         }
     background_color = ask("What background color would you like?",
         accepted_colors){|q|
-            
         }
     active_criteria = ask("When would you like this scheme to be active? (hh:mm-hh:mm)",
         DateTime){|q|
-            
         }
     overwrite_prompt = ask("Would you like this scheme to overwrite the existing prompt color(s) for the given time period?",
         ['y','yes','n','no']){|q|
 
         }
-    puts "New color scheme created successfully!\n"
+    say("New color scheme created successfully!\n")
+
+    #color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all()
     #Create New Color Scheme in DB
     new_color_scheme = ColorScheme.save([nil,name,text_color,text_format,background_color,
         active_criteria.to_s,overwrite_prompt],false)
     ColorSchemeController.add(new_color_scheme)
   }
   menu.choice(:ActivateExistingColorScheme) {
-    color_scheme_controller.index
+    say(color_scheme_controller.table)
     activate_scheme = ask("Which scheme would you like to activate?",
         (1..color_scheme.count)){|q|
 
@@ -120,12 +118,12 @@ choose do |menu|
         puts "Color scheme activated successfully!\n"
     end
   }
-  menu.choice(:EditExistingColorScheme) { 
+  menu.choice(:EditExistingColorScheme) {
     color_scheme_controller.index
     edit_scheme = ask("Which scheme would you like to edit?",(1..color_scheme.count))
     if !edit_scheme.empty?
         #run "CreateANewColorScheme" menu, replacing existing variables
-        puts "Color scheme edited successfully!\n"
+        say("Color scheme edited successfully!\n")
     end
   }
   menu.choice(:DeleteExistingColorScheme) {
@@ -136,7 +134,7 @@ choose do |menu|
     }
     if !delete_scheme.empty?
         #delete given scheme name
-        puts "Color scheme deleted successfully!\n"
+        say("Color scheme deleted successfully!\n")
     end
   }
   menu.choice(:CreateLSColorProfile) {
@@ -145,7 +143,7 @@ choose do |menu|
 
         }
     if ls_name.empty?
-        puts "You must enter a name for this ls color profile.\n"
+        say("You must enter a name for this ls color profile.\n")
         exit 0
     end
     directory_color = ask("What color text would you like directories to have?(use 'x' for default)",
@@ -192,14 +190,14 @@ choose do |menu|
         accepted_ls_colors){|q|
             
         }
-    puts "New ls color profile created successfully!\n"
+    say("New ls color profile created successfully!\n")
   }
   menu.choice(:ChangeLSColorProfile) {
     #show all existng ls color profiles
     edit_profile = ask("Which profile would you like to edit?")
     if !edit_profile.empty?
         #run "CreateLSColorProfile" menu, replacing existing variables
-        puts "LS Color profile edited successfully!\n"
+        say("LS Color profile edited successfully!\n")
     end
   }
   menu.choice(:DeleteLSColorProfile) {
@@ -209,7 +207,7 @@ choose do |menu|
     }
     if !delete_profile.empty?
         #delete given profile name
-        puts "LS Color profile deleted successfully!\n"
+        say("LS Color profile deleted successfully!\n")
     end
   }
   menu.choice(:Exit){
