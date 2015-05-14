@@ -59,12 +59,6 @@ Dir["./lib/*.rb"].each{|f| require f}
 # for regular directories, black foreground and red background for setuid executables,
 # etc.
 
-def accepted_colors
-    ['red','blue','green','yellow','black','white','orange','purple']
-end
-def accepted_formats
-    ['none','bold','underline']
-end
 def accepted_ls_colors
     ['black','red','green','brown','blue','magenta','cyan','light grey', 'x']
 end
@@ -76,50 +70,51 @@ choose do |menu|
   color_scheme_controller = ColorSchemeController.new()
 
   menu.choice(:CreateANewColorScheme) {
-    name = ask("What would you like to call this color scheme?",String){|scheme_name|
-
+    name = ask("What would you like to call this color scheme?",
+        ColorScheme.validate_name){|scheme_name|
         }
     if name.empty?
         say("You must enter a name for this color scheme.\n")
         exit 0
     end
     text_color = ask("What color text would you like it to have?",
-        accepted_colors){|q|
+        ColorScheme.validate_color){|q|
         }
     text_format = ask("What format would you like it to have? (i.e. none, bold)",
-        accepted_formats){|q|
+        ColorScheme.validate_format){|q|
         }
     background_color = ask("What background color would you like?",
-        accepted_colors){|q|
+        ColorScheme.validate_color){|q|
         }
     active_criteria = ask("When would you like this scheme to be active? (hh:mm-hh:mm)",
-        DateTime){|q|
+        ColorScheme.validate_active_criteria){|q|
         }
     overwrite_prompt = ask("Would you like this scheme to overwrite the existing prompt color(s) for the given time period?",
-        ['y','yes','n','no']){|q|
-
+        ColorScheme.validate_overwrite_prompt){|q|
         }
     say("New color scheme created successfully!\n")
 
     #color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all()
+    #new_color_scheme = ColorScheme.save(color_scheme_answer_arr,false)
+
     #Create New Color Scheme in DB
     new_color_scheme = ColorScheme.save([nil,name,text_color,text_format,background_color,
         active_criteria.to_s,overwrite_prompt],false)
     ColorSchemeController.add(new_color_scheme)
   }
   menu.choice(:ActivateExistingColorScheme) {
-    say(color_scheme_controller.table)
+    say(ColorSchemeController.table)
     activate_scheme = ask("Which scheme would you like to activate?",
         (1..color_scheme.count)){|q|
 
     }
     if !activate_scheme.empty?
         #activate color scheme
-        puts "Color scheme activated successfully!\n"
+        say("Color scheme activated successfully!\n")
     end
   }
   menu.choice(:EditExistingColorScheme) {
-    color_scheme_controller.index
+    say(ColorSchemeController.table)
     edit_scheme = ask("Which scheme would you like to edit?",(1..color_scheme.count))
     if !edit_scheme.empty?
         #run "CreateANewColorScheme" menu, replacing existing variables
@@ -127,7 +122,7 @@ choose do |menu|
     end
   }
   menu.choice(:DeleteExistingColorScheme) {
-    color_scheme_controller.index
+    ColorSchemeController.index
     delete_scheme = ask("Which scheme would you like to delete?",
         (1..color_scheme.count)){|q|
         q.confirm = true

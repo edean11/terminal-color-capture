@@ -4,37 +4,37 @@ class ColorSchemeQuestionsController
 
     def self.ask_name
         ask("What would you like to call this color scheme?",
-            String){|scheme_name|
+            ColorScheme.validate_name){|scheme_name|
         }
     end
 
     def self.ask_text_color
         ask("What color text would you like it to have?",
-            accepted_colors){|q|
+            ColorScheme.validate_color){|q|
         }
     end
 
     def self.ask_text_format
         ask("What format would you like it to have? (i.e. none, bold)",
-            accepted_formats){|q|
+            ColorScheme.validate_format){|q|
         }
     end
 
     def self.ask_background_color
         ask("What background color would you like?",
-            accepted_colors){|q|
+            ColorScheme.validate_color){|q|
         }
     end
 
     def self.ask_active_criteria
         ask("When would you like this scheme to be active? (hh:mm-hh:mm)",
-            DateTime){|q|
+            ColorScheme.validate_active_criteria){|q|
         }
     end
 
     def self.ask_overwrite_prompt
         ask("Would you like this scheme to overwrite the existing prompt color(s) for the given time period?",
-            ['y','yes','n','no']){|q|
+            ColorScheme.validate_overwrite_prompt){|q|
         }
     end
 

@@ -3,6 +3,26 @@ class ColorScheme
     attr_accessor :id,:name,:text_color,:text_format,
     :background_color,:active_criteria,:overwrite_prompt,:active,:created_at
 
+    def self.validate_name
+        String
+    end
+
+    def self.validate_format
+        accepted_formats = ['none','bold']
+    end
+
+    def self.validate_color
+        accepted_colors = ['red','blue','green','yellow','black','white','orange','purple']
+    end
+
+    def self.validate_active_criteria
+        DateTime
+    end
+
+    def self.validate_overwrite_prompt
+        accepted_responses = ['y','yes','n','no']
+    end
+
     def self.save(record,has_id)
         color_scheme = ColorScheme.new()
         if has_id

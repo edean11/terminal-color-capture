@@ -76,7 +76,7 @@ class CreateANewColorSchemeTest < MiniTest::Test
             pipe.puts "blue"
             expected << "What format would you like it to have? (i.e. none, bold)\n"
             pipe.puts "striking through it"
-            expected << "You must choose one of [none, bold, underline].\n?  "
+            expected << "You must choose one of [none, bold].\n?  "
             pipe.close_write
             shell_output = pipe.read
         end
