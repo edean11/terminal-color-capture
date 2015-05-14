@@ -62,12 +62,17 @@ class ColorScheme
         Database.execute("DELETE FROM color_schemes WHERE id = '"+id.to_s+"'")
     end
 
-    def self.update(color_scheme)
+    def self.update_all(color_scheme)
         Database.execute("UPDATE color_schemes SET name='"+color_scheme.name+
             "',text_color='"+color_scheme.text_color+"',text_format='"+
             color_scheme.text_format+"',background_color='"+color_scheme.background_color+
             "',active_criteria='"+color_scheme.active_criteria+"',overwrite_prompt='"+
             color_scheme.overwrite_prompt+"' WHERE id = '"+color_scheme.id.to_s+"'")
+    end
+
+    def self.update(id,prop,val)
+        stmt = "UPDATE color_schemes SET "+prop+"='"+val+"' WHERE id = '"+id.to_s+"'"
+        Database.execute(stmt)
     end
 
     def self.get_id(name)

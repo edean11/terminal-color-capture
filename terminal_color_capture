@@ -70,7 +70,7 @@ choose do |menu|
   color_scheme_controller = ColorSchemeController.new()
 
   menu.choice(:CreateANewColorScheme) {
-    color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all()
+    color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all_new_scheme
     new_color_scheme = ColorScheme.save(color_scheme_answer_arr,false)
     #Create New Color Scheme in DB
     ColorSchemeController.add(new_color_scheme)
@@ -79,7 +79,6 @@ choose do |menu|
     say(ColorSchemeController.table)
     activate_scheme = ask("Which scheme would you like to activate?",
         (1..color_scheme.count)){|q|
-
     }
     if !activate_scheme.empty?
         #activate color scheme

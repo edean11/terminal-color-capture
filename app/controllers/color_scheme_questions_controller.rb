@@ -38,7 +38,7 @@ class ColorSchemeQuestionsController
         }
     end
 
-    def self.ask_all
+    def self.ask_all_new_scheme
         name = ask_name()
         if name.empty?
             say("You must enter a name for this color scheme.\n")
@@ -49,9 +49,35 @@ class ColorSchemeQuestionsController
         background_color = ask_background_color()
         active_criteria = ask_active_criteria()
         overwrite_prompt = ask_overwrite_prompt()
-        say("New color scheme created successfully!\n")
+        arr = []
         arr = [nil,name,text_color,text_format,background_color,
             active_criteria.to_s,overwrite_prompt]
+        say("New color scheme created successfully!\n")
+        arr
+    end
+
+    def self.ask_change_scheme(color_scheme)
+        say("Leave a field blank if you want it to remain unchanged")
+        id = ""
+        if color_scheme.to_i
+            id = color_scheme
+        else
+            id = ColorScheme.get_id(color_scheme)
+        end
+        name = ask_name()
+        if name.empty?
+            say("You must enter a name for this color scheme.\n")
+            exit 0
+        end
+        text_color = ask_text_color()
+        text_format = ask_text_format()
+        background_color = ask_background_color()
+        active_criteria = ask_active_criteria()
+        overwrite_prompt = ask_overwrite_prompt()
+        arr = []
+        arr = [nil,name,text_color,text_format,background_color,
+            active_criteria.to_s,overwrite_prompt]
+        say("New color scheme created successfully!\n")
         arr
     end
 
