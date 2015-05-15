@@ -33,7 +33,9 @@ class ColorScheme
     end
 
     def self.validate_color_scheme_property_choice
-        accepted_responses = ['name','text color','text format','background color','active criteria','overwrite prompt']
+        accepted_responses = ['name','NAME','text color','COLOR','text format','FORMAT',
+            'background color','BG_COLOR','active criteria','ACTIVE_CRITERIA','ACTIVE CRITERIA',
+            'overwrite prompt','PROMPT']
     end
 
     def self.save(record,has_id)
