@@ -24,7 +24,7 @@ Usage
 -----
 
   * Run `rake bootstrap_database` to setup your local database
-  * Then, `./would_you_rather manage` to manage the list of scenarios
+  * Then, `./terminal_color_capture` to manage the list of scenarios
 
 Usage Examples
 --------------
@@ -32,7 +32,7 @@ Usage Examples
 ### Create a new color scheme
 
 ```
-  > ./terminal_color_scheme
+  > ./terminal_color_capture
   > Menu
     1. CreateANewColorScheme
     2. ActivateExistingColorSchemes
@@ -73,7 +73,7 @@ Acceptance Criteria:
 Usage Example:
 
 ```
-  > ./terminal_color_scheme
+  > ./terminal_color_capture
   > Menu
     1. CreateANewColorScheme
     2. ActivateExistingColorSchemes
@@ -105,7 +105,7 @@ Acceptance Criteria:
 Usage Example:
 
 ```
-  > ./terminal_color_scheme
+  > ./terminal_color_capture
   > Menu
     1. CreateANewColorScheme
     2. ActivateExistingColorSchemes
@@ -141,7 +141,7 @@ Acceptance Criteria:
 Usage Example:
 
 ```
-  > ./terminal_color_scheme
+  > ./terminal_color_capture
   > Menu
     1. CreateANewColorScheme
     2. ActivateExistingColorSchemes
@@ -177,7 +177,7 @@ Acceptance Criteria:
 Usage Example:
 
 ```
-  > ./terminal_color_scheme
+  > ./terminal_color_capture
   > Menu
     1. CreateANewColorScheme
     2. ActivateExistingColorSchemes
@@ -227,7 +227,7 @@ Acceptance Criteria:
 Usage Example:
 
 ```
-  > ./terminal_color_scheme
+  > ./terminal_color_capture
   > Menu
     1. CreateANewColorScheme
     2. ActivateExistingColorSchemes
@@ -280,7 +280,7 @@ Acceptance Criteria:
 Usage Example:
 
 ```
-  > ./terminal_color_scheme
+  > ./terminal_color_capture
   > Menu
     1. CreateANewColorScheme
     2. ActivateExistingColorSchemes
