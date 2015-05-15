@@ -122,9 +122,9 @@ class EditExistingColorSchemeTest < MiniTest::Test
             pipe.puts "test"
             expected << "Which property would you like to edit?\n"
             pipe.puts "clavicle"
-            expected << "You must choose one of [name, NAME, text color, COLOR, text format,"+
-                " FORMAT, background color, BG_COLOR, active criteria, ACTIVE_CRITERIA, "+
-                "ACTIVE CRITERIA, overwrite prompt, PROMPT].\n?  "
+            expected << "You must choose one of [name, NAME, text color, COLOR, color, text format,"+
+                " FORMAT, format, background color, BG_COLOR, bg_color, active criteria, ACTIVE_CRITERIA, "+
+                "ACTIVE CRITERIA, overwrite prompt, PROMPT, prompt].\n?  "
             pipe.close_write
             shell_output = pipe.read
         end

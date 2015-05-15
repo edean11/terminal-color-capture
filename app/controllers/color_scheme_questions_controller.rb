@@ -70,24 +70,30 @@ class ColorSchemeQuestionsController
     end
 
     def self.ask_chosen_property_question(prop)
-        val = ''
+        val = []
         case prop
-            when 'name'
-                val = ask_name()
-                if val.empty?
+            when 'name','NAME'
+                val[0] = 'name'
+                val[1] = ask_name()
+                if val[1].empty?
                     say("You must enter a name for this color scheme.\n")
                     exit 0
                 end
-            when 'text color'
-                val = ask_text_color()
-            when 'text format'
-                val = ask_text_format()
-            when 'background color'
-                val = ask_background_color()
-            when 'active criteria'
-                val = ask_active_criteria()
-            when 'overwrite prompt'
-                val = ask_overwrite_prompt()
+            when 'text color','COLOR','color'
+                val[0] = 'text_color'
+                val[1] = ask_text_color()
+            when 'text format','FORMAT','format'
+                val[0] = 'text_format'
+                val[1] = ask_text_format()
+            when 'background color','BG_COLOR','bg_color'
+                val[0] = 'background_color'
+                val[1] = ask_background_color()
+            when 'active criteria','ACTIVE CRITERIA','ACTIVE_CRITERIA'
+                val[0] = 'active_criteria'
+                val[1] = ask_active_criteria()
+            when 'overwrite prompt','PROMPT','prompt'
+                val[0] = 'overwrite_prompt'
+                val[1] = ask_overwrite_prompt()
         end
         val
     end
@@ -96,8 +102,10 @@ class ColorSchemeQuestionsController
         id = ""
         color_scheme = ask_which_color_scheme_change
         id = ColorScheme.get_id(color_scheme)
-        property = ask_which_property_change
-        val = ask_chosen_property_question(property)
+        property_unformatted = ask_which_property_change
+        val_arr = ask_chosen_property_question(property_unformatted)
+        property = val_arr[0]
+        val = val_arr[1]
         say("Color scheme changed successfully!\n")
         [id,property,val]
     end
