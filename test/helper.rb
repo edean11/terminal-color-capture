@@ -15,7 +15,6 @@ class Minitest::Test
     def setup
         Database.load_structure
         Database.execute("DELETE FROM color_schemes")
-        Database.execute("DELETE FROM color_scheme_restrictions")
         Database.execute("DELETE FROM ls_color_profiles")
     end
 end

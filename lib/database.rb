@@ -10,10 +10,10 @@ class Database
                 ",active varchar(10) DEFAULT 'false', created_at varchar(30) DEFAULT CURRENT_TIMESTAMP)")
     end
 
-    def self.create_color_scheme_restrictions_table
-        Database.execute("CREATE TABLE IF NOT EXISTS color_scheme_restrictions"+
-            "(id integer PRIMARY KEY AUTOINCREMENT, color_scheme_id int, restriction varchar(60))")
-    end
+    # def self.create_color_scheme_restrictions_table
+    #     Database.execute("CREATE TABLE IF NOT EXISTS color_scheme_restrictions"+
+    #         "(id integer PRIMARY KEY AUTOINCREMENT, color_scheme_id int, restriction varchar(60))")
+    # end
 
     def self.create_ls_color_profile_tables
         Database.execute("CREATE TABLE IF NOT EXISTS ls_color_profiles"+
@@ -24,7 +24,7 @@ class Database
 
     def self.load_structure
         create_color_schemes_table()
-        create_color_scheme_restrictions_table()
+        #create_color_scheme_restrictions_table()
         create_ls_color_profile_tables()
     end
 

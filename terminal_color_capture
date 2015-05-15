@@ -66,9 +66,6 @@ end
 choose do |menu|
   menu.prompt = "Hello, what would you like to do?\n"
 
-  color_scheme = ColorScheme.new()
-  color_scheme_controller = ColorSchemeController.new()
-
   menu.choice(:CreateANewColorScheme) {
     color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all_new_scheme
     new_color_scheme = ColorScheme.save(color_scheme_answer_arr,false)

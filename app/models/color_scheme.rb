@@ -114,4 +114,13 @@ class ColorScheme
         Database.execute(stmt)
     end
 
+    ###########################
+    ## Activate Color Scheme ##
+    ###########################
+
+    def self.create_bash_profile_file
+        
+    end
+
+
 end
