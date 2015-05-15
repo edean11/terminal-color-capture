@@ -77,12 +77,12 @@ choose do |menu|
   }
   menu.choice(:ActivateExistingColorScheme) {
     say(ColorSchemeController.table)
-    activate_scheme = ask("Which scheme would you like to activate?",
-        (1..color_scheme.count)){|q|
-    }
-    if !activate_scheme.empty?
-        #activate color scheme
-        say("Color scheme activated successfully!\n")
+    if ColorScheme.count > 0
+        activate_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_activate
+        if !activate_scheme.empty?
+            #activate color scheme
+            say("Color scheme activated successfully!\n")
+        end
     end
   }
   menu.choice(:EditExistingColorScheme) {

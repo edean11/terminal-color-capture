@@ -65,9 +65,21 @@ class ColorSchemeQuestionsController
         arr
     end
 
-    ########################
-    ## Edit Color Scheme  ##
-    ########################
+    ###########################
+    ## Activate Color Scheme ##
+    ###########################
+
+    def self.ask_which_color_scheme_activate
+        validation_arr = ColorScheme.all.map{|color_scheme| color_scheme.name}
+        ask("Which color scheme would you like to temporarily activate?",
+            validation_arr){|q|
+            q.confirm = true
+        }
+    end
+
+    #######################
+    ## Edit Color Scheme ##
+    #######################
 
     def self.ask_which_color_scheme_change
         ask("Which color scheme would you like to edit?",
