@@ -2,6 +2,10 @@ require 'highline/import'
 
 class ColorSchemeQuestionsController
 
+    ############################
+    ## Color Scheme Questions ##
+    ############################
+
     def self.ask_name
         ask("What would you like to call this color scheme?",
             ColorScheme.validate_name){|scheme_name|
@@ -39,6 +43,10 @@ class ColorSchemeQuestionsController
         }
     end
 
+    ######################
+    ## New Color Scheme ##
+    ######################
+
     def self.ask_all_new_scheme
         name = ask_name()
         if name.empty?
@@ -56,6 +64,10 @@ class ColorSchemeQuestionsController
         say("New color scheme created successfully!\n")
         arr
     end
+
+    ########################
+    ## Edit Color Scheme  ##
+    ########################
 
     def self.ask_which_color_scheme_change
         ask("Which color scheme would you like to edit?",
@@ -110,6 +122,17 @@ class ColorSchemeQuestionsController
         [id,property,val]
     end
 
+    #########################
+    ## Delete Color Scheme ##
+    #########################
+
+    def self.ask_which_color_scheme_delete
+        validation_arr = ColorScheme.all.map{|color_scheme| color_scheme.name}
+        ask("Which color scheme would you like to delete?",
+            validation_arr){|q|
+            q.confirm = true
+        }
+    end
 end
 
 

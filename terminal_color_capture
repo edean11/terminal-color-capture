@@ -94,14 +94,14 @@ choose do |menu|
     end
   }
   menu.choice(:DeleteExistingColorScheme) {
-    ColorSchemeController.index
-    delete_scheme = ask("Which scheme would you like to delete?",
-        (1..color_scheme.count)){|q|
-        q.confirm = true
-    }
-    if !delete_scheme.empty?
-        #delete given scheme name
-        say("Color scheme deleted successfully!\n")
+    say(ColorSchemeController.table)
+    if ColorScheme.count > 0
+        delete_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_delete
+        if !delete_scheme.empty?
+            id = ColorScheme.get_id(delete_scheme)
+            ColorScheme.delete(id)
+            say("Color scheme deleted successfully!\n")
+        end
     end
   }
   menu.choice(:CreateLSColorProfile) {

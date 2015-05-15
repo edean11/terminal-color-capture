@@ -3,16 +3,24 @@ class ColorScheme
     attr_accessor :id,:name,:text_color,:text_format,
     :background_color,:active_criteria,:overwrite_prompt,:active,:created_at
 
+    ################
+    ## Validation ##
+    ################
+
     def self.validate_name
         String
     end
 
     def self.validate_format
-        accepted_formats = ['none','bold']
+        accepted_formats = ['none','bold','underline']
     end
 
     def self.validate_color
-        accepted_colors = ['red','blue','green','yellow','black','white','orange','purple']
+        accepted_colors = ['black','red','green','yellow','blue','magenta','cyan','white']
+        (0..255).each do |num|
+            accepted_colors << num
+        end
+        accepted_colors
     end
 
     def self.validate_active_criteria
@@ -38,6 +46,10 @@ class ColorScheme
             'ACTIVE CRITERIA','overwrite prompt','PROMPT', 'prompt']
     end
 
+    #####################
+    ## Save Properties ##
+    #####################
+
     def self.save(record,has_id)
         color_scheme = ColorScheme.new()
         if has_id
@@ -55,6 +67,14 @@ class ColorScheme
         color_scheme
     end
 
+    ####################
+    ## Get Properties ##
+    ####################
+
+    def self.get_id(name)
+        Database.execute("SELECT id FROM color_schemes WHERE name = '"+name+"'")[0][0]
+    end
+
     def self.all
         Database.execute("SELECT * FROM color_schemes").map do |row|
             save(row,true)
@@ -64,6 +84,10 @@ class ColorScheme
     def self.count
         Database.execute("SELECT count(id) from color_schemes")[0][0]
     end
+
+    ###############
+    ## Change DB ##
+    ###############
 
     def self.create(name,text_color,text_format,background_color,
                     active_criteria,overwrite_prompt)
@@ -90,7 +114,4 @@ class ColorScheme
         Database.execute(stmt)
     end
 
-    def self.get_id(name)
-        Database.execute("SELECT id FROM color_schemes WHERE name = '"+name+"'")[0][0]
-    end
 end
