@@ -148,7 +148,7 @@ class CreateANewColorSchemeTest < MiniTest::Test
             pipe.puts "white"
             expected << "When would you like this scheme to be active? (hh:mm-hh:mm)\n"
             pipe.puts "whenever i say"
-            expected << "You must enter a valid DateTime.\n?  "
+            expected << "You must enter a valid Time.\n?  "
             pipe.close_write
             shell_output = pipe.read
         end

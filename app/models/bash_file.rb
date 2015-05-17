@@ -1,7 +1,7 @@
 
 require 'fileutils'
 
-class Bash
+class BashFile
 
     #Create Bash
 
@@ -39,12 +39,12 @@ class Bash
             copy_PS1(bash_file)
         end
         #create TCC_BASHRELOAD alias
-        BR_string = "alias TCC_BASHRELOAD=\". ~/.bash_profile\""
-        File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{BR_string}" }
+        br_string="alias TCC_BASHRELOAD=\". ~/.bash_profile\""
+        File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{br_string}" }
         #create COLOR alias
-        C_string = "alias COLOR=\"~/Desktop/Code/NSS/ruby_projects/terminal-color-capture/terminal_color_capture"+
+        c_string="alias COLOR=\"~/Desktop/Code/NSS/ruby_projects/terminal-color-capture/terminal_color_capture"+
             ";. ~/.bash_profile\""
-        File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{C_string}" }
+        File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{c_string}" }
     end
 
 end

@@ -1,3 +1,5 @@
+require 'Date'
+
 
 class ColorScheme
 
@@ -25,7 +27,7 @@ class ColorScheme
     end
 
     def self.validate_active_criteria
-        DateTime
+        Time
     end
 
     def self.validate_overwrite_prompt
@@ -72,6 +74,23 @@ class ColorScheme
     ## Get Properties ##
     ####################
 
+    def self.compare_active_criteria(now,active)
+
+    end
+
+    def self.determine_active
+        now = Time.now()
+        puts now
+        active_arr = []
+        all.each do |scheme|
+            puts scheme.active_criteria
+            if scheme.active_criteria
+                active_arr << scheme
+            else
+            end
+        end
+    end
+
     def self.get_id(name)
         Database.execute("SELECT id FROM color_schemes WHERE name = '"+name+"'")[0][0]
     end
@@ -81,6 +100,20 @@ class ColorScheme
             save(row,true)
         end
     end
+
+    #needs testing##
+    def self.match_prop(prop,val)
+        Database.execute("SELECT * FROM color_schemes WHERE "+prop+" = '"+val+"'").map do |row|
+            save(row,true)
+        end
+    end
+
+    def self.get_props(id)
+        Database.execute("SELECT * FROM color_schemes WHERE id = '"+id+"'").map do |row|
+            save(row,true)
+        end
+    end
+    #################
 
     def self.count
         Database.execute("SELECT count(id) from color_schemes")[0][0]
@@ -119,16 +152,39 @@ class ColorScheme
     ## Activate Color Scheme ##
     ###########################
 
-    #Activate PS1
+    def self.translate_color_keyword(color)
+        key_arr = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"]
+        key = ""
+        if key_arr.include?(color)
+            key << key_arr.index(color)
+        else
+            key << color
+        end
+        key
+    end
 
-    def self.create_PS1_string(color_key,bg_color_key)
+    def self.create_PS1_string(color_key,bg_color_key,format)
         str = ""
-        if color_key != 'x' && bg_color_key != 'x'
-            str << "\\[$(tput setaf #{color_key})\\]\\[$(tput setab #{bg_color_key})\\]"
-        elsif color_key != 'x' && bg_color_key == 'x'
-            str << "\\[$(tput setaf #{color_key})\\]"
-        elsif color_key == 'x' && bg_color_key != 'x'
-            str << "\\[$(tput setab #{bg_color_key})\\]"
+        color = translate_color_keyword(color_key)
+        bg_color = translate_color_keyword(bg_color_key)
+        case color
+            when 'x'
+            else
+                str << "\\[$(tput setaf #{color_key})\\]"
+        end
+
+        case bg_color
+            when 'x'
+            else
+                str << "\\[$(tput setab #{bg_color_key})\\]"
+        end
+
+        case format
+            when 'none'
+            when 'bold'
+                str << "\\[$(tput bold)\\]"
+            when 'underline'
+                str << "\\[$(tput smul)\\]"
         end
         str
     end
