@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class ColorScheme
 
     attr_accessor :id,:name,:text_color,:text_format,
@@ -118,9 +120,62 @@ class ColorScheme
     ## Activate Color Scheme ##
     ###########################
 
-    def self.create_bash_profile_file
-        
+    def self.create_bash_profile_if_missing
+        @@bash_profile = ENV['HOME'] + '/.bash_profile'
+        if !File.exist?(@@bash_profile)
+            new_bash_profile = File.new(ENV['HOME'] + '/.bash_profile', "w+")
+            new_bash_profile.close
+        else
+        end
+        #create backup bash profile, just in case
+        if !File.exist?(ENV['HOME'] + '/.bash_profile_bak')
+            FileUtils.cp(ENV['HOME'] + '/.bash_profile', ENV['HOME'] + '/.bash_profile_bak')
+        end
     end
 
+    def create_PS1_string(color_key,bg_color_key)
+        str = ""
+        if color_key != 'x' && bg_color_key != 'x'
+            str << "\\[$(tput setaf #{color_key})\\]\\[$(tput setab #{bg_color_key})\\]"
+        elsif color_key != 'x' && bg_color_key == 'x'
+            str << "\\[$(tput setaf #{color_key})\\]"
+        elsif color_key == 'x' && bg_color_key != 'x'
+            str << "\\[$(tput setab #{bg_color_key})\\]"
+        end
+        str
+    end
+
+    def self.populate_bash_profile(color_key,bg_color_key,overwrite_prompt)
+        bash_path = ENV['HOME'] + '/.bash_profile'
+        bash_file = File.read(bash_path)
+        if !(bash_file.include? "export PS1") && overwrite_prompt
+            str = 'export PS1="\\[$(tput setaf '+color_key+')\\]\\[$(tput setab '+bg_color_key+')\\]\s-\v\$ "'
+            File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{str}" }
+        elsif !(bash_file.include? "export PS1") && !overwrite_prompt
+            str = 'export PS1="\s-\v\$ \\[$(tput setaf '+color_key+')\\]\\[$(tput setab '+bg_color_key+')\\]"'
+            File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{str}" }
+        elsif (bash_file.include? "export PS1") && overwrite_prompt
+            existing_PS1 = /export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
+            existing_PS1_equals = /(?<=").+/.match(existing_PS1)
+            #remove setaf's and setab's from bash_file
+                file_without_set_colors = bash_file.gsub('\\\[\$\(tput seta[b,f] \d+\)\\\]','')
+                file_without_all_set_colors = file_without_set_colors.gsub('\\\[\$\(tput sgr0\)\\\]','')
+            #find appender locations
+                bash_formatted = file_without_all_set_colors.gsub(/export PS1\s*=\s*\".*\"/, "export PS1 =\"\\[$(tput setaf "+
+                    color_key+")\\]\\[$(tput setab "+bg_color_key+")\\]#{existing_PS1_equals}\"\n\n#original_#{existing_PS1}\"")
+                File.open(bash_path, "w"){|file| file.puts bash_formatted }
+        elsif (bash_file.include? "export PS1") && !overwrite_prompt
+            #save copy of original PS1
+            existing_PS1 = /export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
+            #format the original
+                #append chosen setaf's and setab's
+                bash_formatted = bash_file.gsub(/export PS1\s*=\s*\".*\"/, "#{existing_PS1}\\[$(tput setaf "+
+                    color_key+")\\]\\[$(tput setab "+bg_color_key+")\\]\"\n\n#original_#{existing_PS1}\"")
+            File.open(bash_path, "w"){|file| file.puts bash_formatted }
+        else
+            puts "error populating bash profile"
+        end
+        system("tcc_BASHRELOAD")
+    end
 
 end
