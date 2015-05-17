@@ -74,31 +74,46 @@ class ColorScheme
     ## Get Properties ##
     ####################
 
-    def self.compare_active_criteria(now,active)
-
-    end
-
-    def self.determine_active
-        now = Time.now()
-        puts now
-        active_arr = []
-        all.each do |scheme|
-            puts scheme.active_criteria
-            if scheme.active_criteria
-                active_arr << scheme
-            else
-            end
-        end
-    end
-
-    def self.get_id(name)
-        Database.execute("SELECT id FROM color_schemes WHERE name = '"+name+"'")[0][0]
-    end
-
     def self.all
         Database.execute("SELECT * FROM color_schemes").map do |row|
             save(row,true)
         end
+    end
+
+    def self.compare_active_criteria(now,active)
+        now_num = now.to_time
+        now_year = now.year
+        now_month = now.month
+        now_day = now.day
+        active_start_num = Time.new(now_year,now_month,now_day,active.match(/\d\d:\d\d/)[0])
+        active_end_num = Time.new(now_year,now_month,now_day,active.match(/\d\d:\d\d/,5)[0])
+        return now_num.between?(active_start_num,active_end_num)
+    end
+
+    def self.determine_active
+        now = Time.now()
+        now_num = now.to_time
+        now_year = now.year
+        now_month = now.month
+        now_day = now.day
+        active = [nil]
+        min_start_gap = [nil]
+        all.each do |scheme|
+            if compare_active_criteria(now,scheme.active_criteria)
+                active_start_num = Time.new(now_year,now_month,now_day,scheme.active_criteria.match(/\d\d:\d\d/)[0])
+                start_gap = now-active_start_num
+                if min_start_gap[0] == nil || start_gap < min_start_gap[0]
+                    min_start_gap[0] = start_gap
+                    active[0] = scheme
+                end
+            else
+            end
+        end
+        active[0]
+    end
+
+    def self.get_id(name)
+        Database.execute("SELECT id FROM color_schemes WHERE name = '"+name+"'")[0][0]
     end
 
     #needs testing##
