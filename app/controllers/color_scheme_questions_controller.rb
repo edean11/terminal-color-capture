@@ -9,7 +9,6 @@ class ColorSchemeQuestionsController
     def self.ask_name
         ask("What would you like to call this color scheme?",
             ColorScheme.validate_name){|scheme_name|
-            #scheme_name.validate != ""
         }
     end
 
@@ -31,10 +30,22 @@ class ColorSchemeQuestionsController
         }
     end
 
-    def self.ask_active_criteria
-        ask("When would you like this scheme to be active? (hh:mm-hh:mm)",
+    def self.ask_active_criteria_1
+        ask("When should it begin being active? (hh:mm)",
             ColorScheme.validate_active_criteria){|q|
         }
+    end
+
+    def self.ask_active_criteria_2
+        ask("When should it end? (hh:mm)",
+            ColorScheme.validate_active_criteria){|q|
+        }
+    end
+
+    def self.ask_active_criteria
+        active_criteria_1 = ask_active_criteria_1().to_s.match(/\d\d:\d\d/)[0]
+        active_criteria_2 = ask_active_criteria_2().to_s.match(/\d\d:\d\d/)[0]
+        active_criteria = "#{active_criteria_1} - #{active_criteria_2}"
     end
 
     def self.ask_overwrite_prompt

@@ -132,7 +132,7 @@ class CreateANewColorSchemeTest < MiniTest::Test
         assert_equal expected,shell_output
     end
 
-    def test_invalid_active_criteria
+    def test_invalid_active_criteria_1
         shell_output = ""
         expected = ""
         IO.popen('././terminal_color_capture','r+') do |pipe|
@@ -146,7 +146,32 @@ class CreateANewColorSchemeTest < MiniTest::Test
             pipe.puts "none"
             expected << "What background color would you like?\n"
             pipe.puts "white"
-            expected << "When would you like this scheme to be active? (hh:mm-hh:mm)\n"
+            expected << "When should it begin being active? (hh:mm)\n"
+            pipe.puts "whenever i say"
+            expected << "You must enter a valid Time.\n?  "
+            pipe.close_write
+            shell_output = pipe.read
+        end
+        assert_equal expected,shell_output
+    end
+
+    def test_invalid_active_criteria_2
+        shell_output = ""
+        expected = ""
+        IO.popen('././terminal_color_capture','r+') do |pipe|
+            expected << menu_prompt
+            pipe.puts "1"
+            expected << "What would you like to call this color scheme?\n"
+            pipe.puts "Test"
+            expected << "What color text would you like it to have?\n"
+            pipe.puts "blue"
+            expected << "What format would you like it to have? (i.e. none, bold)\n"
+            pipe.puts "none"
+            expected << "What background color would you like?\n"
+            pipe.puts "white"
+            expected << "When should it begin being active? (hh:mm)\n"
+            pipe.puts "12:00"
+            expected << "When should it end? (hh:mm)\n"
             pipe.puts "whenever i say"
             expected << "You must enter a valid Time.\n?  "
             pipe.close_write
@@ -169,8 +194,10 @@ class CreateANewColorSchemeTest < MiniTest::Test
             pipe.puts "none"
             expected << "What background color would you like?\n"
             pipe.puts "white"
-            expected << "When would you like this scheme to be active? (hh:mm-hh:mm)\n"
-            pipe.puts "12:00-23:00"
+            expected << "When should it begin being active? (hh:mm)\n"
+            pipe.puts "12:00"
+            expected << "When should it end? (hh:mm)\n"
+            pipe.puts "14:00"
             expected << "Would you like this scheme to overwrite the existing prompt color(s) for the given time period?\n"
             pipe.puts "bleh"
             expected << "You must choose one of [y, yes, n, no].\n?  "
@@ -194,8 +221,10 @@ class CreateANewColorSchemeTest < MiniTest::Test
             pipe.puts "none"
             expected << "What background color would you like?\n"
             pipe.puts "white"
-            expected << "When would you like this scheme to be active? (hh:mm-hh:mm)\n"
-            pipe.puts "12:00-23:00"
+            expected << "When should it begin being active? (hh:mm)\n"
+            pipe.puts "12:00"
+            expected << "When should it end? (hh:mm)\n"
+            pipe.puts "14:00"
             expected << "Would you like this scheme to overwrite the existing prompt color(s) for the given time period?\n"
             pipe.puts "y"
             expected << "New color scheme created successfully!\n"
@@ -221,8 +250,10 @@ class CreateANewColorSchemeTest < MiniTest::Test
             pipe.puts "none"
             expected << "What background color would you like?\n"
             pipe.puts "white"
-            expected << "When would you like this scheme to be active? (hh:mm-hh:mm)\n"
-            pipe.puts "12:00-23:00"
+            expected << "When should it begin being active? (hh:mm)\n"
+            pipe.puts "12:00"
+            expected << "When should it end? (hh:mm)\n"
+            pipe.puts "14:00"
             expected << "Would you like this scheme to overwrite the existing prompt color(s) for the given time period?\n"
             pipe.puts "y"
             expected << "New color scheme created successfully!\n"
