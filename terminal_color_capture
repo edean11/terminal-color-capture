@@ -77,7 +77,7 @@ choose do |menu|
     if ColorScheme.count > 0
         activate_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_activate
         if !activate_scheme.empty?
-            ColorScheme.populate_bash_profile('1','12',false)
+            ColorScheme.populate_bash_profile('1','12',true)
             say("Color scheme activated successfully!\n")
         end
     end
