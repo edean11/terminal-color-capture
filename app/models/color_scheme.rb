@@ -219,14 +219,16 @@ class ColorScheme
 
     def self.format_bash_file_overwrite_prompt(bash_file,color_key,bg_color_key,format)
         original_PS1 = /^#original_export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
-        original_PS1_equals = /[^\"]*/.match(/(?<=").+/.match(original_PS1)[0])
         #remove setaf's and setab's from bash_file
-            file_without_set_colors = bash_file.gsub('\\\[\$\(tput seta[b,f] \d+\)\\\]','')
-            file_without_all_set_colors = file_without_set_colors.gsub('\\\[\$\(tput sgr0\)\\\]','')
-            puts file_without_all_set_colors
+            file_without_set_colors = bash_file.gsub(/\\\[\$\(tput seta[b,f] \d+\)\\\]/,'')
+            file_without_all_set_colors = file_without_set_colors.gsub(/\\\[\$\(tput sgr0\)\\\]/,'')
+            file_with_proper_original = file_without_all_set_colors.gsub(/^#original_export PS1\s*=\s*\"[^"]*/,"#{original_PS1}")
+            puts file_with_proper_original
+            formatted_PS1 = /^export PS1\s*=\s*\"[^"]*/.match(file_with_proper_original)[0]
+            formatted_PS1_equals = /[^\"]*/.match(/(?<=").+/.match(formatted_PS1)[0])
         #add PS1
-            bash_formatted = file_without_all_set_colors.gsub(/^export PS1\s*=\s*\".*\"/,
-                "export PS1=\"#{create_PS1_string(color_key,bg_color_key,format)}#{original_PS1_equals}\"")
+            bash_formatted = file_with_proper_original.gsub(/^export PS1\s*=\s*\".*\"/,
+                "export PS1=\"#{create_PS1_string(color_key,bg_color_key,format)}#{formatted_PS1_equals}\"")
         bash_formatted
     end
 

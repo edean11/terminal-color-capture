@@ -78,7 +78,7 @@ choose do |menu|
     if ColorScheme.count > 0
         activate_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_activate
         if !activate_scheme.empty?
-            #ColorScheme.activate('1','12','bold',false)
+            ColorScheme.activate('1','12','bold',true)
             #active = ColorScheme.determine_active
             say("Color scheme activated successfully!\n")
         end
