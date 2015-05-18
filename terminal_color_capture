@@ -65,6 +65,7 @@ end
 
 choose do |menu|
   menu.prompt = "Hello, what would you like to do?\n"
+  BashFile.prepare
 
   menu.choice(:CreateANewColorScheme) {
     color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all_new_scheme
@@ -77,9 +78,8 @@ choose do |menu|
     if ColorScheme.count > 0
         activate_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_activate
         if !activate_scheme.empty?
-            #ColorScheme.prepare_bash_profile('1','12',false)
-            active = ColorScheme.determine_active
-            puts active.name
+            ColorScheme.activate('1','12','bold',false)
+            #active = ColorScheme.determine_active
             say("Color scheme activated successfully!\n")
         end
     end

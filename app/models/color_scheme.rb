@@ -204,39 +204,33 @@ class ColorScheme
         str
     end
 
-    def self.format_bash_file_overwrite_prompt(bash_file,color_key,bg_color_key)
-        existing_PS1 = /^export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
-        existing_PS1_equals = /(?<=").+/.match(existing_PS1)
+    def self.format_bash_file_overwrite_prompt(bash_file,color_key,bg_color_key,format)
+        original_PS1 = /^#original_export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
+        original_PS1_equals = /[^\"]*/.match(/(?<=").+/.match(original_PS1)[0])
         #remove setaf's and setab's from bash_file
             file_without_set_colors = bash_file.gsub('\\\[\$\(tput seta[b,f] \d+\)\\\]','')
             file_without_all_set_colors = file_without_set_colors.gsub('\\\[\$\(tput sgr0\)\\\]','')
             puts file_without_all_set_colors
         #add PS1
             bash_formatted = file_without_all_set_colors.gsub(/^export PS1\s*=\s*\".*\"/,
-                "export PS1=\"#{create_PS1_string(color_key,bg_color_key)}#{existing_PS1_equals}\"\n\n#original_#{existing_PS1}\"")
+                "export PS1=\"#{create_PS1_string(color_key,bg_color_key,format)}#{existing_PS1_equals}\"\n\n#original_#{existing_PS1}\"")
         bash_formatted
     end
 
-    def self.activate(color_key,bg_color_key,overwrite_prompt)
+    def self.activate(color_key,bg_color_key,format,overwrite_prompt)
         bash_path = ENV['HOME'] + '/.bash_profile'
         bash_file = File.read(bash_path)
-        if !(bash_file.include? "export PS1") && overwrite_prompt
-            str = 'export PS1="'+create_PS1_string(color_key,bg_color_key)+'\s-\v\$ "'
-            File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{str}" }
-        elsif !(bash_file.include? "export PS1") && !overwrite_prompt
-            str = 'export PS1="\s-\v\$ '+create_PS1_string(color_key,bg_color_key)+'"'
-            File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{str}" }
-        elsif (bash_file.include? "export PS1") && overwrite_prompt
-            bash_formatted = format_bash_file_overwrite_prompt(bash_file,color_key,bg_color_key)
+        if overwrite_prompt
+            bash_formatted = format_bash_file_overwrite_prompt(bash_file,color_key,bg_color_key,format)
             File.open(bash_path, "w"){|file| file.puts bash_formatted }
-        elsif (bash_file.include? "export PS1") && !overwrite_prompt
+        elsif !overwrite_prompt
             #save copy of original PS1
-            existing_PS1 = /^export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
-            existing_PS1_equals = /(?<=").+/.match(existing_PS1)
+            original_PS1 = /^#original_export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
+            original_PS1_equals = /[^\"]*/.match(/(?<=").+/.match(original_PS1)[0])
             #format the original
                 #append chosen setaf's and setab's
                 bash_formatted = bash_file.gsub(/^export PS1\s*=\s*\".*\"/,
-                    "export PS1=\"\\\[$(tput sgr0)\\\]#{existing_PS1_equals}#{create_PS1_string(color_key,bg_color_key)}\"\n\n#original_#{existing_PS1}\"")
+                    "export PS1=\"\\\[$(tput sgr0)\\\]#{original_PS1_equals}#{create_PS1_string(color_key,bg_color_key,format)}\"")
             File.open(bash_path, "w"){|file| file.puts bash_formatted }
         else
             puts "error populating bash profile"
