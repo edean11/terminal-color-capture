@@ -32,9 +32,9 @@ class BashFile
         elsif (bash_file.include? "export PS1")
             new_bash = copy_PS1(bash_file,bash_path)
         else
-            str = "export PS1=\"\s-\v\$ \"\n"
-            File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{str}" }
-            new_bash = copy_PS1(bash_file,bash_path)
+            str = "\n\nexport PS1=\"\\h \\W \\$ \""
+            str_copy = "\n#original_export PS1=\"\\h \\W \\$ \""
+            new_bash = "#{bash_file}#{str}#{str_copy}"
         end
         new_bash
     end

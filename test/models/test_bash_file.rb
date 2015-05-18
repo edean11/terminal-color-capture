@@ -20,5 +20,11 @@ describe ColorScheme do
         it "should have a COLOR alias" do
             assert_equal true,(bash_file.include? "alias COLOR")
         end
+        it "should have a BASH_RELOAD alias" do
+            assert_equal true,(bash_file.include? "alias BASH_RELOAD")
+        end
+        it "should have a DEFAULT_COLOR alias" do
+            assert_equal true,(bash_file.include? "alias DEFAULT_COLOR")
+        end
     end
 end

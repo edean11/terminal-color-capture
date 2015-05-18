@@ -93,6 +93,9 @@ class ColorScheme
         active = [nil]
         min_start_gap = [nil]
         all.each do |scheme|
+            #update all schemes to not active
+            update(scheme.id,'active','no')
+            #find scheme most recently covered by active criteria
             if compare_active_criteria(now,scheme.active_criteria)
                 active_start_num = Time.new(now_year,now_month,now_day,scheme.active_criteria.match(/\d\d:\d\d/)[0])
                 start_gap = now-active_start_num
@@ -102,6 +105,10 @@ class ColorScheme
                 end
             else
             end
+        end
+        #update found scheme to active in db
+        if !active[0].nil?
+            update(active[0].id,'active','yes')
         end
         active[0]
     end
@@ -185,7 +192,7 @@ class ColorScheme
             boole = false
         when 'y','yes'
             boole = true
-        else
+        when true,false
             boole = overwrite_prompt
         end
         boole
