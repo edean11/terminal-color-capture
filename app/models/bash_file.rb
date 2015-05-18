@@ -50,12 +50,15 @@ class BashFile
         cwd = Dir.getwd
         c_string="\n\nalias COLOR=\"#{cwd}/activate;"+
             ". ~/.bash_profile\""
+        #create DEFAULT_COLOR alias
+        dc_string="\n\nalias DEFAULT_COLOR=\"#{cwd}/default;"+
+            ". ~/.bash_profile\""
         if !(bash_file.include? "original_export PS1") && !(bash_file.include? "alias COLOR")
-            File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{bash_reload}#{c_string}" }
+            File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{bash_reload}#{c_string}#{dc_string}" }
         elsif !(bash_file.include? "original_export PS1")
             File.open(bash_path, "w") {|file| file.puts "#{new_bash}" }
         elsif !(bash_file.include? "alias COLOR")
-            File.open(bash_path, "w") {|file| file.puts "#{bash_file}#{bash_reload}#{c_string}" }
+            File.open(bash_path, "w") {|file| file.puts "#{bash_file}#{bash_reload}#{c_string}#{dc_string}" }
         end
     end
 

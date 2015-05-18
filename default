@@ -10,10 +10,4 @@ Dir.chdir("#{full_path}")
 Dir["./app/**/*.rb"].each{|f| require f}
 Dir["./lib/*.rb"].each{|f| require f}
 
-active = ColorScheme.determine_active
-if !active.nil?
-    ColorScheme.activate(active.text_color,active.background_color,active.text_format,active.overwrite_prompt)
-else
-    puts "No Color Schemes found for current time, switching to default..."
-    BashFile.default
-end
+BashFile.default
