@@ -54,7 +54,7 @@ class EditExistingColorSchemeTest < MiniTest::Test
     def test_initial_table_output_with_schemes
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
@@ -78,7 +78,7 @@ class EditExistingColorSchemeTest < MiniTest::Test
     def test_invalid_color_scheme_chosen
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
@@ -104,7 +104,7 @@ class EditExistingColorSchemeTest < MiniTest::Test
     def test_invalid_color_scheme_property_chosen
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
@@ -134,7 +134,7 @@ class EditExistingColorSchemeTest < MiniTest::Test
     def test_correct_question_asked
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
@@ -162,7 +162,7 @@ class EditExistingColorSchemeTest < MiniTest::Test
     def test_invalid_question_response
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
@@ -192,7 +192,7 @@ class EditExistingColorSchemeTest < MiniTest::Test
     def test_change_in_db
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt

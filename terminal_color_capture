@@ -69,7 +69,7 @@ choose do |menu|
 
   menu.choice(:CreateANewColorScheme) {
     color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all_new_scheme
-    new_color_scheme = ColorScheme.save(color_scheme_answer_arr,false)
+    new_color_scheme = ColorScheme.new.save(color_scheme_answer_arr,false)
     #Create New Color Scheme in DB
     ColorSchemeController.add(new_color_scheme)
   }
