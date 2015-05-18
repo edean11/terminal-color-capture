@@ -54,7 +54,7 @@ class DeleteExistingColorSchemeTest < MiniTest::Test
     def test_initial_table_output_with_schemes
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
@@ -78,7 +78,7 @@ class DeleteExistingColorSchemeTest < MiniTest::Test
     def test_invalid_name_chosen
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
@@ -104,7 +104,7 @@ class DeleteExistingColorSchemeTest < MiniTest::Test
     def test_confirmation_question
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
@@ -130,7 +130,7 @@ class DeleteExistingColorSchemeTest < MiniTest::Test
     def test_delete_chosen_item_from_db
         shell_output = ""
         expected = ""
-        color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
+        color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
         ColorSchemeController.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt

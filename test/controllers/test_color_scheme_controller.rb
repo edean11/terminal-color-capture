@@ -4,8 +4,8 @@ describe ColorSchemeController do
 
     describe ".add" do
         before do
-            color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
-            color_scheme2 = ColorScheme.new.save([nil,'test2','black','none','blue','10:00-11:00','false'],false)
+            color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
+            color_scheme2 = ColorScheme.new([nil,'test2','black','none','blue','10:00-11:00','false'],false)
             ColorSchemeController.add(color_scheme1)
             ColorSchemeController.add(color_scheme2)
         end
@@ -23,9 +23,9 @@ describe ColorSchemeController do
         end
         describe "if there are color schemes in the database" do
             before do
-                color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
-                color_scheme2 = ColorScheme.new.save([nil,'test2','black','none','blue','10:00-11:00','false'],false)
-                color_scheme3 = ColorScheme.new.save([nil,'test3','red','bold','blue','10:00-11:00','false'],false)
+                color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
+                color_scheme2 = ColorScheme.new([nil,'test2','black','none','blue','10:00-11:00','false'],false)
+                color_scheme3 = ColorScheme.new([nil,'test3','red','bold','blue','10:00-11:00','false'],false)
                 ColorSchemeController.add(color_scheme1)
                 ColorSchemeController.add(color_scheme2)
                 ColorSchemeController.add(color_scheme3)
@@ -47,8 +47,8 @@ describe ColorSchemeController do
         end
         describe "if there are color schemes in the database" do
             before do
-                color_scheme1 = ColorScheme.new.save([nil,'test','blue','none','red','11:00-23:00','true'],false)
-                color_scheme2 = ColorScheme.new.save([nil,'test2','black','none','blue','10:00-11:00','false'],false)
+                color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
+                color_scheme2 = ColorScheme.new([nil,'test2','black','none','blue','10:00-11:00','false'],false)
                 ColorSchemeController.add(color_scheme1)
                 ColorSchemeController.add(color_scheme2)
             end

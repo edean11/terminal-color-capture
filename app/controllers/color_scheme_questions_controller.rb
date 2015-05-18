@@ -8,37 +8,37 @@ class ColorSchemeQuestionsController
 
     def self.ask_name
         ask("What would you like to call this color scheme?",
-            ColorScheme.new.validate_name){|scheme_name|
+            ColorScheme.validate_name){|scheme_name|
         }
     end
 
     def self.ask_text_color
         ask("What color text would you like it to have?",
-            ColorScheme.new.validate_color){|q|
+            ColorScheme.validate_color){|q|
         }
     end
 
     def self.ask_text_format
         ask("What format would you like it to have? (i.e. none, bold)",
-            ColorScheme.new.validate_format){|q|
+            ColorScheme.validate_format){|q|
         }
     end
 
     def self.ask_background_color
         ask("What background color would you like?",
-            ColorScheme.new.validate_color){|q|
+            ColorScheme.validate_color){|q|
         }
     end
 
     def self.ask_active_criteria_1
         ask("When should it begin being active? (hh:mm)",
-            ColorScheme.new.validate_active_criteria){|q|
+            ColorScheme.validate_active_criteria){|q|
         }
     end
 
     def self.ask_active_criteria_2
         ask("When should it end? (hh:mm)",
-            ColorScheme.new.validate_active_criteria){|q|
+            ColorScheme.validate_active_criteria){|q|
         }
     end
 
@@ -50,7 +50,7 @@ class ColorSchemeQuestionsController
 
     def self.ask_overwrite_prompt
         ask("Would you like this scheme to overwrite the existing prompt color(s) for the given time period?",
-            ColorScheme.new.validate_overwrite_prompt){|q|
+            ColorScheme.validate_overwrite_prompt){|q|
         }
     end
 
@@ -94,13 +94,13 @@ class ColorSchemeQuestionsController
 
     def self.ask_which_color_scheme_change
         ask("Which color scheme would you like to edit?",
-            ColorScheme.new.validate_existing_color_scheme_choice){|q|
+            ColorScheme.validate_existing_color_scheme_choice){|q|
         }
     end
 
     def self.ask_which_property_change
         ask("Which property would you like to edit?",
-            ColorScheme.new.validate_color_scheme_property_choice){|q|
+            ColorScheme.validate_color_scheme_property_choice){|q|
         }
     end
 

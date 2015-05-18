@@ -6,19 +6,33 @@ class ColorScheme
     attr_accessor :record,:id,:name,:text_color,:text_format,
     :background_color,:active_criteria,:overwrite_prompt,:active,:created_at
 
+    def initialize(record,has_id)
+        if has_id
+            self.id = record[0]
+            self.active = record[7]
+            self.created_at = record[8]
+        end
+        self.name = record[1]
+        self.text_color = record[2]
+        self.text_format = record[3]
+        self.background_color = record[4]
+        self.active_criteria = record[5]
+        self.overwrite_prompt = record[6]
+    end
+
     ################
     ## Validation ##
     ################
 
-    def validate_name
+    def self.validate_name
         String
     end
 
-    def validate_format
+    def self.validate_format
         accepted_formats = ['none','bold','underline']
     end
 
-    def validate_color
+    def self.validate_color
         accepted_colors = ['black','red','green','yellow','blue','magenta','cyan','white']
         (0..255).each do |num|
             accepted_colors << num
@@ -26,15 +40,15 @@ class ColorScheme
         accepted_colors
     end
 
-    def validate_active_criteria
+    def self.validate_active_criteria
         Time
     end
 
-    def validate_overwrite_prompt
+    def self.validate_overwrite_prompt
         accepted_responses = ['y','yes','n','no']
     end
 
-    def validate_existing_color_scheme_choice
+    def self.validate_existing_color_scheme_choice
         all_schemes = ColorScheme.all()
         accepted_responses = []
         all_schemes.each do |color_scheme|
@@ -43,7 +57,7 @@ class ColorScheme
         accepted_responses
     end
 
-    def validate_color_scheme_property_choice
+    def self.validate_color_scheme_property_choice
         accepted_responses = ['name','NAME','text color','COLOR','color','text format','FORMAT',
             'format','background color','BG_COLOR','bg_color','active criteria','ACTIVE_CRITERIA',
             'ACTIVE CRITERIA','overwrite prompt','PROMPT', 'prompt']
@@ -53,31 +67,31 @@ class ColorScheme
     ## Save Properties ##
     #####################
 
-    def save(record,has_id)
-        color_scheme = ColorScheme.new()
-        if has_id
-            color_scheme.id = record[0]
-            @id = record[0]
-            color_scheme.active = record[7]
-            @active = record[7]
-            color_scheme.created_at = record[8]
-            @created_at = record[8]
-        end
-        color_scheme.name = record[1]
-        @name = record[1]
-        color_scheme.text_color = record[2]
-        @text_color = record[2]
-        color_scheme.text_format = record[3]
-        @text_format = record[3]
-        color_scheme.background_color = record[4]
-        @background_color = record[4]
-        color_scheme.active_criteria = record[5]
-        @active_criteria = record[5]
-        color_scheme.overwrite_prompt = record[6]
-        @active_criteria = record[6]
+    # def save(record,has_id)
+    #     color_scheme = ColorScheme.new()
+    #     if has_id
+    #         color_scheme.id = record[0]
+    #         @id = record[0]
+    #         color_scheme.active = record[7]
+    #         @active = record[7]
+    #         color_scheme.created_at = record[8]
+    #         @created_at = record[8]
+    #     end
+    #     color_scheme.name = record[1]
+    #     @name = record[1]
+    #     color_scheme.text_color = record[2]
+    #     @text_color = record[2]
+    #     color_scheme.text_format = record[3]
+    #     @text_format = record[3]
+    #     color_scheme.background_color = record[4]
+    #     @background_color = record[4]
+    #     color_scheme.active_criteria = record[5]
+    #     @active_criteria = record[5]
+    #     color_scheme.overwrite_prompt = record[6]
+    #     @active_criteria = record[6]
 
-        color_scheme
-    end
+    #     color_scheme
+    # end
 
     ####################
     ## Get Properties ##
@@ -85,7 +99,8 @@ class ColorScheme
 
     def self.all
         Database.execute("SELECT * FROM color_schemes").map do |row|
-            ColorScheme.new.save(row,true)
+            color_scheme = ColorScheme.new(row,true)
+            color_scheme
         end
     end
 
@@ -128,13 +143,15 @@ class ColorScheme
     #needs testing##
     def self.match_prop(prop,val)
         Database.execute("SELECT * FROM color_schemes WHERE "+prop+" = '"+val+"'").map do |row|
-            ColorScheme.new.save(row,true)
+            color_scheme = ColorScheme.new(row,true)
+            color_scheme
         end
     end
 
     def self.get_props(id)
         Database.execute("SELECT * FROM color_schemes WHERE id = '"+id+"'").map do |row|
-            ColorScheme.new.save(row,true)
+            color_scheme = ColorScheme.new(row,true)
+            color_scheme
         end
     end
     #################
@@ -175,6 +192,23 @@ class ColorScheme
     ###########################
     ## Activate Color Scheme ##
     ###########################
+
+    def self.activate(color_key,bg_color_key,format,overwrite_prompt)
+        bash_path = ENV['HOME'] + '/.bash_profile'
+        bash_file = File.read(bash_path)
+        if overwrite_prompt
+            bash_formatted = format_bash_file_overwrite_prompt(bash_file,color_key,bg_color_key,format)
+            File.open(bash_path, "w"){|file| file.puts bash_formatted }
+        elsif !overwrite_prompt
+            bash_formatted = format_bash_file_no_overwrite(bash_file,color_key,bg_color_key,format)
+            File.open(bash_path, "w"){|file| file.puts bash_formatted }
+        else
+            puts "error populating bash profile"
+        end
+        system("tcc_BASHRELOAD")
+    end
+
+    private
 
     def self.translate_color_keyword(color)
         key_arr = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"]
@@ -234,21 +268,6 @@ class ColorScheme
             bash_formatted = bash_file.gsub(/^export PS1\s*=\s*\".*\"/,
                 "export PS1=\"\\\[$(tput sgr0)\\\]#{original_PS1_equals}#{create_PS1_string(color_key,bg_color_key,format)}\"")
             bash_formatted
-    end
-
-    def self.activate(color_key,bg_color_key,format,overwrite_prompt)
-        bash_path = ENV['HOME'] + '/.bash_profile'
-        bash_file = File.read(bash_path)
-        if overwrite_prompt
-            bash_formatted = format_bash_file_overwrite_prompt(bash_file,color_key,bg_color_key,format)
-            File.open(bash_path, "w"){|file| file.puts bash_formatted }
-        elsif !overwrite_prompt
-            bash_formatted = format_bash_file_no_overwrite(bash_file,color_key,bg_color_key,format)
-            File.open(bash_path, "w"){|file| file.puts bash_formatted }
-        else
-            puts "error populating bash profile"
-        end
-        system("tcc_BASHRELOAD")
     end
 
 end
