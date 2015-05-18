@@ -1,7 +1,7 @@
 require 'highline/import'
 
 class ColorSchemeController
-    def self.index
+    def index
         str = ""
         if ColorScheme.count > 0
             color_schemes = ColorScheme.all
@@ -14,7 +14,7 @@ class ColorSchemeController
         str
     end
 
-    def self.table
+    def table
         @@columns = 6
         @@table_length = 114
         @@column_length = @@table_length/@@columns
@@ -45,7 +45,7 @@ class ColorSchemeController
         str
     end
 
-    def self.add(color_scheme)
+    def add(color_scheme)
         ColorScheme.create(color_scheme.name,color_scheme.text_color,
             color_scheme.text_format,color_scheme.background_color,
             color_scheme.active_criteria,color_scheme.overwrite_prompt)

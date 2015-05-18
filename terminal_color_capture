@@ -71,10 +71,10 @@ choose do |menu|
     color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all_new_scheme
     new_color_scheme = ColorScheme.new(color_scheme_answer_arr,false)
     #Create New Color Scheme in DB
-    ColorSchemeController.add(new_color_scheme)
+    ColorSchemeController.new.add(new_color_scheme)
   }
   menu.choice(:ActivateExistingColorScheme) {
-    say(ColorSchemeController.table)
+    say(ColorSchemeController.new.table)
     if ColorScheme.count > 0
         activate_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_activate
         if !activate_scheme.empty?
@@ -85,7 +85,7 @@ choose do |menu|
     end
   }
   menu.choice(:EditExistingColorScheme) {
-    say(ColorSchemeController.table)
+    say(ColorSchemeController.new.table)
     if ColorScheme.count > 0
         change_val_arr = ColorSchemeQuestionsController.ask_all_change_scheme
         #Update Color Scheme in DB
@@ -93,7 +93,7 @@ choose do |menu|
     end
   }
   menu.choice(:DeleteExistingColorScheme) {
-    say(ColorSchemeController.table)
+    say(ColorSchemeController.new.table)
     if ColorScheme.count > 0
         delete_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_delete
         if !delete_scheme.empty?

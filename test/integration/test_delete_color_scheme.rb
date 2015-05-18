@@ -55,7 +55,7 @@ class DeleteExistingColorSchemeTest < MiniTest::Test
         shell_output = ""
         expected = ""
         color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
-        ColorSchemeController.add(color_scheme1)
+        ColorSchemeController.new.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "4"
@@ -79,7 +79,7 @@ class DeleteExistingColorSchemeTest < MiniTest::Test
         shell_output = ""
         expected = ""
         color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
-        ColorSchemeController.add(color_scheme1)
+        ColorSchemeController.new.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "4"
@@ -105,7 +105,7 @@ class DeleteExistingColorSchemeTest < MiniTest::Test
         shell_output = ""
         expected = ""
         color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
-        ColorSchemeController.add(color_scheme1)
+        ColorSchemeController.new.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "4"
@@ -131,7 +131,7 @@ class DeleteExistingColorSchemeTest < MiniTest::Test
         shell_output = ""
         expected = ""
         color_scheme1 = ColorScheme.new([nil,'test','blue','none','red','11:00-23:00','true'],false)
-        ColorSchemeController.add(color_scheme1)
+        ColorSchemeController.new.add(color_scheme1)
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "4"
@@ -153,7 +153,7 @@ class DeleteExistingColorSchemeTest < MiniTest::Test
             shell_output = pipe.read
         end
         str = "No color schemes found. Add a color scheme.\n"
-        assert_equal str,ColorSchemeController.index
+        assert_equal str,ColorSchemeController.new.index
     end
 
 end
