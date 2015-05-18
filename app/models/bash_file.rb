@@ -59,5 +59,14 @@ class BashFile
         end
     end
 
+    def self.default
+        bash_path = ENV['HOME'] + '/.bash_profile'
+        bash_file = File.read(bash_path)
+        default_PS1 = /^#original_export\s*PS1\s*=\s*\".*\"/.match(bash_file)[0]
+        default_formatted_PS1 = /export\s*PS1\s*=\s*\".*\"/.match(default_PS1)[0]
+        default_formatted = bash_file.gsub(/^export PS1\s*=\s*\".*\"/,default_formatted_PS1)
+        File.open(bash_path, "w") {|file| file.puts "#{default_formatted}" }
+    end
+
 end
 
