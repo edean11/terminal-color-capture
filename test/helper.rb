@@ -29,9 +29,10 @@ def menu_prompt
     "3. EditExistingColorScheme\n"+
     "4. DeleteExistingColorScheme\n"+
     "5. CreateLSColorProfile\n"+
-    "6. ChangeLSColorProfile\n"+
-    "7. DeleteLSColorProfile\n"+
-    "8. Exit\n"+
+    "6. ActivateLSColorProfile\n"+
+    "7. EditLSColorProfile\n"+
+    "8. DeleteLSColorProfile\n"+
+    "9. Exit\n"+
     "Hello, what would you like to do?\n"
 end
 

@@ -8,9 +8,9 @@ class BasicUsageTest < MiniTest::Test
         IO.popen('././terminal_color_capture','r+') do |pipe|
             expected << menu_prompt
             pipe.puts "21"
-            string = "You must choose one of [1, 2, 3, 4, 5, 6, 7, 8, "+
+            string = "You must choose one of [1, 2, 3, 4, 5, 6, 7, 8, 9, "+
             "CreateANewColorScheme, ActivateExistingColorScheme, EditExistingColorScheme, "+
-            "DeleteExistingColorScheme, CreateLSColorProfile, ChangeLSColorProfile, "+
+            "DeleteExistingColorScheme, CreateLSColorProfile, ActivateLSColorProfile, EditLSColorProfile, "+
             "DeleteLSColorProfile, Exit].\n?"
             expected << string.chomp + '  '
             pipe.close_write

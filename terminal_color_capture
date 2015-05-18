@@ -148,7 +148,15 @@ choose do |menu|
         }
     say("New ls color profile created successfully!\n")
   }
-  menu.choice(:ChangeLSColorProfile) {
+  menu.choice(:ActivateLSColorProfile) {
+    #show all existng ls color profiles
+    edit_profile = ask("Which profile would you like to edit?")
+    if !edit_profile.empty?
+        #run "CreateLSColorProfile" menu, replacing existing variables
+        say("LS Color profile edited successfully!\n")
+    end
+  }
+  menu.choice(:EditLSColorProfile) {
     #show all existng ls color profiles
     edit_profile = ask("Which profile would you like to edit?")
     if !edit_profile.empty?
