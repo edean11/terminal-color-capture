@@ -3,22 +3,22 @@ require 'Date'
 
 class ColorScheme
 
-    attr_accessor :id,:name,:text_color,:text_format,
+    attr_accessor :record,:id,:name,:text_color,:text_format,
     :background_color,:active_criteria,:overwrite_prompt,:active,:created_at
 
     ################
     ## Validation ##
     ################
 
-    def self.validate_name
+    def validate_name
         String
     end
 
-    def self.validate_format
+    def validate_format
         accepted_formats = ['none','bold','underline']
     end
 
-    def self.validate_color
+    def validate_color
         accepted_colors = ['black','red','green','yellow','blue','magenta','cyan','white']
         (0..255).each do |num|
             accepted_colors << num
@@ -26,16 +26,16 @@ class ColorScheme
         accepted_colors
     end
 
-    def self.validate_active_criteria
+    def validate_active_criteria
         Time
     end
 
-    def self.validate_overwrite_prompt
+    def validate_overwrite_prompt
         accepted_responses = ['y','yes','n','no']
     end
 
-    def self.validate_existing_color_scheme_choice
-        all_schemes = all()
+    def validate_existing_color_scheme_choice
+        all_schemes = ColorScheme.all()
         accepted_responses = []
         all_schemes.each do |color_scheme|
             accepted_responses << color_scheme.name
@@ -43,7 +43,7 @@ class ColorScheme
         accepted_responses
     end
 
-    def self.validate_color_scheme_property_choice
+    def validate_color_scheme_property_choice
         accepted_responses = ['name','NAME','text color','COLOR','color','text format','FORMAT',
             'format','background color','BG_COLOR','bg_color','active criteria','ACTIVE_CRITERIA',
             'ACTIVE CRITERIA','overwrite prompt','PROMPT', 'prompt']
@@ -213,8 +213,18 @@ class ColorScheme
             puts file_without_all_set_colors
         #add PS1
             bash_formatted = file_without_all_set_colors.gsub(/^export PS1\s*=\s*\".*\"/,
-                "export PS1=\"#{create_PS1_string(color_key,bg_color_key,format)}#{existing_PS1_equals}\"\n\n#original_#{existing_PS1}\"")
+                "export PS1=\"#{create_PS1_string(color_key,bg_color_key,format)}#{original_PS1_equals}\"")
         bash_formatted
+    end
+
+    def self.format_bash_file_no_overwrite(bash_file,color_key,bg_color_key,format)
+        #save copy of original PS1
+            original_PS1 = /^#original_export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
+            original_PS1_equals = /[^\"]*/.match(/(?<=").+/.match(original_PS1)[0])
+        #append chosen setaf's and setab's
+            bash_formatted = bash_file.gsub(/^export PS1\s*=\s*\".*\"/,
+                "export PS1=\"\\\[$(tput sgr0)\\\]#{original_PS1_equals}#{create_PS1_string(color_key,bg_color_key,format)}\"")
+            bash_formatted
     end
 
     def self.activate(color_key,bg_color_key,format,overwrite_prompt)
@@ -224,13 +234,7 @@ class ColorScheme
             bash_formatted = format_bash_file_overwrite_prompt(bash_file,color_key,bg_color_key,format)
             File.open(bash_path, "w"){|file| file.puts bash_formatted }
         elsif !overwrite_prompt
-            #save copy of original PS1
-            original_PS1 = /^#original_export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
-            original_PS1_equals = /[^\"]*/.match(/(?<=").+/.match(original_PS1)[0])
-            #format the original
-                #append chosen setaf's and setab's
-                bash_formatted = bash_file.gsub(/^export PS1\s*=\s*\".*\"/,
-                    "export PS1=\"\\\[$(tput sgr0)\\\]#{original_PS1_equals}#{create_PS1_string(color_key,bg_color_key,format)}\"")
+            bash_formatted = format_bash_file_no_overwrite(bash_file,color_key,bg_color_key,format)
             File.open(bash_path, "w"){|file| file.puts bash_formatted }
         else
             puts "error populating bash profile"

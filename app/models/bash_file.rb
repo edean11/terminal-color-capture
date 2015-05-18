@@ -32,7 +32,8 @@ class BashFile
         bash_file = File.read(bash_path)
         new_bash = ""
         #create and/or copy PS1 variable
-        if (bash_file.include? "export PS1")
+        if (bash_file.include? "original_export PS1")
+        elsif (bash_file.include? "export PS1")
             new_bash = copy_PS1(bash_file,bash_path)
         else
             str = "export PS1=\"\s-\v\$ \"\n"
@@ -40,9 +41,12 @@ class BashFile
             new_bash = copy_PS1(bash_file,bash_path)
         end
         #create COLOR alias
-        c_string="alias COLOR=\"~/Desktop/Code/NSS/ruby_projects/terminal-color-capture/terminal_color_capture"+
-            ";. ~/.bash_profile\""
-        File.open(bash_path, "w") {|file| file.puts "#{new_bash}\n\n#{c_string}" }
+        c_string = ""
+        if !(bash_file.include? "alias COLOR")
+            c_string="\n\nalias COLOR=\"~/Desktop/Code/NSS/ruby_projects/terminal-color-capture/terminal_color_capture"+
+                ";. ~/.bash_profile\""
+        end
+        File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{c_string}" }
     end
 
 end
