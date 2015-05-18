@@ -78,8 +78,8 @@ choose do |menu|
     if ColorScheme.count > 0
         activate_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_activate
         if !activate_scheme.empty?
-            ColorScheme.activate('1','12','bold',true)
-            #active = ColorScheme.determine_active
+            scheme = ColorScheme.get_props(activate_scheme)[0]
+            ColorScheme.activate(scheme.text_color,scheme.background_color,scheme.text_format,scheme.overwrite_prompt)
             say("Color scheme activated successfully!\n")
         end
     end

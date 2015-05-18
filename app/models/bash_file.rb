@@ -44,16 +44,17 @@ class BashFile
         bash_path = ENV['HOME'] + '/.bash_profile'
         bash_file = File.read(bash_path)
         new_bash = create_new_bash_file(bash_file,bash_path)
+        #create BASH_RELOAD alias
+        bash_reload = "\n\nalias BASH_RELOAD=\". ~/.bash_profile\""
         #create COLOR alias
-        c_string = ""
-        c_string="\n\nalias COLOR=\"~/Desktop/Code/NSS/ruby_projects/terminal-color-capture/terminal_color_capture"+
-            ";. ~/.bash_profile\""
+        c_string="\n\nalias COLOR=\"~/Desktop/Code/NSS/ruby_projects/terminal-color-capture/activate;"+
+            ". ~/.bash_profile\""
         if !(bash_file.include? "original_export PS1") && !(bash_file.include? "alias COLOR")
-            File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{c_string}" }
+            File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{bash_reload}#{c_string}" }
         elsif !(bash_file.include? "original_export PS1")
             File.open(bash_path, "w") {|file| file.puts "#{new_bash}" }
         elsif !(bash_file.include? "alias COLOR")
-            File.open(bash_path, "w") {|file| file.puts "#{bash_file}#{c_string}" }
+            File.open(bash_path, "w") {|file| file.puts "#{bash_file}#{bash_reload}#{c_string}" }
         end
     end
 

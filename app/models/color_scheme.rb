@@ -118,7 +118,8 @@ class ColorScheme
         end
     end
 
-    def self.get_props(id)
+    def self.get_props(name)
+        id = get_id(name).to_s
         Database.execute("SELECT * FROM color_schemes WHERE id = '"+id+"'").map do |row|
             color_scheme = ColorScheme.new(row,true)
             color_scheme
@@ -175,18 +176,15 @@ class ColorScheme
         else
             puts "error populating bash profile"
         end
-        system("tcc_BASHRELOAD")
     end
-
-    private
 
     def self.translate_color_keyword(color)
         key_arr = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"]
         key = ""
         if key_arr.include?(color)
-            key << key_arr.index(color)
+            key = key_arr.index(color)
         else
-            key << color
+            key = color
         end
         key
     end
@@ -198,13 +196,13 @@ class ColorScheme
         case color
             when 'x'
             else
-                str << "\\[$(tput setaf #{color_key})\\]"
+                str << "\\[$(tput setaf #{color})\\]"
         end
 
         case bg_color
             when 'x'
             else
-                str << "\\[$(tput setab #{bg_color_key})\\]"
+                str << "\\[$(tput setab #{bg_color})\\]"
         end
 
         case format
@@ -223,7 +221,6 @@ class ColorScheme
             file_without_set_colors = bash_file.gsub(/\\\[\$\(tput seta[b,f] \d+\)\\\]/,'')
             file_without_all_set_colors = file_without_set_colors.gsub(/\\\[\$\(tput sgr0\)\\\]/,'')
             file_with_proper_original = file_without_all_set_colors.gsub(/^#original_export PS1\s*=\s*\"[^"]*/,"#{original_PS1}")
-            puts file_with_proper_original
             formatted_PS1 = /^export PS1\s*=\s*\"[^"]*/.match(file_with_proper_original)[0]
             formatted_PS1_equals = /[^\"]*/.match(/(?<=").+/.match(formatted_PS1)[0])
         #add PS1

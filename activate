@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+Dir.chdir("#{Dir.home}/Desktop/Code/NSS/ruby_projects/terminal-color-capture")
+Dir["./app/**/*.rb"].each{|f| require f}
+Dir["./lib/*.rb"].each{|f| require f}
+
+active = ColorScheme.determine_active
+if active.text_color
+    ColorScheme.activate(active.text_color,active.background_color,active.text_format,active.overwrite_prompt)
+end
