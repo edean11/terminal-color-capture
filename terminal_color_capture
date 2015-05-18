@@ -80,7 +80,7 @@ choose do |menu|
         if !activate_scheme.empty?
             scheme = ColorScheme.get_props(activate_scheme)[0]
             ColorScheme.activate(scheme.text_color,scheme.background_color,scheme.text_format,scheme.overwrite_prompt)
-            say("Color scheme activated successfully!\n")
+            say("Color scheme activated successfully! Use `BASH_RELOAD` to apply changes\n")
         end
     end
   }

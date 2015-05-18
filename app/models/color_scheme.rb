@@ -167,15 +167,28 @@ class ColorScheme
     def self.activate(color_key,bg_color_key,format,overwrite_prompt)
         bash_path = ENV['HOME'] + '/.bash_profile'
         bash_file = File.read(bash_path)
-        if overwrite_prompt
+        if translate_overwrite_prompt(overwrite_prompt)
             bash_formatted = format_bash_file_overwrite_prompt(bash_file,color_key,bg_color_key,format)
             File.open(bash_path, "w"){|file| file.puts bash_formatted }
-        elsif !overwrite_prompt
+        elsif !translate_overwrite_prompt(overwrite_prompt)
             bash_formatted = format_bash_file_no_overwrite(bash_file,color_key,bg_color_key,format)
             File.open(bash_path, "w"){|file| file.puts bash_formatted }
         else
             puts "error populating bash profile"
         end
+    end
+
+    def self.translate_overwrite_prompt(overwrite_prompt)
+        boole = false
+        case overwrite_prompt
+        when 'n','no'
+            boole = false
+        when 'y','yes'
+            boole = true
+        else
+            boole = overwrite_prompt
+        end
+        boole
     end
 
     def self.translate_color_keyword(color)

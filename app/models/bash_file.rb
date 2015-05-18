@@ -47,7 +47,8 @@ class BashFile
         #create BASH_RELOAD alias
         bash_reload = "\n\nalias BASH_RELOAD=\". ~/.bash_profile\""
         #create COLOR alias
-        c_string="\n\nalias COLOR=\"~/Desktop/Code/NSS/ruby_projects/terminal-color-capture/activate;"+
+        cwd = Dir.getwd
+        c_string="\n\nalias COLOR=\"#{cwd}/activate;"+
             ". ~/.bash_profile\""
         if !(bash_file.include? "original_export PS1") && !(bash_file.include? "alias COLOR")
             File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{bash_reload}#{c_string}" }
