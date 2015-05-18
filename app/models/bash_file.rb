@@ -26,12 +26,8 @@ class BashFile
         bash_with_copy
     end
 
-    def self.prepare
-        create_or_backup()
-        bash_path = ENV['HOME'] + '/.bash_profile'
-        bash_file = File.read(bash_path)
+    def self.create_new_bash_file(bash_file,bash_path)
         new_bash = ""
-        #create and/or copy PS1 variable
         if (bash_file.include? "original_export PS1")
         elsif (bash_file.include? "export PS1")
             new_bash = copy_PS1(bash_file,bash_path)
@@ -40,13 +36,25 @@ class BashFile
             File.open(bash_path, "w") {|file| file.puts "#{bash_file}\n\n#{str}" }
             new_bash = copy_PS1(bash_file,bash_path)
         end
+        new_bash
+    end
+
+    def self.prepare
+        create_or_backup()
+        bash_path = ENV['HOME'] + '/.bash_profile'
+        bash_file = File.read(bash_path)
+        new_bash = create_new_bash_file(bash_file,bash_path)
         #create COLOR alias
         c_string = ""
-        if !(bash_file.include? "alias COLOR")
-            c_string="\n\nalias COLOR=\"~/Desktop/Code/NSS/ruby_projects/terminal-color-capture/terminal_color_capture"+
-                ";. ~/.bash_profile\""
+        c_string="\n\nalias COLOR=\"~/Desktop/Code/NSS/ruby_projects/terminal-color-capture/terminal_color_capture"+
+            ";. ~/.bash_profile\""
+        if !(bash_file.include? "original_export PS1") && !(bash_file.include? "alias COLOR")
+            File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{c_string}" }
+        elsif !(bash_file.include? "original_export PS1")
+            File.open(bash_path, "w") {|file| file.puts "#{new_bash}" }
+        elsif !(bash_file.include? "alias COLOR")
+            File.open(bash_path, "w") {|file| file.puts "#{bash_file}#{c_string}" }
         end
-        File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{c_string}" }
     end
 
 end

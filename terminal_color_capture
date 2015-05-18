@@ -65,7 +65,7 @@ end
 
 choose do |menu|
   menu.prompt = "Hello, what would you like to do?\n"
-  #BashFile.prepare
+  BashFile.prepare
 
   menu.choice(:CreateANewColorScheme) {
     color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all_new_scheme
