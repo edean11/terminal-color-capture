@@ -44,6 +44,16 @@ class BashFile
         bash_path = ENV['HOME'] + '/.bash_profile'
         bash_file = File.read(bash_path)
         new_bash = create_new_bash_file(bash_file,bash_path)
+        #activate CLI Colors
+        cli = ""
+        if !bash_file.include? "^export\s+CLICOLOR\*=\s*1"
+            cli << "\nexport CLICOLOR=1"
+        end
+        #create default ls colors export
+        ls_colors = ""
+        if !bash_file.include? "^export\s+LSCOLORS\*=\s*"
+            ls_colors << "\nexport LSCOLORS=GxFxCxDxBxegedabagaced"
+        end
         #create BASH_RELOAD alias
         bash_reload = "\n\nalias BASH_RELOAD=\". ~/.bash_profile\""
         #create COLOR alias
@@ -54,11 +64,11 @@ class BashFile
         dc_string="\n\nalias DEFAULT_COLOR=\"#{cwd}/default;"+
             ". ~/.bash_profile\""
         if !(bash_file.include? "original_export PS1") && !(bash_file.include? "alias COLOR")
-            File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{bash_reload}#{c_string}#{dc_string}" }
+            File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{cli}#{ls_colors}#{bash_reload}#{c_string}#{dc_string}" }
         elsif !(bash_file.include? "original_export PS1")
-            File.open(bash_path, "w") {|file| file.puts "#{new_bash}" }
+            File.open(bash_path, "w") {|file| file.puts "#{new_bash}#{cli}#{ls_colors}" }
         elsif !(bash_file.include? "alias COLOR")
-            File.open(bash_path, "w") {|file| file.puts "#{bash_file}#{bash_reload}#{c_string}#{dc_string}" }
+            File.open(bash_path, "w") {|file| file.puts "#{bash_file}#{cli}#{ls_colors}#{bash_reload}#{c_string}#{dc_string}" }
         end
     end
 
