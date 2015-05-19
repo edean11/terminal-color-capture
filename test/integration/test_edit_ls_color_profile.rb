@@ -182,7 +182,7 @@ class EditExistingLSColorProfileTest < MiniTest::Test
             pipe.puts "name"
             expected << "What would you like to call this LS Color Profile?\n"
             pipe.puts "chum"
-            expected << "ls color profile changed successfully!\n"
+            expected << "LS Color Profile changed successfully!\n"
             pipe.close_write
             shell_output = pipe.read
         end

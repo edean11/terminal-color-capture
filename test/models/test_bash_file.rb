@@ -14,6 +14,12 @@ describe ColorScheme do
         before do
             BashFile.prepare
         end
+        it "should have a CLICOLOR export" do
+            assert_equal true,(bash_file.include? "export CLICOLOR")
+        end
+        it "should have an LSCOLORS export" do
+            assert_equal true,(bash_file.include? "export LSCOLORS")
+        end
         it "should have an original PS1" do
             assert_equal true,(bash_file.include? "original_export PS1")
         end

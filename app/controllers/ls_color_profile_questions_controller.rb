@@ -52,7 +52,7 @@ class LSColorProfileQuestionsController
 
     def self.ask_which_ls_color_profile_activate
         validation_arr = LSColorProfile.all.map{|ls_profile| ls_profile.name}
-        ask("Which color scheme would you like to temporarily activate?",
+        ask("Which ls color profile would you like to temporarily activate?",
             validation_arr){|q|
             q.confirm = true
         }
@@ -112,7 +112,7 @@ class LSColorProfileQuestionsController
             key_string_arr = [first_answer,second_answer,third_answer]
             new_key_string = LSColorProfile.find_color_keys(key_string_arr)
         end
-        say("Color scheme changed successfully!\n")
+        say("LS Color Profile changed successfully!\n")
         [id,start_ind,new_key_string]
     end
 
