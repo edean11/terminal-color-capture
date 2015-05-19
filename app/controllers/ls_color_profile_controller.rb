@@ -4,7 +4,7 @@ class LSColorProfileController
     def index
         str = ""
         if LSColorProfile.count > 0
-            ls_color_profiles = ColorScheme.all
+            ls_color_profiles = LSColorProfile.all
             ls_color_profiles.each_with_index do |ls_color_profile,index|
                 str << "#{index+1}. #{ls_color_profile.name}\n"
             end
@@ -30,7 +30,7 @@ class LSColorProfileController
             all_profiles.each_with_index do |ls_color_profile, index|
                 str << ls_color_profile.name.center(column_length)+
                     ls_color_profile.key_string.center(column_length)+"\n"
-                str << "-"*(table_length+extra_length)+"\n" if index != all_schemes.length-1
+                str << "-"*(table_length+extra_length)+"\n" if index != all_profiles.length-1
             end
             str << "="*(table_length+extra_length)+"\n"
         else

@@ -105,11 +105,16 @@ choose do |menu|
     end
   }
   menu.choice(:EditLSColorProfile) {
-    #show all existng ls color profiles
-    edit_profile = ask("Which profile would you like to edit?")
-    if !edit_profile.empty?
-        #run "CreateLSColorProfile" menu, replacing existing variables
-        say("LS Color profile edited successfully!\n")
+    say(LSColorProfileController.new.table)
+    if LSColorProfile.count > 0
+        change_val_arr = LSColorProfileQuestionsController.ask_all_change_ls_color_profile
+        #Update LS Color Profile in DB
+        if change_val_arr[1] == 'name'
+            LSColorProfile.update_name(change_val_arr[0],change_val_arr[2])
+        else
+            puts change_val_arr
+            LSColorProfile.update_key_string(change_val_arr[0],change_val_arr[1],change_val_arr[2])
+        end
     end
   }
   menu.choice(:DeleteLSColorProfile) {

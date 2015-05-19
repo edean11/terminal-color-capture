@@ -63,56 +63,57 @@ class LSColorProfileQuestionsController
     ###########################
 
     def self.ask_which_ls_color_profile_change
-        ask("Which color scheme would you like to edit?",
+        ask("Which ls color profile would you like to edit?",
             LSColorProfile.validate_existing_ls_color_profile_choice){|q|
         }
     end
 
     def self.ask_which_property_change
-        ask("Which property would you like to edit?",
+        ask("Which ls property would you like to edit?",
             LSColorProfile.validate_ls_color_profile_property_choice){|q|
         }
     end
 
     def self.ask_chosen_property_question(prop)
         val = []
-        case prop
-            when 'name','NAME'
-                val[0] = 'name'
-                val[1] = ask_name()
-                if val[1].empty?
-                    say("You must enter a name for this color scheme.\n")
-                    exit 0
-                end
-            when 'text color','COLOR','color'
-                val[0] = 'text_color'
-                val[1] = ask_text_color()
-            when 'text format','FORMAT','format'
-                val[0] = 'text_format'
-                val[1] = ask_text_format()
-            when 'background color','BG_COLOR','bg_color'
-                val[0] = 'background_color'
-                val[1] = ask_background_color()
-            when 'active criteria','ACTIVE CRITERIA','ACTIVE_CRITERIA'
-                val[0] = 'active_criteria'
-                val[1] = ask_active_criteria()
-            when 'overwrite prompt','PROMPT','prompt'
-                val[0] = 'overwrite_prompt'
-                val[1] = ask_overwrite_prompt()
+        val[0] = prop.downcase
+        if val[0] == 'name'
+            val[1] = ask("What would you like to call this LS Color Profile?",
+                String){|scheme_name|
+            }
+            if val[1].empty?
+                say("You must enter a name for this ls color profile.\n")
+                exit
+            end
+        else
+            val[1] = ask("What text color,format,background color would you like for #{val[0]}?\n"+
+                "Use 'x' for default. Enter comma or space separated list.")
+            LSColorProfile.validate_ls_input(val[1])
         end
         val
     end
 
-    def self.ask_all_change_scheme
+    def self.ask_all_change_ls_color_profile
         id = ""
         ls_color_profile = ask_which_ls_color_profile_change
         id = LSColorProfile.get_id(ls_color_profile)
         property_unformatted = ask_which_property_change
         val_arr = ask_chosen_property_question(property_unformatted)
-        property = val_arr[0]
+        start_ind = LSColorProfile.find_property_key_string_index(val_arr[0])
         val = val_arr[1]
+        new_key_string = ""
+        if val_arr[0] == 'name'
+            new_key_string = val
+        else
+            first_answer = val.partition(/\s*[,\s]\s*/)[0]
+            last_answers = (val.partition(/\s*[,\s]\s*/)[2]).partition(/\s*[,\s]\s*/)
+            second_answer = last_answers[0]
+            third_answer = last_answers[2]
+            key_string_arr = [first_answer,second_answer,third_answer]
+            new_key_string = LSColorProfile.find_color_keys(key_string_arr)
+        end
         say("Color scheme changed successfully!\n")
-        [id,property,val]
+        [id,start_ind,new_key_string]
     end
 
     #############################
