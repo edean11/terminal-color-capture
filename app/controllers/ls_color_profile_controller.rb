@@ -9,7 +9,7 @@ class LSColorProfileController
                 str << "#{index+1}. #{ls_color_profile.name}\n"
             end
         else
-            str << "No color schemes found. Add a color scheme.\n"
+            str << "No ls color profiles found. Add an ls color profile.\n"
         end
         str
     end

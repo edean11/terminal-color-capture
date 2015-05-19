@@ -151,4 +151,12 @@ class LSColorProfile
         Database.execute(stmt)
     end
 
+    ###################
+    ## Delete Record ##
+    ###################
+
+    def self.delete(id)
+        Database.execute("DELETE FROM ls_color_profiles WHERE id = '"+id.to_s+"'")
+    end
+
 end

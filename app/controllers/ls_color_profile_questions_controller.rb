@@ -122,7 +122,7 @@ class LSColorProfileQuestionsController
 
     def self.ask_which_ls_color_profile_delete
         validation_arr = LSColorProfile.all.map{|ls_color_profile| ls_color_profile.name}
-        ask("Which color scheme would you like to delete?",
+        ask("Which ls color profile would you like to delete?",
             validation_arr){|q|
             q.confirm = true
         }
