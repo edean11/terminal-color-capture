@@ -47,6 +47,14 @@ class LSColorProfile
         Database.execute("SELECT id FROM ls_color_profiles WHERE name = '"+name+"'")[0][0]
     end
 
+    def self.get_props(name)
+        id = get_id(name).to_s
+        Database.execute("SELECT * FROM ls_color_profiles WHERE id = '"+id+"'").map do |row|
+            ls_color_profile = LSColorProfile.new(row,true)
+            ls_color_profile
+        end
+    end
+
     #######################
     ## Format Key String ##
     #######################
@@ -95,6 +103,18 @@ class LSColorProfile
         key_string = arr[1]
         Database.execute("INSERT into ls_color_profiles "+
             "(name,key_string) VALUES (?,?)",[name,key_string])
+    end
+
+    #####################
+    ## Activate Record ##
+    #####################
+
+    def self.activate(key_string)
+        bash_path = ENV['HOME'] + '/.bash_profile'
+        bash_file = File.read(bash_path)
+        #replace LSCOLORS export with new export
+        new_bash_file = bash_file.gsub(/^export LSCOLORS\s*=\s*[a-hA-HxX]*/,"export LSCOLORS="+key_string)
+        File.open(bash_path, "w"){|file| file.puts new_bash_file }
     end
 
     #################

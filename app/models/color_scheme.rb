@@ -239,7 +239,9 @@ class ColorScheme
         original_PS1 = /^#original_export PS1\s*=\s*\"[^"]*/.match(bash_file)[0]
         #remove setaf's and setab's from bash_file
             file_without_set_colors = bash_file.gsub(/\\\[\$\(tput seta[b,f] \d+\)\\\]/,'')
-            file_without_all_set_colors = file_without_set_colors.gsub(/\\\[\$\(tput sgr0\)\\\]/,'')
+            removed_bolds = file_without_set_colors.gsub(/\\\[\$\(tput bold\)\\\]/,'')
+            removed_underlines = removed_bolds.gsub(/\\\[\$\(tput smul\)\\\]/,'')
+            file_without_all_set_colors = removed_underlines.gsub(/\\\[\$\(tput sgr0\)\\\]/,'')
             file_with_proper_original = file_without_all_set_colors.gsub(/^#original_export PS1\s*=\s*\"[^"]*/,"#{original_PS1}")
             formatted_PS1 = /^export PS1\s*=\s*\"[^"]*/.match(file_with_proper_original)[0]
             formatted_PS1_equals = /[^\"]*/.match(/(?<=").+/.match(formatted_PS1)[0])
