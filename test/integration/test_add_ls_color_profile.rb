@@ -25,9 +25,13 @@ class CreateLSColorProfileTest < MiniTest::Test
             pipe.puts "5"
             expected << "What would you like to call this LS Color Profile?\n"
             pipe.puts "Test"
-            expected << "What color text would you like directories to have?(use 'x' for default)\n"
-            pipe.puts "Zurple"
-            expected << "You must choose one of [black, red, green, brown, blue, magenta, cyan, light grey, x].\n?  "
+            expected << "What text color,format,background color would you like for directories?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "Zurple,342,$#"
+            expected << "You must enter a comma or space separated list with the format text_color,format,background_color\n"+
+                    "Colors: [x,black,red,green,brown,blue,magenta,cyan,lightgrey] Formats: [none,bold]\n"
+            expected << "What text color,format,background color would you like for directories?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
             pipe.close_write
             shell_output = pipe.read
         end
@@ -42,39 +46,39 @@ class CreateLSColorProfileTest < MiniTest::Test
             pipe.puts "5"
             expected << "What would you like to call this LS Color Profile?\n"
             pipe.puts "Test"
-            expected << "What color text would you like directories to have?"+
-            "(use 'x' for default)\n"
-            pipe.puts "blue"
-            expected << "What color text would you like symbolic links to have?"+
-            "(use 'x' for default)\n"
-            pipe.puts "red"
-            expected << "What color text would you like sockets to have?"+
-            "(use 'x' for default)\n"
-            pipe.puts "green"
-            expected << "What color text would you like pipes to have?"+
-            "(use 'x' for default)\n"
-            pipe.puts "brown"
-            expected << "What color text would you like executables to have?"+
-            "(use 'x' for default)\n"
-            pipe.puts "black"
-            expected << "What color text would you like block specials to have?"+
-            "(use 'x' for default)\n"
-            pipe.puts "x"
-            expected << "What color text would you like character specials to have?"+
-            "(use 'x' for default)\n"
-            pipe.puts "magenta"
-            expected << "What color text would you like executables with setuid bit sets to have?"+
-            "(use 'x' for default)\n"
-            pipe.puts "x"
-            expected << "What color text would you like executables with setguid bit sets to have?"+
-            "(use 'x' for default)\n"
-            pipe.puts "cyan"
-            expected << "What color text would you like directories writable to others,"+
-            " with sticky bit to have?(use 'x' for default)\n"
-            pipe.puts "x"
-            expected << "What color text would you like directories writable to others,"+
-            " without sticky bit to have?(use 'x' for default)\n"
-            pipe.puts "light grey"
+            expected << "What text color,format,background color would you like for directories?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "blue,none,red"
+            expected << "What text color,format,background color would you like for symbolic links?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "red,none,blue"
+            expected << "What text color,format,background color would you like for sockets?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "blue,none,red"
+            expected << "What text color,format,background color would you like for pipes?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "blue,none,red"
+            expected << "What text color,format,background color would you like for executables?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "black,none,red"
+            expected << "What text color,format,background color would you like for block specials?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "x,none,red"
+            expected << "What text color,format,background color would you like for character specials?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "magenta,bold,red"
+            expected << "What text color,format,background color would you like for executables with setuid bit sets?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "x,none,red"
+            expected << "What text color,format,background color would you like for executables with setgid bit sets?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "cyan,none,red"
+            expected << "What text color,format,background color would you like for directories writable to others, with sticky bit?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "x,none,red"
+            expected << "What text color,format,background color would you like for directories writable to others, without sticky bit?\n"+
+            "Use 'x' for default. Enter comma or space separated list.\n"
+            pipe.puts "lightgrey,none,red"
             expected << "New ls color profile created successfully!\n"
             pipe.close_write
             shell_output = pipe.read

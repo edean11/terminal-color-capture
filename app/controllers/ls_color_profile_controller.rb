@@ -3,10 +3,10 @@ require 'highline/import'
 class LSColorProfileController
     def index
         str = ""
-        if ColorScheme.count > 0
-            color_schemes = ColorScheme.all
-            color_schemes.each_with_index do |color_scheme,index|
-                str << "#{index+1}. #{color_scheme.name}\n"
+        if LSColorProfile.count > 0
+            ls_color_profiles = ColorScheme.all
+            ls_color_profiles.each_with_index do |ls_color_profile,index|
+                str << "#{index+1}. #{ls_color_profile.name}\n"
             end
         else
             str << "No color schemes found. Add a color scheme.\n"
@@ -15,39 +15,31 @@ class LSColorProfileController
     end
 
     def table
-        columns = 6
-        table_length = 114
+        columns = 2
+        table_length = 60
         column_length = table_length/columns
-        extra_length = 10
+        extra_length = 2
         str = ""
-        if ColorScheme.count > 0
-            all_schemes = ColorScheme.all
+        if LSColorProfile.count > 0
+            all_profiles = LSColorProfile.all
             str << "="*(table_length+extra_length)+"\n"
-            str << "COLOR SCHEMES".center(table_length+extra_length)+"\n"
+            str << "LS COLOR PROFILES".center(table_length+extra_length)+"\n"
             str << "="*(table_length+extra_length)+"\n"
-            str << "NAME".center(column_length)+"COLOR".center(column_length)+
-                    "FORMAT".center(column_length)+"BG_COLOR".center(column_length)+
-                    "ACTIVE_CRITERIA".center(column_length+extra_length)+"PROMPT".center(column_length)+"\n"
+            str << "NAME".center(column_length)+"KEY STRING".center(column_length)+"\n"
             str << "-"*(table_length+extra_length)+"\n"
-            all_schemes.each_with_index do |color_scheme, index|
-                str << color_scheme.name.center(column_length)+
-                    color_scheme.text_color.center(column_length)+
-                    color_scheme.text_format.center(column_length)+
-                    color_scheme.background_color.center(column_length)+
-                    color_scheme.active_criteria.center(column_length+extra_length)+
-                    color_scheme.overwrite_prompt.center(column_length)+"\n"
+            all_profiles.each_with_index do |ls_color_profile, index|
+                str << ls_color_profile.name.center(column_length)+
+                    ls_color_profile.key_string.center(column_length)+"\n"
                 str << "-"*(table_length+extra_length)+"\n" if index != all_schemes.length-1
             end
             str << "="*(table_length+extra_length)+"\n"
         else
-            str << "No color schemes found. Add a color scheme.\n"
+            str << "No ls color profiles found. Add an ls color profile.\n"
         end
         str
     end
 
-    def add(color_scheme)
-        ColorScheme.create(color_scheme.name,color_scheme.text_color,
-            color_scheme.text_format,color_scheme.background_color,
-            color_scheme.active_criteria,color_scheme.overwrite_prompt)
+    def add(answer_arr)
+        LSColorProfile.create(answer_arr)
     end
 end

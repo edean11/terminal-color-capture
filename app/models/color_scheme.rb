@@ -33,7 +33,7 @@ class ColorScheme
     end
 
     def self.validate_color
-        accepted_colors = ['black','red','green','yellow','blue','magenta','cyan','white']
+        accepted_colors = ['x','black','red','green','yellow','blue','magenta','cyan','white']
         (0..255).each do |num|
             accepted_colors << num
         end

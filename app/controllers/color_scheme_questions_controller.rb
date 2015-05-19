@@ -13,7 +13,7 @@ class ColorSchemeQuestionsController
     end
 
     def self.ask_text_color
-        ask("What color text would you like it to have?",
+        ask("What color text would you like it to have?(use 'x' for default)",
             ColorScheme.validate_color){|q|
         }
     end
@@ -25,7 +25,7 @@ class ColorSchemeQuestionsController
     end
 
     def self.ask_background_color
-        ask("What background color would you like?",
+        ask("What background color would you like?(use 'x' for default)",
             ColorScheme.validate_color){|q|
         }
     end
@@ -69,7 +69,6 @@ class ColorSchemeQuestionsController
         background_color = ask_background_color()
         active_criteria = ask_active_criteria()
         overwrite_prompt = ask_overwrite_prompt()
-        arr = []
         arr = [nil,name,text_color,text_format,background_color,
             active_criteria.to_s,overwrite_prompt]
         say("New color scheme created successfully!\n")
@@ -112,7 +111,7 @@ class ColorSchemeQuestionsController
                 val[1] = ask_name()
                 if val[1].empty?
                     say("You must enter a name for this color scheme.\n")
-                    exit 0
+                    exit
                 end
             when 'text color','COLOR','color'
                 val[0] = 'text_color'

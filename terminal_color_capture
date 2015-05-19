@@ -5,14 +5,6 @@ require 'sqlite3'
 Dir["./app/**/*.rb"].each{|f| require f}
 Dir["./lib/*.rb"].each{|f| require f}
 
-# tput setaf 1
-# tput setab 1
-# tput bold
-# tput reset
-# export TERM=xterm-256color
-# export PS1='\[$(tput setaf 7)\]\u@\[$(tput setaf 2)\]\h:\[$(tput setaf 4)\]'+
-# '\w$(tput setaf 1)\]$(parse_git_branch)\[$(tput sgr0)\] $ '
-
 # LSCOLORS
 # The value of this variable describes what color to use for which attribute when colors
 # are enabled with CLICOLOR.  This string is a concatenation of pairs of the format fb,
@@ -59,10 +51,6 @@ Dir["./lib/*.rb"].each{|f| require f}
 # for regular directories, black foreground and red background for setuid executables,
 # etc.
 
-def accepted_ls_colors
-    ['black','red','green','brown','blue','magenta','cyan','light grey', 'x']
-end
-
 choose do |menu|
   menu.prompt = "Hello, what would you like to do?\n"
   BashFile.prepare
@@ -104,48 +92,8 @@ choose do |menu|
     end
   }
   menu.choice(:CreateLSColorProfile) {
-    ls_name = ask("What would you like to call this LS Color Profile?",
-        String){|scheme_name|
-
-        }
-    if ls_name.empty?
-        say("You must enter a name for this ls color profile.\n")
-        exit 0
-    end
-    directory_color = ask("What color text would you like directories to have?(use 'x' "+
-        "for default)",
-        accepted_ls_colors){|q|
-        }
-    symbolic_link_color = ask("What color text would you like symbolic links to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
-    socket_color = ask("What color text would you like sockets to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
-    pipe_color = ask("What color text would you like pipes to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
-    executable_color = ask("What color text would you like executables to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
-    block_special_color = ask("What color text would you like block specials to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
-    character_special_color = ask("What color text would you like character specials to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
-    executable_setuid_color = ask("What color text would you like executables with setuid bit sets to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
-    executable_setguid_color = ask("What color text would you like executables with setguid bit sets to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
-    others_directory_color = ask("What color text would you like directories writable to others, with sticky bit to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
-    others_directory_sticky_color = ask("What color text would you like directories writable to others, without sticky bit to have?(use 'x' for default)",
-        accepted_ls_colors){|q|
-        }
+    ls_profile_answer_arr = LSColorProfileQuestionsController.ask_all_new_ls_profile
+    LSColorProfileController.new.add(ls_profile_answer_arr)
     say("New ls color profile created successfully!\n")
   }
   menu.choice(:ActivateLSColorProfile) {
