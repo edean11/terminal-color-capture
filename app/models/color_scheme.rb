@@ -100,7 +100,6 @@ class ColorScheme
             #update all schemes to not active
             update(scheme.id,'active','no')
             #find scheme most recently covered by active criteria
-            puts scheme.active_criteria
             if compare_active_criteria(now,scheme.active_criteria)
                 active_start_num = Time.new(now_year,now_month,now_day,scheme.active_criteria.match(/\d\d:\d\d/)[0])
                 start_gap = now-active_start_num
