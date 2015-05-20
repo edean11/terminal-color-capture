@@ -79,8 +79,10 @@ class ColorScheme
         now_year = now.year
         now_month = now.month
         now_day = now.day
-        active_start_num = Time.new(now_year,now_month,now_day,active.match(/\d\d:\d\d/)[0])
-        active_end_num = Time.new(now_year,now_month,now_day,active.match(/\d\d:\d\d/,5)[0])
+        active_start_num = Time.new(now_year,now_month,now_day,active.match(/\d\d/)[0],active.match(/\d\d/,3)[0])
+        active_end_num = Time.new(now_year,now_month,now_day,active.match(/\d\d/,5)[0],active.match(/\d\d/,10)[0])
+        puts active_start_num
+        puts active_end_num
         return now_num.between?(active_start_num,active_end_num)
     end
 
@@ -96,6 +98,7 @@ class ColorScheme
             #update all schemes to not active
             update(scheme.id,'active','no')
             #find scheme most recently covered by active criteria
+            puts scheme.active_criteria
             if compare_active_criteria(now,scheme.active_criteria)
                 active_start_num = Time.new(now_year,now_month,now_day,scheme.active_criteria.match(/\d\d:\d\d/)[0])
                 start_gap = now-active_start_num
