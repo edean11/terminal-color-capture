@@ -5,63 +5,17 @@ require 'sqlite3'
 Dir["./app/**/*.rb"].each{|f| require f}
 Dir["./lib/*.rb"].each{|f| require f}
 
-# LSCOLORS
-# The value of this variable describes what color to use for which attribute when colors
-# are enabled with CLICOLOR.  This string is a concatenation of pairs of the format fb,
-# where f is the foreground color and b is the background color.
-
-# The color designators are as follows:
-
-#    a     black
-#    b     red
-#    c     green
-#    d     brown
-#    e     blue
-#    f     magenta
-#    g     cyan
-#    h     light grey
-#    A     bold black, usually shows up as dark grey
-#    B     bold red
-#    C     bold green
-#    D     bold brown, usually shows up as yellow
-#    E     bold blue
-#    F     bold magenta
-#    G     bold cyan
-#    H     bold light grey; looks like bright white
-#    x     default foreground or background
-
-# Note that the above are standard ANSI colors.  The actual display may differ depending
-# on the color capabilities of the terminal in use.
-
-# The order of the attributes are as follows:
-
-#    1.   directory
-#    2.   symbolic link
-#    3.   socket
-#    4.   pipe
-#    5.   executable
-#    6.   block special
-#    7.   character special
-#    8.   executable with setuid bit set
-#    9.   executable with setgid bit set
-#    10.  directory writable to others, with sticky bit
-#    11.  directory writable to others, without sticky bit
-
-# The default is "exfxcxdxbxegedabagacad", i.e. blue foreground and default background
-# for regular directories, black foreground and red background for setuid executables,
-# etc.
-
 choose do |menu|
   menu.prompt = "Hello, what would you like to do?\n"
   BashFile.prepare
 
-  menu.choice(:CreateANewColorScheme) {
+  menu.choice("Create Color Scheme") {
     color_scheme_answer_arr = ColorSchemeQuestionsController.ask_all_new_scheme
     new_color_scheme = ColorScheme.new(color_scheme_answer_arr,false)
     #Create New Color Scheme in DB
     ColorSchemeController.new.add(new_color_scheme)
   }
-  menu.choice(:ActivateExistingColorScheme) {
+  menu.choice("Activate Color Scheme") {
     say(ColorSchemeController.new.table)
     if ColorScheme.count > 0
         activate_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_activate
@@ -72,7 +26,7 @@ choose do |menu|
         end
     end
   }
-  menu.choice(:EditExistingColorScheme) {
+  menu.choice("Edit Color Scheme") {
     say(ColorSchemeController.new.table)
     if ColorScheme.count > 0
         change_val_arr = ColorSchemeQuestionsController.ask_all_change_scheme
@@ -80,7 +34,7 @@ choose do |menu|
         ColorScheme.update(change_val_arr[0],change_val_arr[1],change_val_arr[2])
     end
   }
-  menu.choice(:DeleteExistingColorScheme) {
+  menu.choice("Delete Color Scheme") {
     say(ColorSchemeController.new.table)
     if ColorScheme.count > 0
         delete_scheme = ColorSchemeQuestionsController.ask_which_color_scheme_delete
@@ -91,12 +45,12 @@ choose do |menu|
         end
     end
   }
-  menu.choice(:CreateLSColorProfile) {
+  menu.choice("Create LS Color Profile") {
     ls_profile_answer_arr = LSColorProfileQuestionsController.ask_all_new_ls_profile
     LSColorProfileController.new.add(ls_profile_answer_arr)
     say("New ls color profile created successfully!\n")
   }
-  menu.choice(:ActivateLSColorProfile) {
+  menu.choice("Activate LS Color Profile") {
     say(LSColorProfileController.new.table)
     if LSColorProfile.count > 0
         activate_profile = LSColorProfileQuestionsController.ask_which_ls_color_profile_activate
@@ -107,7 +61,7 @@ choose do |menu|
         end
     end
   }
-  menu.choice(:EditLSColorProfile) {
+  menu.choice("Edit LS Color Profile") {
     say(LSColorProfileController.new.table)
     if LSColorProfile.count > 0
         change_val_arr = LSColorProfileQuestionsController.ask_all_change_ls_color_profile
@@ -120,7 +74,7 @@ choose do |menu|
         end
     end
   }
-  menu.choice(:DeleteLSColorProfile) {
+  menu.choice("Delete LS Color Profile") {
     say(LSColorProfileController.new.table)
     if LSColorProfile.count > 0
         delete_scheme = LSColorProfileQuestionsController.ask_which_ls_color_profile_delete
@@ -131,7 +85,7 @@ choose do |menu|
         end
     end
   }
-  menu.choice(:Exit){
+  menu.choice("Exit"){
     say("See ya!")
     exit
   }

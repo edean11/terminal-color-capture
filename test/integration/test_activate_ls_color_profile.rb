@@ -16,7 +16,7 @@ class ActivateExistingLSColorProfileTest < MiniTest::Test
         assert_equal expected,shell_output
     end
 
-    def test_invalid_activate_color_scheme
+    def test_activate_color_scheme_questions
         shell_output = ""
         expected = ""
         ls_color_profile1 = [nil,'test','blue','none','black','red','none','blue','green','bold','black',
@@ -36,6 +36,10 @@ class ActivateExistingLSColorProfileTest < MiniTest::Test
             expected << "Which ls color profile would you like to temporarily activate?\n"
             pipe.puts "dsajkh"
             expected << "You must choose one of [test].\n?  "
+            pipe.puts "test"
+            expected << "Are you sure?  "
+            pipe.puts "y"
+            expected << "LS Color Profile activated successfully! Use `BASH_RELOAD` to apply changes\n"
             pipe.close_write
             shell_output = pipe.read
         end

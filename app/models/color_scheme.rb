@@ -35,7 +35,7 @@ class ColorScheme
     def self.validate_color
         accepted_colors = ['x','black','red','green','yellow','blue','magenta','cyan','white']
         (0..255).each do |num|
-            accepted_colors << num
+            accepted_colors << num.to_s
         end
         accepted_colors
     end
@@ -117,14 +117,6 @@ class ColorScheme
         Database.execute("SELECT id FROM color_schemes WHERE name = '"+name+"'")[0][0]
     end
 
-    #needs testing##
-    def self.match_prop(prop,val)
-        Database.execute("SELECT * FROM color_schemes WHERE "+prop+" = '"+val+"'").map do |row|
-            color_scheme = ColorScheme.new(row,true)
-            color_scheme
-        end
-    end
-
     def self.get_props(name)
         id = get_id(name).to_s
         Database.execute("SELECT * FROM color_schemes WHERE id = '"+id+"'").map do |row|
@@ -132,7 +124,6 @@ class ColorScheme
             color_scheme
         end
     end
-    #################
 
     def self.count
         Database.execute("SELECT count(id) from color_schemes")[0][0]

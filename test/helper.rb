@@ -24,14 +24,14 @@ def createColorSchemeRestriction(color_scheme_id,restriction)
 end
 
 def menu_prompt
-    "1. CreateANewColorScheme\n"+
-    "2. ActivateExistingColorScheme\n"+
-    "3. EditExistingColorScheme\n"+
-    "4. DeleteExistingColorScheme\n"+
-    "5. CreateLSColorProfile\n"+
-    "6. ActivateLSColorProfile\n"+
-    "7. EditLSColorProfile\n"+
-    "8. DeleteLSColorProfile\n"+
+    "1. Create Color Scheme\n"+
+    "2. Activate Color Scheme\n"+
+    "3. Edit Color Scheme\n"+
+    "4. Delete Color Scheme\n"+
+    "5. Create LS Color Profile\n"+
+    "6. Activate LS Color Profile\n"+
+    "7. Edit LS Color Profile\n"+
+    "8. Delete LS Color Profile\n"+
     "9. Exit\n"+
     "Hello, what would you like to do?\n"
 end

@@ -9,9 +9,9 @@ class BasicUsageTest < MiniTest::Test
             expected << menu_prompt
             pipe.puts "21"
             string = "You must choose one of [1, 2, 3, 4, 5, 6, 7, 8, 9, "+
-            "CreateANewColorScheme, ActivateExistingColorScheme, EditExistingColorScheme, "+
-            "DeleteExistingColorScheme, CreateLSColorProfile, ActivateLSColorProfile, EditLSColorProfile, "+
-            "DeleteLSColorProfile, Exit].\n?"
+            "Create Color Scheme, Activate Color Scheme, Edit Color Scheme, "+
+            "Delete Color Scheme, Create LS Color Profile, Activate LS Color Profile, Edit LS Color Profile, "+
+            "Delete LS Color Profile, Exit].\n?"
             expected << string.chomp + '  '
             pipe.close_write
             shell_output = pipe.read
