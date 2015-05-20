@@ -11,14 +11,15 @@ Features
 --------
 
 ### Main Functions
-    1. CreateANewColorScheme
-    2. ActivateExistingColorSchemes
-    3. EditExistingColorScheme
-    4. DeleteExistingColorScheme
-    5. CreateLSColorProfile
-    6. ChangeLSColorProfile
-    7. DeleteLSColorProfile
-    8. Exit
+    1. Create ColorScheme
+    2. Activate Color Schemes
+    3. Edit Color Scheme
+    4. Delete Color Scheme
+    5. Create LS Color Profile
+    6. Activate LS Color Profile
+    7. Edit LS Color Profile
+    8. Delete LS Color Profile
+    9. Exit
 
 Usage
 -----
@@ -34,14 +35,15 @@ Usage Examples
 ```
   > ./terminal_color_capture
   > Menu
-    1. CreateANewColorScheme
-    2. ActivateExistingColorSchemes
-    3. EditExistingColorScheme
-    4. DeleteExistingColorScheme
-    5. CreateLSColorProfile
-    6. ChangeLSColorProfile
-    7. DeleteLSColorProfile
-    8. Exit
+    1. Create ColorScheme
+    2. Activate Color Schemes
+    3. Edit Color Scheme
+    4. Delete Color Scheme
+    5. Create LS Color Profile
+    6. Activate LS Color Profile
+    7. Edit LS Color Profile
+    8. Delete LS Color Profile
+    9. Exit
 
 
   > 1
@@ -53,8 +55,12 @@ Usage Examples
   > [TextFormat]
   > What background color would you like?
   > [BackgroundColor]
-  > When would you like this scheme to be active? (hh:mm-hh:mm,weekdays,now)
+  > When should it begin being active? (hh:mm)
   > [ActiveCriteria]
+  > When should it end? (hh:mm)
+  > [ActiveCriteria]
+  > Would you like this scheme to overwrite the existing prompt color(s) for the given time period?
+  > [yes or no]
 ```
   Creates a new color scheme record in db and returns success
 ```
@@ -63,9 +69,8 @@ Usage Examples
 
 Acceptance Criteria:
 
-  * New color scheme added to proper tables
-  * Error returned if ActiveCriteria overlaps an existing ActiveCriteria
-  * Returns to menu when finished
+  * New color scheme added to proper table
+  * Exits program when finished
 
 
 ### Activate Existing Color Schemes
@@ -75,14 +80,15 @@ Usage Example:
 ```
   > ./terminal_color_capture
   > Menu
-    1. CreateANewColorScheme
-    2. ActivateExistingColorSchemes
-    3. EditExistingColorScheme
-    4. DeleteExistingColorScheme
-    5. CreateLSColorProfile
-    6. ChangeLSColorProfile
-    7. DeleteLSColorProfile
-    8. Exit
+    1. Create ColorScheme
+    2. Activate Color Schemes
+    3. Edit Color Scheme
+    4. Delete Color Scheme
+    5. Create LS Color Profile
+    6. Activate LS Color Profile
+    7. Edit LS Color Profile
+    8. Delete LS Color Profile
+    9. Exit
 
   > 2
 ```
@@ -90,6 +96,8 @@ Usage Example:
 ```
   > Which color scheme would you like to activate?
   > [SchemeName]
+  > Are you sure?
+  > [y]
 ```
   Program activates the chosen color scheme
 
@@ -97,7 +105,7 @@ Acceptance Criteria:
 
   * Program shows all existing color schemes
   * Program activates chosen color scheme
-  * Returns to menu when finished
+  * Exits program when finished
 
 
 ### Edit Existing Color Scheme
@@ -107,14 +115,15 @@ Usage Example:
 ```
   > ./terminal_color_capture
   > Menu
-    1. CreateANewColorScheme
-    2. ActivateExistingColorSchemes
-    3. EditExistingColorScheme
-    4. DeleteExistingColorScheme
-    5. CreateLSColorProfile
-    6. ChangeLSColorProfile
-    7. DeleteLSColorProfile
-    8. Exit
+    1. Create ColorScheme
+    2. Activate Color Schemes
+    3. Edit Color Scheme
+    4. Delete Color Scheme
+    5. Create LS Color Profile
+    6. Activate LS Color Profile
+    7. Edit LS Color Profile
+    8. Delete LS Color Profile
+    9. Exit
 
   > 3
 ```
@@ -122,19 +131,17 @@ Usage Example:
 ```
   > Which scheme would you like to edit?
   > [SchemeName]
-  > What color text would you like it to have?
-  > [TextColor]
-  > What format would you like it to have? (i.e. none, bold, underline)
-  > [TextFormat]
-  > What background color would you like?
-  > [BackgroundColor]
+  > What property would you like to edit?
+  > [Property]
+  > Property question
+  > [New Answer]
 ```
   The program updates the color scheme accordingly
 
 Acceptance Criteria:
 
   * Program changes the existing color scheme
-  * Returns to menu when finished
+  * Exits the program when finished
 
 ### Delete Existing Color Scheme
 
@@ -143,14 +150,15 @@ Usage Example:
 ```
   > ./terminal_color_capture
   > Menu
-    1. CreateANewColorScheme
-    2. ActivateExistingColorSchemes
-    3. EditExistingColorScheme
-    4. DeleteExistingColorScheme
-    5. CreateLSColorProfile
-    6. ChangeLSColorProfile
-    7. DeleteLSColorProfile
-    8. Exit
+    1. Create ColorScheme
+    2. Activate Color Schemes
+    3. Edit Color Scheme
+    4. Delete Color Scheme
+    5. Create LS Color Profile
+    6. Activate LS Color Profile
+    7. Edit LS Color Profile
+    8. Delete LS Color Profile
+    9. Exit
 
   > 4
 ```
@@ -162,10 +170,6 @@ Usage Example:
   > y
 ```
   The program deletes the desired color scheme
-```
-  > exit
-```
-  Exits the program
 
 Acceptance Criteria:
 
@@ -179,14 +183,15 @@ Usage Example:
 ```
   > ./terminal_color_capture
   > Menu
-    1. CreateANewColorScheme
-    2. ActivateExistingColorSchemes
-    3. EditExistingColorScheme
-    4. DeleteExistingColorScheme
-    5. CreateLSColorProfile
-    6. ChangeLSColorProfile
-    7. DeleteLSColorProfile
-    8. Exit
+    1. Create ColorScheme
+    2. Activate Color Schemes
+    3. Edit Color Scheme
+    4. Delete Color Scheme
+    5. Create LS Color Profile
+    6. Activate LS Color Profile
+    7. Edit LS Color Profile
+    8. Delete LS Color Profile
+    9. Exit
 
   > 5
   > What would you like to call this LS Color Profile?
@@ -220,60 +225,77 @@ Usage Example:
 Acceptance Criteria:
 
   * Program creates the given color scheme
-  * Returns to menu when finished
+  * Exits the program when finished
 
-### Change LS Color Profile
+### Activate LS Color Profile
 
 Usage Example:
 
 ```
   > ./terminal_color_capture
   > Menu
-    1. CreateANewColorScheme
-    2. ActivateExistingColorSchemes
-    3. EditExistingColorScheme
-    4. DeleteExistingColorScheme
-    5. CreateLSColorProfile
-    6. ChangeLSColorProfile
-    7. DeleteLSColorProfile
-    8. Exit
+    1. Create ColorScheme
+    2. Activate Color Schemes
+    3. Edit Color Scheme
+    4. Delete Color Scheme
+    5. Create LS Color Profile
+    6. Activate LS Color Profile
+    7. Edit LS Color Profile
+    8. Delete LS Color Profile
+    9. Exit
 
   > 6
 ```
   The program shows all existing LS Color Profiles
 ```
+  > Which profile would you like to activate?
+  > [ProfileName]
+  > Are you sure?
+  > y
+  > LS color profile activated successfully!
+```
+  The program activates the desired ls color profile
+
+Acceptance Criteria:
+
+  * Program activates the given color scheme
+  * Exits the program when finished
+
+### Edit LS Color Profile
+
+Usage Example:
+
+```
+  > ./terminal_color_capture
+  > Menu
+    1. Create ColorScheme
+    2. Activate Color Schemes
+    3. Edit Color Scheme
+    4. Delete Color Scheme
+    5. Create LS Color Profile
+    6. Activate LS Color Profile
+    7. Edit LS Color Profile
+    8. Delete LS Color Profile
+    9. Exit
+
+  > 7
+```
+  The program shows all existing LS Color Profiles
+```
   > Which profile would you like to change?
   > [ProfileName]
-  > What color text would you like directories to have?(use 'x' for default)
-  > red
-  > What color text would you like symbolic links to have?(use 'x' for default)
-  > white
-  > What color text would you like sockets to have?(use 'x' for default)
-  > black
-  > What color text would you like pipes to have?(use 'x' for default)
-  > x
-  > What color text would you like executables to have?(use 'x' for default)
-  > x
-  > What color text would you like block specials to have?(use 'x' for default)
-  > x
-  > What color text would you like character specials to have?(use 'x' for default)
-  > red
-  > What color text would you like executables with setuid bit sets to have?(use 'x' for default)
-  > x
-  > What color text would you like executables with setguid bit sets to have?(use 'x' for default)
-  > x
-  > What color text would you like directories writable to others, with sticky bit to have?(use 'x' for default)
-  > x
-  > What color text would you like directories writable to others, without sticky bit to have?(use 'x' for default)
-  > x
+  > Which property would you like to change?
+  > [Property]
+  > Property question?
+  > [New Value]
   > LS color profile changed successfully!
 ```
   The program changes the desired ls color profile
 
 Acceptance Criteria:
 
-  * Program changes the given color scheme
-  * Returns to menu when finished
+  * Program changes the given color scheme accordingly
+  * Exits the program when finished
 
 ### Delete LS Color Profile
 
@@ -282,16 +304,17 @@ Usage Example:
 ```
   > ./terminal_color_capture
   > Menu
-    1. CreateANewColorScheme
-    2. ActivateExistingColorSchemes
-    3. EditExistingColorScheme
-    4. DeleteExistingColorScheme
-    5. CreateLSColorProfile
-    6. ChangeLSColorProfile
-    7. DeleteLSColorProfile
-    8. Exit
+    1. Create ColorScheme
+    2. Activate Color Schemes
+    3. Edit Color Scheme
+    4. Delete Color Scheme
+    5. Create LS Color Profile
+    6. Activate LS Color Profile
+    7. Edit LS Color Profile
+    8. Delete LS Color Profile
+    9. Exit
 
-  > 7
+  > 8
 ```
   The program shows all existing LS Color Profiles
 ```
@@ -306,5 +329,5 @@ Usage Example:
 Acceptance Criteria:
 
   * Program deletes the given color scheme
-  * Returns to menu when finished
+  * Exits the program when finished
 

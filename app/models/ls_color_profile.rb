@@ -165,7 +165,6 @@ class LSColorProfile
 
     def self.update_key_string(id,start_ind,new_key)
         key_string = Database.execute("SELECT key_string FROM ls_color_profiles WHERE id = '"+id.to_s+"'")[0][0]
-        puts key_string
         key_string[start_ind,start_ind+2] = new_key
         stmt = "UPDATE ls_color_profiles SET key_string='"+key_string+"' WHERE id = '"+id.to_s+"'"
         Database.execute(stmt)

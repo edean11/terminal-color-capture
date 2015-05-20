@@ -69,7 +69,6 @@ choose do |menu|
         if change_val_arr[1] == 'name'
             LSColorProfile.update_name(change_val_arr[0],change_val_arr[2])
         else
-            puts change_val_arr
             LSColorProfile.update_key_string(change_val_arr[0],change_val_arr[1],change_val_arr[2])
         end
     end

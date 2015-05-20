@@ -113,7 +113,7 @@ class LSColorProfileQuestionsController
             new_key_string = LSColorProfile.find_color_keys(key_string_arr)
         end
         say("LS Color Profile changed successfully!\n")
-        [id,start_ind,new_key_string]
+        arr = [id,start_ind,new_key_string]
     end
 
     #############################
