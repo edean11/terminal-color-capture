@@ -81,9 +81,11 @@ class ColorScheme
         now_day = now.day
         active_start_num = Time.new(now_year,now_month,now_day,active.match(/\d\d/)[0],active.match(/\d\d/,3)[0])
         active_end_num = Time.new(now_year,now_month,now_day,active.match(/\d\d/,5)[0],active.match(/\d\d/,10)[0])
-        puts active_start_num
-        puts active_end_num
-        return now_num.between?(active_start_num,active_end_num)
+        if active_start_num > active_end_num
+            return now_num.between?(active_start_num,active_end_num+(60*60*24))
+        else
+            return now_num.between?(active_start_num,active_end_num)
+        end
     end
 
     def self.determine_active
