@@ -26,6 +26,11 @@ Usage
 
   * Run `rake bootstrap_database` to setup your local database
   * Then, `./terminal_color_capture` to manage the list of scenarios
+  * Run `for i in {0..255}; do tput setab $i; echo -n "    "; done; tput setab 0; echo`
+    in the terminal to see all available color scheme colors
+  * Run `DEFAULT_COLOR` to return to your normal color scheme
+  * Run `COLOR` to activate the scheme which falls under the current time
+  * Run `BASH_RELOAD` to activate any changes to your bash file
 
 Usage Examples
 --------------
