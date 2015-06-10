@@ -7,6 +7,7 @@ color_alias_path_with_file = /(?<=").+/.match(color_alias)[0]
 full_path = color_alias_path_with_file[0,color_alias_path_with_file.length-8]
 
 Dir.chdir("#{full_path}")
+
 Dir["./app/**/*.rb"].each{|f| require f}
 Dir["./lib/*.rb"].each{|f| require f}
 
